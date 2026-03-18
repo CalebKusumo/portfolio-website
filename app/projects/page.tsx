@@ -2,32 +2,29 @@
 import Link from 'next/link';
 
 export default function Projects() {
-  const projects = [
-    {
-      id: "001",
-      title: "Darkslide Assembly",
-      category: "Mechanical Design",
-      tools: ["SolidWorks", "ANSYS", "GD&T"],
-      slug: "darkslide",
-      description: "High-precision linear motion sub-assembly utilizing specialized coatings for low-friction operation in vacuum environments."
-    },
-    {
-      id: "002",
-      title: "2024 Robot Final",
-      category: "Mechatronics",
-      tools: ["Python", "C++", "3D Printing", "CAM"],
-      slug: "robot-final", // FIX: LINK NOW POINTS TO ROBOT-FINAL
-      description: "Full system assembly featuring a 4-wheel swerve drivetrain and optimized 6061-T6 aluminum chassis."
-    },
-    {
-      id: "003",
-      title: "Thermal Management Unit",
-      category: "Systems Engineering",
-      tools: ["MATLAB", "CFD", "AutoCAD"],
-      slug: "thermal-unit",
-      description: "Active cooling solution for high-density compute modules, optimized for weight and power consumption."
-    }
-  ];
+ const projects = [
+  {
+    id: "23",
+    title: "2023 Robot",
+    category: "Mechatronics",
+    slug: "2023-robot",
+    description: "Charged Up: Features a custom double-jointed arm and pneumatic gripper system."
+  },
+  {
+    id: "24",
+    title: "2024 Robot",
+    category: "Mechatronics",
+    slug: "2024-robot",
+    description: "Crescendo: Optimized swerve drivetrain with high-speed note delivery systems."
+  },
+  {
+    id: "25",
+    title: "2025 Robot",
+    category: "Mechatronics",
+    slug: "2025-robot",
+    description: "Reefscape: Advanced vision-tracking and specialized intake for coral manipulation."
+  }
+];
 
   return (
     <main className="min-h-screen bg-black text-white pt-40 pb-20 px-8 md:px-20 relative z-10">
