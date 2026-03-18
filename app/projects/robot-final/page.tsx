@@ -11,7 +11,7 @@ export default function RobotProject() {
       <ModelViewer 
         modelPath="/2024robotfinalassm.glb" 
         modelScale={4} 
-        modelPosition={[0, -2.5, 0]} 
+        modelPosition={[0, -2, 0]} 
       />
 
       <div className="relative z-10 w-full overflow-hidden">
