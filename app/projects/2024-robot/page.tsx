@@ -7,7 +7,7 @@ const ModelViewer = dynamic(() => import('@/components/ModelViewer'), { ssr: fal
 export default function Robot2024() {
   return (
     <main className="relative bg-black">
-      <ModelViewer modelPath="/2024robotfinalassm.glb" modelScale={3.5} modelPosition={[0, -2, 0]} />
+      <ModelViewer modelPath="/2024robot.glb" modelScale={3.5} modelPosition={[0, -2, 0]} />
       <div className="relative z-10 w-full overflow-hidden pointer-events-none">
         
         <section className="h-screen flex flex-col items-center justify-center text-center pointer-events-auto">
