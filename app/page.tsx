@@ -25,7 +25,7 @@ export default function Home() {
             CALEB <br /> KUSUMO
           </h1>
           <p className="mt-12 font-mono text-[10px] tracking-[0.5em] uppercase opacity-40 mix-blend-difference">
-            System Architecture // Mechanical Design // 2026
+            Mechanical Design // 2026
           </p>
         </section>
 
@@ -67,8 +67,8 @@ export default function Home() {
             © 2026 Caleb Kusumo // All Rights Reserved
           </div>
           <div className="flex gap-8 font-mono text-[9px] tracking-[0.3em] text-gray-400 uppercase">
-            <span>Lat: 34.0522° N</span>
-            <span>Long: 118.2437° W</span>
+            <span>Boston, MA</span>
+            <span>Irvine, CA</span>
           </div>
         </footer>
 

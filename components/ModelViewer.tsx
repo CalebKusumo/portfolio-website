@@ -47,7 +47,7 @@ export default function ModelViewer() {
         <ambientLight intensity={0.5} />
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={2} castShadow />
         <Suspense fallback={null}>
-          <Model url="/model.glb" />
+          <Model url="/2024robotfinalassm.glb" />
           <Environment preset="city" />
           <ContactShadows position={[0, -2, 0]} opacity={0.4} scale={200} blur={2} far={4.5} />
         </Suspense>
