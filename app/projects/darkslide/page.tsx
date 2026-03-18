@@ -6,10 +6,10 @@ const ModelViewer = dynamic(() => import('@/components/ModelViewer'), { ssr: fal
 
 export default function DarkslideProject() {
   return (
-    <main className="relative bg-black min-h-[500vh]">
+    <main className="relative bg-black">
       <ModelViewer modelPath="/model.glb" />
       
-      <div className="relative z-10">
+      <div className="relative z-10 w-full overflow-hidden">
         <section className="h-screen flex flex-col items-center justify-center text-center">
           <span className="font-mono text-[10px] tracking-[0.6em] text-blue-600 mb-4 uppercase">Spec_Sheet: 001</span>
           <h1 className="text-7xl md:text-9xl font-black uppercase tracking-tighter mix-blend-difference">
@@ -28,7 +28,7 @@ export default function DarkslideProject() {
           </div>
         </section>
 
-        <footer className="h-screen flex flex-col items-center justify-center bg-black border-t border-white/5">
+        <footer className="py-20 flex flex-col items-center justify-center bg-black border-t border-white/5 relative z-20">
           <Link href="/projects" className="px-12 py-5 border border-white/20 font-mono text-[10px] tracking-[0.5em] uppercase hover:bg-white hover:text-black transition-all">
             Return to Index
           </Link>
