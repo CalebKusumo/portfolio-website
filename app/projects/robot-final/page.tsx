@@ -7,20 +7,18 @@ const ModelViewer = dynamic(() => import('@/components/ModelViewer'), { ssr: fal
 export default function RobotProject() {
   return (
     <main className="relative bg-black">
-      {/* Adjusted Scale to 3.5 (slightly smaller) 
-        and Position to -1.5 (raised it up closer to center)
+      {/* 3D MODEL SETTINGS: 
+          Kept at scale 3.5, moved slightly lower to [0, -2, 0] to avoid hero text overlap.
       */}
       <ModelViewer 
         modelPath="/2024robotfinalassm.glb" 
         modelScale={3.5} 
-        modelPosition={[0, -1.5, 0]} 
+        modelPosition={[0, -2, 0]} 
       />
 
-      {/* Added pointer-events-none to the wrapper so it doesn't block 3D interactions,
-          and pointer-events-auto specifically to the text/buttons */}
       <div className="relative z-10 w-full overflow-hidden pointer-events-none">
         
-        {/* HERO SECTION - Still takes up the first full screen */}
+        {/* SECTION 1: HERO */}
         <section className="h-screen flex flex-col items-center justify-center text-center pointer-events-auto">
           <span className="font-mono text-[10px] tracking-[0.6em] text-blue-600 mb-4 uppercase">Project_Log: 2024_FIN</span>
           <h1 className="text-6xl md:text-[10rem] font-black tracking-tighter uppercase leading-[0.8] mix-blend-difference">
@@ -28,77 +26,79 @@ export default function RobotProject() {
           </h1>
         </section>
 
-        {/* CALLOUTS CONTAINER 
-          Instead of 1 item per screen height, they are tightly packed with 25vh gaps.
-          This takes up way less scroll space.
+        {/* SECTION 2: DENSE TECH SPECS (The "Matrix")
+            We use a single container with tight spacing to fit more info in less scroll.
         */}
-        <div className="flex flex-col gap-y-[25vh] py-[15vh]">
+        <div className="flex flex-col gap-y-40 py-20 pointer-events-auto">
           
-          {/* CALLOUT 1 - RIGHT */}
-          <section className="flex items-center justify-end px-8 md:px-32 pointer-events-auto">
-            <div className="max-w-md border-r-2 border-blue-600 pr-10 text-right">
-              <h2 className="text-5xl font-black uppercase tracking-tighter mb-4 italic text-outline text-white">Drivetrain</h2>
-              <p className="text-gray-400 font-mono text-[10px] tracking-[0.3em] leading-relaxed uppercase">
-                4-Wheel Swerve Drive <br/> 
-                Independent steering modules <br/>
-                Peak Velocity: 4.5 m/s
+          {/* Row 1 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 px-8 md:px-32 gap-20">
+            <div className="max-w-sm border-l-2 border-blue-600 pl-8">
+              <h3 className="text-3xl font-black uppercase italic text-white mb-2">Drivetrain</h3>
+              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
+                Swerve Drive Specialities Mk4i // L3 Gearing // Kraken X60 Powered
               </p>
             </div>
-          </section>
+            <div className="max-w-sm border-r-2 border-white/20 pr-8 text-right md:mt-40">
+              <h3 className="text-3xl font-black uppercase italic text-outline text-white mb-2">Chassis</h3>
+              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
+                Waterjet 6061-T6 Aluminum // Pocketed Weight: 14.2 lbs // Rigid Box-Tube Frame
+              </p>
+            </div>
+          </div>
 
-          {/* CALLOUT 2 - LEFT */}
-          <section className="flex items-center justify-start px-8 md:px-32 pointer-events-auto">
-            <div className="max-w-md border-l-2 border-white/20 pl-10">
-              <h2 className="text-5xl font-black uppercase tracking-tighter mb-4 italic text-white">Chassis</h2>
-              <p className="text-gray-400 font-mono text-[10px] tracking-[0.3em] leading-relaxed uppercase">
-                Pocketed 6061-T6 Frame <br/> 
-                Stress Analysis: 2.5n safety <br/>
-                FEA Optimized Geometry
+          {/* Row 2 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 px-8 md:px-32 gap-20">
+            <div className="max-w-sm border-l-2 border-white/20 pl-8 md:mt-20">
+              <h3 className="text-3xl font-black uppercase italic text-white mb-2">Intake</h3>
+              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
+                Active Ground-Loading // 2-Inch Silicone Rollers // 0.3s Deployment
               </p>
             </div>
-          </section>
+            <div className="max-w-sm border-r-2 border-blue-600 pr-8 text-right">
+              <h3 className="text-3xl font-black uppercase italic text-outline text-white mb-2">Actuation</h3>
+              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
+                Dual-Stage Telescoping Mast // Constant Force Spring Return // 100psi Pneumatics
+              </p>
+            </div>
+          </div>
 
-          {/* CALLOUT 3 - RIGHT */}
-          <section className="flex items-center justify-end px-8 md:px-32 pointer-events-auto">
-            <div className="max-w-md border-r-2 border-blue-600 pr-10 text-right">
-              <h2 className="text-5xl font-black uppercase tracking-tighter mb-4 italic text-outline text-white">Intake</h2>
-              <p className="text-gray-400 font-mono text-[10px] tracking-[0.3em] leading-relaxed uppercase">
-                Over-the-bumper geometry <br/> 
-                Compliant silicone rollers <br/>
-                Deployment time: 0.4s
+          {/* Row 3 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 px-8 md:px-32 gap-20">
+            <div className="max-w-sm border-l-2 border-blue-600 pl-8">
+              <h3 className="text-3xl font-black uppercase italic text-white mb-2">Vision</h3>
+              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
+                Limelight 3G // AprilTag Global Shutter // Multi-Target Pose Estimation
               </p>
             </div>
-          </section>
-
-          {/* CALLOUT 4 - LEFT */}
-          <section className="flex items-center justify-start px-8 md:px-32 pointer-events-auto">
-            <div className="max-w-md border-l-2 border-white/20 pl-10">
-              <h2 className="text-5xl font-black uppercase tracking-tighter mb-4 italic text-white">Avionics</h2>
-              <p className="text-gray-400 font-mono text-[10px] tracking-[0.3em] leading-relaxed uppercase">
-                Custom Power Distribution <br/> 
-                CAN FD Bus Architecture <br/>
-                Real-time telemetry logging
+            <div className="max-w-sm border-r-2 border-white/20 pr-8 text-right md:mt-40">
+              <h3 className="text-3xl font-black uppercase italic text-outline text-white mb-2">Control</h3>
+              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
+                NI roboRIO 2.0 // CAN FD Architecture // 2ms Loop Cycle
               </p>
             </div>
-          </section>
+          </div>
 
         </div>
 
-        {/* BUFFER SPACE 
-          This gives the user a little extra scrolling room so the last text block 
-          clears the model before the footer appears.
+        {/* SECTION 3: THE CURTAIN FOOTER
+            We make this h-screen so that when you scroll to the bottom, 
+            the black background completely covers the fixed 3D model.
         */}
-        <div className="h-[20vh]"></div>
-
-        {/* FOOTER - FIXED OVERLAP
-          Made it taller (40vh) with a solid black background.
-          When you scroll down, this covers the bottom half of the screen,
-          cleanly hiding the model behind it so it doesn't overlap your button.
-        */}
-        <footer className="min-h-[40vh] flex flex-col items-center justify-center bg-black border-t border-white/10 relative z-20 pointer-events-auto">
-          <Link href="/projects" className="px-12 py-5 border border-white/20 font-mono text-[10px] tracking-[0.5em] uppercase hover:bg-white hover:text-black transition-all">
+        <footer className="h-screen flex flex-col items-center justify-center bg-black relative z-20 pointer-events-auto border-t border-white/10">
+          <div className="text-center mb-12">
+            <p className="font-mono text-[10px] tracking-[1em] text-blue-600 uppercase mb-4">End of Documentation</p>
+            <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter italic text-white">Full System <br/> <span className="text-outline">Validated</span></h2>
+          </div>
+          
+          <Link href="/projects" className="px-16 py-6 border border-white/20 font-mono text-[11px] tracking-[0.5em] uppercase hover:bg-white hover:text-black transition-all hover:scale-105 active:scale-95">
             Return to Index
           </Link>
+
+          <div className="absolute bottom-12 flex gap-12 font-mono text-[8px] tracking-[0.4em] text-gray-700 uppercase">
+             <span>Assembly_Ver: 2.0.4</span>
+             <span>Status: Optimized</span>
+          </div>
         </footer>
 
       </div>
