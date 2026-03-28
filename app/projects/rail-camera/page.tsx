@@ -11,7 +11,7 @@ export default function RailCamera() {
       <ModelViewer 
         modelPath="/rail-camera.glb" 
         modelScale={12} 
-        modelPosition={[0, -1, 0]} 
+        modelPosition={[0, 0, 0]} 
       />
 
       <div className="relative z-10 w-full overflow-hidden pointer-events-none">
