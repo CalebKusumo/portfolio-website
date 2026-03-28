@@ -34,15 +34,15 @@ export default function Projects() {
       tools: ["SolidWorks", "ANSYS", "GD&T"],
       slug: "darkslide",
       description: "High-precision linear motion sub-assembly utilizing specialized coatings for low-friction operation."
+    },
+    {
+      id: "04",
+      title: "4x5 Rail Camera",
+      category: "Optomechanical Design",
+      tools: ["SolidWorks", "CNC", "Anodizing"],
+      slug: "rail-camera",
+      description: "Large-format modular camera system featuring 4-axis standard movements and high-extension bellows."
     }
-	{
-  id: "04",
-  title: "4x5 Rail Camera",
-  category: "Optomechanical Design",
-  tools: ["SolidWorks", "CNC", "Anodizing"],
-  slug: "rail-camera",
-  description: "Large-format modular camera system featuring 4-axis standard movements and high-extension bellows."
-}
   ];
 
   return (
@@ -65,7 +65,6 @@ export default function Projects() {
                 <div className="flex items-center gap-4 mb-6">
                   <span className="font-mono text-[10px] text-blue-600 font-bold tracking-widest uppercase">Ref_{project.id}</span>
                   <div className="flex gap-2">
-                    {/* FIXED: The tools property now exists for all items */}
                     {project.tools.map((tool) => (
                       <span key={tool} className="text-[9px] border border-white/10 px-2 py-0.5 font-mono text-gray-500">{tool}</span>
                     ))}
