@@ -35,6 +35,14 @@ export default function Projects() {
       slug: "darkslide",
       description: "High-precision linear motion sub-assembly utilizing specialized coatings for low-friction operation."
     }
+	{
+  id: "04",
+  title: "4x5 Rail Camera",
+  category: "Optomechanical Design",
+  tools: ["SolidWorks", "CNC", "Anodizing"],
+  slug: "rail-camera",
+  description: "Large-format modular camera system featuring 4-axis standard movements and high-extension bellows."
+}
   ];
 
   return (
