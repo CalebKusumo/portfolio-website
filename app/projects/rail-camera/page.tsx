@@ -26,7 +26,7 @@ export default function RailCameraProject() {
     <main className="relative bg-black min-h-screen">
       <div className="fixed inset-0 z-0 pointer-events-none">
         <ModelViewer 
-          modelPath="/models/railcamera.glb" 
+          modelPath="/models/rail-camera.glb" 
           modelScale={5} 
           modelPosition={[0, -0.5, 0]} 
           scrollProgress={scrollYProgress} 
