@@ -94,7 +94,7 @@ export default function HoodProject() {
           <div className="flex items-center gap-8">
             <Link href="/projects/directors-finder" className="font-mono text-base tracking-[0.15em] uppercase text-gray-400 hover:text-white transition-colors">← Waist Finder</Link>
             <Link href="/projects" className="px-14 py-5 border border-white/20 font-mono text-sm tracking-[0.4em] uppercase hover:bg-white hover:text-black transition-all">Return to Index</Link>
-            <Link href="/projects/2025-robot" className="font-mono text-base tracking-[0.15em] uppercase text-gray-400 hover:text-white transition-colors">2025 Robot →</Link>
+            <Link href="/projects/camera-repair" className="font-mono text-base tracking-[0.15em] uppercase text-gray-400 hover:text-white transition-colors">Camera Repair →</Link>
           </div>
         </footer>
       </div>

@@ -134,7 +134,7 @@ export default function Robot2025() {
             <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter italic text-white text-center">Project <br/> <span className="text-outline">Archived</span></h2>
           </div>
           <div className="flex items-center gap-8">
-            <Link href="/projects/mamiya-hood" className="font-mono text-base tracking-[0.15em] uppercase text-gray-400 hover:text-white transition-colors">← Mamiya Hood</Link>
+            <Link href="/projects/camera-repair" className="font-mono text-base tracking-[0.15em] uppercase text-gray-400 hover:text-white transition-colors">← Camera Repair</Link>
             <Link href="/projects" className="px-14 py-5 border border-white/20 font-mono text-sm tracking-[0.4em] uppercase hover:bg-white hover:text-black transition-all">Index</Link>
             <Link href="/projects/2024-robot" className="font-mono text-base tracking-[0.15em] uppercase text-gray-400 hover:text-white transition-colors">2024 Robot →</Link>
           </div>

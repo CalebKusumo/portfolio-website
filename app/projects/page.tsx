@@ -66,6 +66,14 @@ export default function Projects() {
       tools: ["3D Printing", "Stray Light", "CAD"],
       slug: "mamiya-hood",
       description: "A specialized bayonet-mount hood for the C330 system, optimized for the 80mm f/2.8 lens."
+    },
+    {
+      id: "08",
+      title: "Camera Repair",
+      category: "Mechanical Service",
+      tools: ["CLA", "Calibration", "Optics"],
+      slug: "camera-repair",
+      description: "CalebColor: Shutter timing, film transport, light seal replacement, and lens service across a range of film and digital bodies."
     }
   ];
 
