@@ -5,14 +5,18 @@ import { useGLTF, Center, Environment, Stage } from '@react-three/drei';
 import * as THREE from 'three';
 
 function Model({ url, scale, position, scrollProgress }: any) {
-  // Adding 'as any' here fixes the "Property scene does not exist" build error
   const { scene } = useGLTF(url) as any;
   const groupRef = useRef<THREE.Group>(null);
 
   useFrame((state, delta) => {
-    if (groupRef.current) {
-      // Slow rotation based on scroll progress
-      const targetRotation = scrollProgress * Math.PI * 2;
+    if (groupRef.current && scrollProgress) {
+      // Get the current numeric value from the motion scroll object
+      const currentScroll = typeof scrollProgress === 'number' ? scrollProgress : scrollProgress.get();
+      
+      // Target rotation: 360 degrees (Math.PI * 2) multiplied by scroll progress
+      const targetRotation = currentScroll * Math.PI * 2;
+      
+      // Smooth interpolation
       const smoothing = 1 - Math.exp(-10 * delta);
       groupRef.current.rotation.y = THREE.MathUtils.lerp(
         groupRef.current.rotation.y,
@@ -31,7 +35,7 @@ function Model({ url, scale, position, scrollProgress }: any) {
   );
 }
 
-export default function ModelViewer({ modelPath, modelScale = 1, modelPosition = [0, 0, 0], scrollProgress = 0 }: any) {
+export default function ModelViewer({ modelPath, modelScale = 1, modelPosition = [0, 0, 0], scrollProgress }: any) {
   return (
     <div className="w-full h-full bg-black">
       <Canvas camera={{ position: [0, 0, 10], fov: 35 }} dpr={[1, 2]}>

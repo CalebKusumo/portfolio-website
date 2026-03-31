@@ -1,7 +1,8 @@
 "use client";
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useScroll } from 'framer-motion'; // Added useScroll
+import { useRef } from 'react';
 
 const ModelViewer = dynamic(() => import('@/components/ModelViewer'), { ssr: false });
 
@@ -26,8 +27,17 @@ const itemVariants = {
 };
 
 export default function LutronProject() {
+  // Create a reference to the scrollable container
+  const containerRef = useRef(null);
+  
+  // Track scroll progress (0 to 1) for the whole page
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
   return (
-    <main className="relative bg-black min-h-screen">
+    <main ref={containerRef} className="relative bg-black min-h-screen">
       
       {/* SECTION 1: HERO HEADER */}
       <section className="relative h-screen w-full flex flex-col items-center justify-center text-center bg-black overflow-hidden z-20">
@@ -61,10 +71,12 @@ export default function LutronProject() {
         
         {/* Sticky Model Container */}
         <div className="sticky top-0 h-screen w-full z-0 overflow-hidden">
+          {/* We pass scrollYProgress into the viewer */}
           <ModelViewer 
             modelPath="/lutron-model.glb" 
             modelScale={7} 
             modelPosition={[0, -0.5, 0]} 
+            scrollProgress={scrollYProgress} 
           />
         </div>
 
