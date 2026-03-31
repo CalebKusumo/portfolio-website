@@ -49,32 +49,29 @@ export default function CameraRepairProject() {
         </motion.div>
       </section>
 
-      {/* CAMERAS SERVICED */}
+      {/* REPAIR TYPES TABLE */}
       <div className="px-8 md:px-24 lg:px-40 py-20 border-t border-white/10">
-        <p className="font-mono text-xs tracking-[0.5em] text-amber-500 uppercase mb-10">Cameras Serviced</p>
+        <p className="font-mono text-xs tracking-[0.5em] text-amber-500 uppercase mb-10">Repair Services</p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border border-white/10">
           {[
-            { name: "Mamiya RB67",          type: "Medium Format SLR"  },
-            { name: "Mamiya GS645",         type: "Medium Format RF"   },
-            { name: "Mamiya GS645S",        type: "Medium Format RF"   },
-            { name: "Canonet QL17 GIII",    type: "35mm Rangefinder"   },
-            { name: "Canon AE-1 Program",   type: "35mm SLR"           },
-            { name: "Pentax 67",            type: "Medium Format SLR"  },
-            { name: "Fujifilm X100V",       type: "Digital Compact"    },
-            { name: "Canon R6",             type: "Digital Mirrorless"  },
-            { name: "Nikon Coolpix S5600",  type: "Digital Compact"    },
-            { name: "Kodak PIXPRO FZ55",    type: "Digital Compact"    },
-            { name: "Canon EF 85mm f/1.8",  type: "EF Lens"            },
-          ].map((cam) => (
-            <div key={cam.name} className="bg-black px-8 py-6 hover:bg-white/[0.03] transition-colors">
-              <p className="text-white font-bold uppercase tracking-tight text-sm mb-1">{cam.name}</p>
-              <p className="font-mono text-[10px] text-gray-500 tracking-widest uppercase">{cam.type}</p>
+            { name: "Shutter Timing",    detail: "Focal Plane & Leaf"      },
+            { name: "Film Transport",    detail: "Advance & Winding"       },
+            { name: "Light Seals",       detail: "Foam & Flocked Material" },
+            { name: "Lens & Optics",     detail: "CLA & Element Cleaning"  },
+            { name: "CLA Service",       detail: "Clean, Lube, Adjust"     },
+            { name: "Aperture Blades",   detail: "Degreasing & Alignment"  },
+            { name: "Rangefinder",       detail: "Patch & Cam Alignment"   },
+            { name: "Sensor Cleaning",   detail: "DSLR & Mirrorless"       },
+          ].map((r) => (
+            <div key={r.name} className="bg-black px-8 py-6 hover:bg-white/[0.03] transition-colors">
+              <p className="text-white font-bold uppercase tracking-tight text-sm mb-1">{r.name}</p>
+              <p className="font-mono text-[10px] text-gray-500 tracking-widest uppercase">{r.detail}</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* CALLOUTS WITH IMAGES */}
+      {/* CAMERA CALLOUTS */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -88,13 +85,13 @@ export default function CameraRepairProject() {
             <img
               src="/projects/camera-repair/detail-1.jpg"
               className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
-              alt="Shutter Timing"
+              alt="Mamiya RB67"
             />
           </div>
           <div className="border-l-2 border-amber-500 pl-8">
-            <h3 className="text-3xl font-black uppercase italic text-white mb-2">Shutter Timing</h3>
+            <h3 className="text-3xl font-black uppercase italic text-white mb-2">Mamiya RB67</h3>
             <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
-              Focal Plane & Leaf Shutter Calibration // CLA Service // Curtain Tension Adjustment // Speed Accuracy Testing
+              Medium Format SLR // Shutter CLA // Light Seal Replacement // Film Back Service // Bellows Inspection
             </p>
           </div>
         </motion.div>
@@ -102,16 +99,16 @@ export default function CameraRepairProject() {
         {/* CALLOUT 02: Text Left, Image Right */}
         <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="order-2 md:order-1 border-r-2 border-white/20 pr-8 text-right">
-            <h3 className="text-3xl font-black uppercase italic text-white mb-2">Film Transport</h3>
+            <h3 className="text-3xl font-black uppercase italic text-white mb-2">Canonet QL17 GIII</h3>
             <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
-              Advance Mechanism Overhaul // Sprocket & Take-up Spool Repair // Film Counter Reset // Winding Clutch Service
+              35mm Rangefinder // Rangefinder Patch Alignment // Aperture Blade Degreasing // Shutter Speed Calibration
             </p>
           </div>
           <div className="order-1 md:order-2 aspect-video bg-white/5 overflow-hidden border border-white/10 group">
             <img
               src="/projects/camera-repair/detail-2.jpg"
               className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
-              alt="Film Transport"
+              alt="Canonet QL17 GIII"
             />
           </div>
         </motion.div>
@@ -122,13 +119,13 @@ export default function CameraRepairProject() {
             <img
               src="/projects/camera-repair/detail-3.jpg"
               className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
-              alt="Light Seals"
+              alt="Canon AE-1 Program"
             />
           </div>
           <div className="border-l-2 border-white/20 pl-8">
-            <h3 className="text-3xl font-black uppercase italic text-white mb-2">Light Seals</h3>
+            <h3 className="text-3xl font-black uppercase italic text-white mb-2">Canon AE-1 Program</h3>
             <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
-              Foam & Flocked Seal Replacement // Mirror Box Sealing // Light Trap Installation // Material Selection by Format
+              35mm SLR // Squeaky Mirror Damper // Light Seal Kit // Film Advance Overhaul // Shutter Curtain Inspection
             </p>
           </div>
         </motion.div>
@@ -136,16 +133,16 @@ export default function CameraRepairProject() {
         {/* CALLOUT 04: Text Left, Image Right */}
         <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="order-2 md:order-1 border-r-2 border-amber-500 pr-8 text-right">
-            <h3 className="text-3xl font-black uppercase italic text-white mb-2">Lens & Optics</h3>
+            <h3 className="text-3xl font-black uppercase italic text-white mb-2">Pentax 67</h3>
             <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
-              Element Cleaning & Defogging // Fungus Removal // Aperture Blade Service // Helicoid Relubrication
+              Medium Format SLR // Mirror Box Seal Replacement // Lens Helicoid Relubrication // Advance Mechanism Service
             </p>
           </div>
           <div className="order-1 md:order-2 aspect-video bg-white/5 overflow-hidden border border-white/10 group">
             <img
               src="/projects/camera-repair/detail-4.jpg"
               className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
-              alt="Lens & Optics"
+              alt="Pentax 67"
             />
           </div>
         </motion.div>
