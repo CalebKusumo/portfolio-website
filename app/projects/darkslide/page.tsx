@@ -1,37 +1,77 @@
 "use client";
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import { motion, useScroll } from 'framer-motion';
 
 const ModelViewer = dynamic(() => import('@/components/ModelViewer'), { ssr: false });
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const } 
+  },
+};
+
 export default function DarkslideProject() {
+  const { scrollYProgress } = useScroll();
+
   return (
-    <main className="relative bg-black">
-      <ModelViewer modelPath="/model.glb" />
-      
-      <div className="relative z-10 w-full overflow-hidden">
-        <section className="h-screen flex flex-col items-center justify-center text-center">
-          <span className="font-mono text-[10px] tracking-[0.6em] text-blue-600 mb-4 uppercase">Spec_Sheet: 001</span>
-          <h1 className="text-7xl md:text-9xl font-black uppercase tracking-tighter mix-blend-difference">
-            Darkslide <br/> <span className="text-blue-600">Assembly</span>
-          </h1>
-        </section>
+    <main className="relative bg-black min-h-screen">
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <ModelViewer 
+          modelPath="/models/darkslide.glb" 
+          modelScale={8} 
+          modelPosition={[0, 0, 0]} 
+          scrollProgress={scrollYProgress} 
+        />
+      </div>
 
-        <section className="h-screen flex items-center justify-start px-8 md:px-32">
-          <div className="max-w-md border-l-2 border-white/20 pl-10">
-            <h2 className="text-5xl font-black uppercase tracking-tighter mb-4 italic text-outline text-white">Tolerancing</h2>
-            <p className="text-gray-400 font-mono text-[10px] tracking-widest uppercase leading-relaxed">
-              H7/g6 Fitment Standards <br/> 
-              Precision Ground Rails <br/>
-              Surface Finish: 0.8 Ra
-            </p>
+      <div className="relative z-10 w-full">
+        <section className="relative h-screen w-full flex flex-col items-center justify-center text-center bg-black overflow-hidden shadow-2xl">
+          <div className="absolute inset-0 z-0">
+            <img src="/projects/darkslide/header.jpg" className="w-full h-full object-cover opacity-40 grayscale" alt="Darkslide" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black" />
           </div>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="relative z-10 px-4">
+            <span className="font-mono text-[10px] tracking-[0.6em] text-red-600 mb-4 uppercase block text-center">Mechanical Design: High Precision</span>
+            <h1 className="text-6xl md:text-[10rem] font-black tracking-tighter uppercase leading-[0.8] mix-blend-difference text-center">DARK <br /> <span className="text-outline italic text-white text-7xl md:text-[8rem]">SLIDE</span></h1>
+          </motion.div>
         </section>
 
-        <footer className="py-20 flex flex-col items-center justify-center bg-black border-t border-white/5 relative z-20">
-          <Link href="/projects" className="px-12 py-5 border border-white/20 font-mono text-[10px] tracking-[0.5em] uppercase hover:bg-white hover:text-black transition-all">
-            Return to Index
-          </Link>
+        <div className="h-[60vh] pointer-events-none" />
+
+        <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="flex flex-col gap-y-64 py-20 pointer-events-none">
+          <div className="grid grid-cols-1 md:grid-cols-2 px-8 md:px-24 lg:px-40 gap-x-40 pointer-events-auto">
+            <motion.div variants={itemVariants} className="w-full max-w-md border-l-2 border-red-600 pl-8 group">
+              <h3 className="text-3xl font-black uppercase italic text-white mb-2">Linear Motion</h3>
+              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">Specialized Low-Friction Coatings // 0.005mm Tolerance // SolidWorks Managed Assembly</p>
+            </motion.div>
+            <motion.div variants={itemVariants} className="w-full max-w-md md:ml-auto border-l-2 border-white/20 pl-8 group md:mt-40">
+              <h3 className="text-3xl font-black uppercase italic text-white mb-2">FEA Analysis</h3>
+              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">ANSYS Structural Simulation // Thermal Expansion Mitigation // Strain Gauge Validation</p>
+            </motion.div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 px-8 md:px-24 lg:px-40 gap-x-40 pointer-events-auto">
+            <motion.div variants={itemVariants} className="w-full max-w-md border-l-2 border-white/20 pl-8 group">
+              <h3 className="text-3xl font-black uppercase italic text-white mb-2">GD&T Standards</h3>
+              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">ASME Y14.5 Compliance // Form and Orientation Controls // Critical Interface Mapping</p>
+            </motion.div>
+            <motion.div variants={itemVariants} className="w-full max-w-md md:ml-auto border-l-2 border-red-600 pl-8 group md:mt-20">
+              <h3 className="text-3xl font-black uppercase italic text-white mb-2">Sub-Assembly</h3>
+              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">Modular Integration // Zero-Backlash Coupling // Lightweight Magnesium Alloy Body</p>
+            </motion.div>
+          </div>
+        </motion.div>
+
+        <footer className="h-screen flex flex-col items-center justify-center bg-black relative z-20 pointer-events-auto border-t border-white/10">
+          <Link href="/projects" className="px-16 py-6 border border-white/20 font-mono text-[11px] tracking-[0.5em] uppercase hover:bg-white hover:text-black transition-all">Return to Index</Link>
         </footer>
       </div>
     </main>
