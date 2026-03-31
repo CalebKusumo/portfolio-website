@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 
 const ModelViewer = dynamic(() => import('@/components/ModelViewer'), { ssr: false });
 
-// Animation variants with 'as const' to fix the TypeScript build error
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -30,9 +29,8 @@ export default function LutronProject() {
   return (
     <main className="relative bg-black min-h-screen">
       
-      {/* SECTION 1: HERO HEADER (No Model Here) */}
+      {/* SECTION 1: HERO HEADER */}
       <section className="relative h-screen w-full flex flex-col items-center justify-center text-center bg-black overflow-hidden z-20">
-        {/* Header Photo Container */}
         <div className="absolute inset-0 z-0">
           <img 
             src="/projects/lutron/header-bg.jpg" 
@@ -48,20 +46,20 @@ export default function LutronProject() {
           transition={{ duration: 1 }}
           className="relative z-10 px-4 pointer-events-none"
         >
-          <span className="font-mono text-[10px] tracking-[0.6em] text-blue-600 mb-4 uppercase block">
+          <span className="font-mono text-[10px] tracking-[0.6em] text-blue-600 mb-4 uppercase block text-center">
             Competition_Entry: 2025
           </span>
-          <h1 className="text-6xl md:text-[10rem] font-black tracking-tighter uppercase leading-[0.8] mix-blend-difference">
+          <h1 className="text-6xl md:text-[10rem] font-black tracking-tighter uppercase leading-[0.8] mix-blend-difference text-center">
             LUTRON <br /> 
             <span className="text-outline italic text-white text-7xl md:text-[8rem]">LIGHTING</span>
           </h1>
         </motion.div>
       </section>
 
-      {/* SECTION 2: STICKY MODEL & SCROLLING CONTENT */}
+      {/* SECTION 2: STICKY MODEL & CONTENT */}
       <div className="relative h-auto">
         
-        {/* The Model "Pops Up" here and stays sticky as you scroll the callouts */}
+        {/* Sticky Model Container */}
         <div className="sticky top-0 h-screen w-full z-0 overflow-hidden">
           <ModelViewer 
             modelPath="/lutron-model.glb" 
@@ -70,7 +68,7 @@ export default function LutronProject() {
           />
         </div>
 
-        {/* The Content Layer that floats over the sticky model */}
+        {/* Floating Content */}
         <div className="relative z-10 w-full -mt-[100vh] pointer-events-none">
           <motion.div 
             variants={containerVariants}
@@ -148,7 +146,6 @@ export default function LutronProject() {
                 </p>
               </motion.div>
             </div>
-
           </motion.div>
 
           {/* FOOTER */}

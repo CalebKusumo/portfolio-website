@@ -5,11 +5,13 @@ import { useGLTF, Center, Environment, Stage } from '@react-three/drei';
 import * as THREE from 'three';
 
 function Model({ url, scale, position, scrollProgress }: any) {
-  const { scene } = useGLTF(url);
+  // Adding 'as any' here fixes the "Property scene does not exist" build error
+  const { scene } = useGLTF(url) as any;
   const groupRef = useRef<THREE.Group>(null);
 
   useFrame((state, delta) => {
     if (groupRef.current) {
+      // Slow rotation based on scroll progress
       const targetRotation = scrollProgress * Math.PI * 2;
       const smoothing = 1 - Math.exp(-10 * delta);
       groupRef.current.rotation.y = THREE.MathUtils.lerp(
