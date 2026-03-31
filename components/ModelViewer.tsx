@@ -12,12 +12,9 @@ function Model({ url, scale, position, scrollProgress }: any) {
     if (groupRef.current && scrollProgress) {
       // Get the current numeric value from the motion scroll object
       const currentScroll = typeof scrollProgress === 'number' ? scrollProgress : scrollProgress.get();
-      
-      // Target rotation: 360 degrees (Math.PI * 2) multiplied by scroll progress
       const targetRotation = currentScroll * Math.PI * 2;
-      
-      // Smooth interpolation
       const smoothing = 1 - Math.exp(-10 * delta);
+      
       groupRef.current.rotation.y = THREE.MathUtils.lerp(
         groupRef.current.rotation.y,
         targetRotation,
