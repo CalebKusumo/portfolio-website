@@ -126,6 +126,28 @@ export default function CameraRepairProject() {
         </motion.div>
       </motion.div>
 
+      {/* CAMERAS SERVICED */}
+      <div className="px-8 md:px-24 lg:px-40 py-20 border-t border-white/10">
+        <p className="font-mono text-xs tracking-[0.5em] text-amber-500 uppercase mb-10">Cameras Serviced</p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border border-white/10">
+          {[
+            { name: "Mamiya RB67",          type: "Medium Format SLR" },
+            { name: "Canonet QL17 GIII",    type: "35mm Rangefinder"  },
+            { name: "Canon AE-1 Program",   type: "35mm SLR"          },
+            { name: "Pentax 67",            type: "Medium Format SLR" },
+            { name: "Fujifilm X100V",       type: "Digital Compact"   },
+            { name: "Canon R6",             type: "Digital Mirrorless" },
+            { name: "Nikon Coolpix S5600",  type: "Digital Compact"   },
+            { name: "Kodak PIXPRO FZ55",    type: "Digital Compact"   },
+          ].map((cam) => (
+            <div key={cam.name} className="bg-black px-8 py-6 hover:bg-white/[0.03] transition-colors">
+              <p className="text-white font-bold uppercase tracking-tight text-sm mb-1">{cam.name}</p>
+              <p className="font-mono text-[10px] text-gray-500 tracking-widest uppercase">{cam.type}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* FOOTER */}
       <footer className="py-24 flex flex-col items-center justify-center bg-black border-t border-white/10 gap-10">
         <div className="flex items-center gap-8">
