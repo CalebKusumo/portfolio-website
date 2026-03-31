@@ -66,45 +66,65 @@ export default function Robot2025() {
         {/* REVEAL GAP */}
         <div className="h-[60vh] pointer-events-none" />
 
-        {/* DATA CALLOUT GRID */}
-        <motion.div 
-          variants={containerVariants} 
-          initial="hidden" 
-          whileInView="visible" 
-          viewport={{ once: true, margin: "-100px" }} 
-          className="flex flex-col gap-y-64 py-20 pointer-events-none"
+        {/* DATA CALLOUTS WITH IMAGES */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="flex flex-col gap-y-96 py-20 px-8 md:px-24 lg:px-40"
         >
-          {/* Row 1 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 px-8 md:px-24 lg:px-40 gap-x-40 pointer-events-auto">
-            <motion.div variants={itemVariants} className="w-full max-w-md border-l-2 border-orange-500 pl-8 group">
+          {/* CALLOUT 01: Image Left, Text Right */}
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto">
+            <div className="aspect-video bg-white/5 overflow-hidden border border-white/10 group">
+              <img src="/projects/2025-robot/detail-1.jpg" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt="Vision Tracking" />
+            </div>
+            <div className="border-l-2 border-orange-500 pl-8">
               <h3 className="text-3xl font-black uppercase italic text-white mb-2">Vision Tracking</h3>
               <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
                 OpenCV + Limelight 3G // Real-time AprilTag Triangulation // Latency: 12ms
               </p>
-            </motion.div>
-            <motion.div variants={itemVariants} className="w-full max-w-md md:ml-auto border-l-2 border-white/20 pl-8 group md:mt-40">
+            </div>
+          </motion.div>
+
+          {/* CALLOUT 02: Text Left, Image Right */}
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto">
+            <div className="order-2 md:order-1 border-r-2 border-white/20 pr-8 text-right">
               <h3 className="text-3xl font-black uppercase italic text-white mb-2">Edge AI</h3>
               <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
                 Coral Manipulation Logic // Jetson Orin Nano Deployment // Python Inference
               </p>
-            </motion.div>
-          </div>
+            </div>
+            <div className="order-1 md:order-2 aspect-video bg-white/5 overflow-hidden border border-white/10 group">
+              <img src="/projects/2025-robot/detail-2.jpg" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt="Edge AI" />
+            </div>
+          </motion.div>
 
-          {/* Row 2 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 px-8 md:px-24 lg:px-40 gap-x-40 pointer-events-auto">
-            <motion.div variants={itemVariants} className="w-full max-w-md border-l-2 border-white/20 pl-8 group md:mt-20">
+          {/* CALLOUT 03: Image Left, Text Right */}
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto">
+            <div className="aspect-video bg-white/5 overflow-hidden border border-white/10 group">
+              <img src="/projects/2025-robot/detail-3.jpg" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt="Precision Intake" />
+            </div>
+            <div className="border-l-2 border-white/20 pl-8">
               <h3 className="text-3xl font-black uppercase italic text-white mb-2">Precision Intake</h3>
               <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
                 Variable-Duro Polycarbonate Rollers // High-Precision Torque Control
               </p>
-            </motion.div>
-            <motion.div variants={itemVariants} className="w-full max-w-md md:ml-auto border-l-2 border-orange-500 pl-8 group">
+            </div>
+          </motion.div>
+
+          {/* CALLOUT 04: Text Left, Image Right */}
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto">
+            <div className="order-2 md:order-1 border-r-2 border-orange-500 pr-8 text-right">
               <h3 className="text-3xl font-black uppercase italic text-white mb-2">C++ Core</h3>
               <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
                 Custom PID Loop Tuning // Multithreaded Command-Based Framework
               </p>
-            </motion.div>
-          </div>
+            </div>
+            <div className="order-1 md:order-2 aspect-video bg-white/5 overflow-hidden border border-white/10 group">
+              <img src="/projects/2025-robot/detail-4.jpg" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt="C++ Core" />
+            </div>
+          </motion.div>
         </motion.div>
 
         {/* FOOTER */}

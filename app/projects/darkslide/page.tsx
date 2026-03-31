@@ -47,27 +47,47 @@ export default function DarkslideProject() {
 
         <div className="h-[60vh] pointer-events-none" />
 
-        <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="flex flex-col gap-y-64 py-20 pointer-events-none">
-          <div className="grid grid-cols-1 md:grid-cols-2 px-8 md:px-24 lg:px-40 gap-x-40 pointer-events-auto">
-            <motion.div variants={itemVariants} className="w-full max-w-md border-l-2 border-red-600 pl-8 group">
+        <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="flex flex-col gap-y-96 py-20 px-8 md:px-24 lg:px-40">
+          {/* CALLOUT 01: Image Left, Text Right */}
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto">
+            <div className="aspect-video bg-white/5 overflow-hidden border border-white/10 group">
+              <img src="/projects/darkslide/detail-1.jpg" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt="Linear Motion" />
+            </div>
+            <div className="border-l-2 border-red-600 pl-8">
               <h3 className="text-3xl font-black uppercase italic text-white mb-2">Linear Motion</h3>
               <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">Specialized Low-Friction Coatings // 0.005mm Tolerance // SolidWorks Managed Assembly</p>
-            </motion.div>
-            <motion.div variants={itemVariants} className="w-full max-w-md md:ml-auto border-l-2 border-white/20 pl-8 group md:mt-40">
+            </div>
+          </motion.div>
+          {/* CALLOUT 02: Text Left, Image Right */}
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto">
+            <div className="order-2 md:order-1 border-r-2 border-white/20 pr-8 text-right">
               <h3 className="text-3xl font-black uppercase italic text-white mb-2">FEA Analysis</h3>
               <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">ANSYS Structural Simulation // Thermal Expansion Mitigation // Strain Gauge Validation</p>
-            </motion.div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 px-8 md:px-24 lg:px-40 gap-x-40 pointer-events-auto">
-            <motion.div variants={itemVariants} className="w-full max-w-md border-l-2 border-white/20 pl-8 group">
+            </div>
+            <div className="order-1 md:order-2 aspect-video bg-white/5 overflow-hidden border border-white/10 group">
+              <img src="/projects/darkslide/detail-2.jpg" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt="FEA Analysis" />
+            </div>
+          </motion.div>
+          {/* CALLOUT 03: Image Left, Text Right */}
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto">
+            <div className="aspect-video bg-white/5 overflow-hidden border border-white/10 group">
+              <img src="/projects/darkslide/detail-3.jpg" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt="GD&T Standards" />
+            </div>
+            <div className="border-l-2 border-white/20 pl-8">
               <h3 className="text-3xl font-black uppercase italic text-white mb-2">GD&T Standards</h3>
               <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">ASME Y14.5 Compliance // Form and Orientation Controls // Critical Interface Mapping</p>
-            </motion.div>
-            <motion.div variants={itemVariants} className="w-full max-w-md md:ml-auto border-l-2 border-red-600 pl-8 group md:mt-20">
+            </div>
+          </motion.div>
+          {/* CALLOUT 04: Text Left, Image Right */}
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto">
+            <div className="order-2 md:order-1 border-r-2 border-red-600 pr-8 text-right">
               <h3 className="text-3xl font-black uppercase italic text-white mb-2">Sub-Assembly</h3>
               <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">Modular Integration // Zero-Backlash Coupling // Lightweight Magnesium Alloy Body</p>
-            </motion.div>
-          </div>
+            </div>
+            <div className="order-1 md:order-2 aspect-video bg-white/5 overflow-hidden border border-white/10 group">
+              <img src="/projects/darkslide/detail-4.jpg" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt="Sub-Assembly" />
+            </div>
+          </motion.div>
         </motion.div>
 
         <footer className="h-screen flex flex-col items-center justify-center bg-black relative z-20 pointer-events-auto border-t border-white/10">

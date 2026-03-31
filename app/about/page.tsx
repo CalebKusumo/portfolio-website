@@ -16,10 +16,13 @@ export default function About() {
             ENGINEERING <br />
             <span className="text-outline italic text-white">PROFILE</span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-400 max-w-3xl leading-relaxed font-light">
-            Focusing on the intersection of <span className="text-white font-medium">high-fidelity simulation</span> and 
-            functional mechanical prototyping.
+          <p className="text-lg md:text-xl text-gray-400 max-w-3xl leading-relaxed font-light mb-8">
+            Greetings! My name is Caleb Kusumo and I am a first-year Mechanical Engineering student at Boston University with a deep interest in applying the creative process to the intersection of mechatronics, industrial design, and manufacturing systems. Covering numerous areas, I have a strong background in robotics, electronics, manufacturing, and mechanical systems that stem from my experiences as the founder of a film business, CalebColor, where I primarily focus on camera repair and film sale, the captain and manufacturing lead of FIRST Robotics team 6560, and the steering lead for Terrier Motorsport at Boston University. Outside of my work, you can find me with camera in-hand or amidst a new project along the lines of those displayed here.
           </p>
+          <p className="text-gray-600 font-mono text-[10px] tracking-[0.4em] uppercase mb-4">Continue reading about my experiences and skills below:</p>
+          <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="inline-block px-10 py-4 border border-white/20 font-mono text-[11px] tracking-[0.5em] uppercase hover:bg-white hover:text-black transition-all">
+            View Resume
+          </a>
         </div>
 
         {/* SKILLS MATRIX */}

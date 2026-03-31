@@ -47,27 +47,47 @@ export default function HoodProject() {
 
         <div className="h-[60vh] pointer-events-none" />
 
-        <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="flex flex-col gap-y-64 py-20 pointer-events-none">
-          <div className="grid grid-cols-1 md:grid-cols-2 px-8 md:px-24 lg:px-40 gap-x-40 pointer-events-auto">
-            <motion.div variants={itemVariants} className="w-full max-w-md border-l-2 border-purple-500 pl-8 group">
+        <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="flex flex-col gap-y-96 py-20 px-8 md:px-24 lg:px-40">
+          {/* CALLOUT 01: Image Left, Text Right */}
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto">
+            <div className="aspect-video bg-white/5 overflow-hidden border border-white/10 group">
+              <img src="/projects/mamiya-hood/detail-1.jpg" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt="Stray Light" />
+            </div>
+            <div className="border-l-2 border-purple-500 pl-8">
               <h3 className="text-3xl font-black uppercase italic text-white mb-2">Stray Light</h3>
               <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">Non-Sequential Ray Tracing // Flare Reduction Geometry // Optimized for 80mm f/2.8</p>
-            </motion.div>
-            <motion.div variants={itemVariants} className="w-full max-w-md md:ml-auto border-l-2 border-white/20 pl-8 group md:mt-40">
+            </div>
+          </motion.div>
+          {/* CALLOUT 02: Text Left, Image Right */}
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto">
+            <div className="order-2 md:order-1 border-r-2 border-white/20 pr-8 text-right">
               <h3 className="text-3xl font-black uppercase italic text-white mb-2">Additive Mfg</h3>
               <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">High-Resolution SLS Nylon // Matte Black Internal Flocking // Impact Resistant</p>
-            </motion.div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 px-8 md:px-24 lg:px-40 gap-x-40 pointer-events-auto">
-            <motion.div variants={itemVariants} className="w-full max-w-md border-l-2 border-white/20 pl-8 group">
+            </div>
+            <div className="order-1 md:order-2 aspect-video bg-white/5 overflow-hidden border border-white/10 group">
+              <img src="/projects/mamiya-hood/detail-2.jpg" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt="Additive Mfg" />
+            </div>
+          </motion.div>
+          {/* CALLOUT 03: Image Left, Text Right */}
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto">
+            <div className="aspect-video bg-white/5 overflow-hidden border border-white/10 group">
+              <img src="/projects/mamiya-hood/detail-3.jpg" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt="Bayonet Mount" />
+            </div>
+            <div className="border-l-2 border-white/20 pl-8">
               <h3 className="text-3xl font-black uppercase italic text-white mb-2">Bayonet Mount</h3>
               <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">Spring-Loaded Tension Tabs // Perfect Mamiya Alignment // One-Hand Operation</p>
-            </motion.div>
-            <motion.div variants={itemVariants} className="w-full max-w-md md:ml-auto border-l-2 border-purple-500 pl-8 group md:mt-20">
+            </div>
+          </motion.div>
+          {/* CALLOUT 04: Text Left, Image Right */}
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto">
+            <div className="order-2 md:order-1 border-r-2 border-purple-500 pr-8 text-right">
               <h3 className="text-3xl font-black uppercase italic text-white mb-2">Aesthetic ID</h3>
               <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">Continuation of Vintage Form Language // Chamfered Edge Profiles // Sandblasted Texture</p>
-            </motion.div>
-          </div>
+            </div>
+            <div className="order-1 md:order-2 aspect-video bg-white/5 overflow-hidden border border-white/10 group">
+              <img src="/projects/mamiya-hood/detail-4.jpg" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt="Aesthetic ID" />
+            </div>
+          </motion.div>
         </motion.div>
 
         <footer className="h-screen flex flex-col items-center justify-center bg-black relative z-20 pointer-events-auto border-t border-white/10">
