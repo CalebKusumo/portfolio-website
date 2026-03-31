@@ -128,10 +128,12 @@ export default function LutronProject() {
         </motion.div>
 
         {/* FOOTER */}
-        <footer className="h-screen flex flex-col items-center justify-center bg-black relative z-20 border-t border-white/10">
-          <Link href="/projects" className="px-16 py-6 border border-white/20 font-mono text-[11px] tracking-[0.5em] uppercase hover:bg-white hover:text-black transition-all">
-            Return to Index
-          </Link>
+        <footer className="py-24 flex flex-col items-center justify-center bg-black relative z-20 border-t border-white/10 gap-10">
+          <div className="flex items-center gap-8">
+            <Link href="/projects/rail-camera" className="font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 hover:text-white transition-colors">← 4x5 Rail</Link>
+            <Link href="/projects" className="px-10 py-4 border border-white/20 font-mono text-[11px] tracking-[0.5em] uppercase hover:bg-white hover:text-black transition-all">Return to Index</Link>
+            <Link href="/projects/directors-finder" className="font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 hover:text-white transition-colors">Waist Finder →</Link>
+          </div>
         </footer>
       </div>
     </main>

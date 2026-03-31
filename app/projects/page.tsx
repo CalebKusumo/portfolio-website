@@ -88,15 +88,17 @@ export default function Projects() {
               <div className="max-w-2xl">
                 <div className="flex items-center gap-4 mb-6">
                   <span className="font-mono text-[10px] text-blue-600 font-bold tracking-widest uppercase">Ref_{project.id}</span>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 flex-wrap">
                     {project.tools.map((tool) => (
-                      <span key={tool} className="text-[9px] border border-white/10 px-2 py-0.5 font-mono text-gray-500">{tool}</span>
+                      <span key={tool} className="text-xs border border-white/20 px-3 py-1 font-mono text-gray-400">{tool}</span>
                     ))}
                   </div>
                 </div>
-                <h2 className="text-4xl md:text-5xl font-bold uppercase tracking-tighter mb-4 group-hover:translate-x-2 transition-transform duration-300">
-                  {project.title}
-                </h2>
+                <Link href={`/projects/${project.slug}`}>
+                  <h2 className="text-4xl md:text-5xl font-bold uppercase tracking-tighter mb-4 group-hover:translate-x-2 transition-transform duration-300 hover:text-blue-600">
+                    {project.title}
+                  </h2>
+                </Link>
                 <p className="text-gray-500 text-sm font-light leading-relaxed mb-8 md:mb-0 max-w-lg">
                   {project.description}
                 </p>

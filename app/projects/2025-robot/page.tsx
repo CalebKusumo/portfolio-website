@@ -128,14 +128,16 @@ export default function Robot2025() {
         </motion.div>
 
         {/* FOOTER */}
-        <footer className="h-screen flex flex-col items-center justify-center bg-black relative z-20 pointer-events-auto border-t border-white/10">
-          <div className="text-center mb-12">
+        <footer className="py-24 flex flex-col items-center justify-center bg-black relative z-20 pointer-events-auto border-t border-white/10 gap-10">
+          <div className="text-center">
             <p className="font-mono text-[10px] tracking-[1em] text-orange-500 uppercase mb-4 text-center">End of Documentation</p>
             <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter italic text-white text-center">Project <br/> <span className="text-outline">Archived</span></h2>
           </div>
-          <Link href="/projects" className="px-16 py-6 border border-white/20 font-mono text-[11px] tracking-[0.5em] uppercase hover:bg-white hover:text-black transition-all">
-            Return to Index
-          </Link>
+          <div className="flex items-center gap-8">
+            <Link href="/projects/mamiya-hood" className="font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 hover:text-white transition-colors">← Mamiya Hood</Link>
+            <Link href="/projects" className="px-10 py-4 border border-white/20 font-mono text-[11px] tracking-[0.5em] uppercase hover:bg-white hover:text-black transition-all">Index</Link>
+            <Link href="/projects/2024-robot" className="font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 hover:text-white transition-colors">2024 Robot →</Link>
+          </div>
         </footer>
       </div>
     </main>

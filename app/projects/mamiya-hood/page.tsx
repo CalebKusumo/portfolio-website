@@ -90,8 +90,12 @@ export default function HoodProject() {
           </motion.div>
         </motion.div>
 
-        <footer className="h-screen flex flex-col items-center justify-center bg-black relative z-20 pointer-events-auto border-t border-white/10">
-          <Link href="/projects" className="px-16 py-6 border border-white/20 font-mono text-[11px] tracking-[0.5em] uppercase hover:bg-white hover:text-black transition-all">Return to Index</Link>
+        <footer className="py-24 flex flex-col items-center justify-center bg-black relative z-20 pointer-events-auto border-t border-white/10 gap-10">
+          <div className="flex items-center gap-8">
+            <Link href="/projects/directors-finder" className="font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 hover:text-white transition-colors">← Waist Finder</Link>
+            <Link href="/projects" className="px-10 py-4 border border-white/20 font-mono text-[11px] tracking-[0.5em] uppercase hover:bg-white hover:text-black transition-all">Return to Index</Link>
+            <Link href="/projects/2025-robot" className="font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 hover:text-white transition-colors">2025 Robot →</Link>
+          </div>
         </footer>
       </div>
     </main>
