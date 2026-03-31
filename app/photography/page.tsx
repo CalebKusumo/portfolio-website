@@ -37,6 +37,7 @@ const sections: {
     id: "landscape",
     label: "Landscape",
     photos: [
+	 { src: "/photography/landscape/big-bear-scars.jpg", location: "Big Bear, CA", film:  "Kodak Vision3 250D", camera: "Pentax 17" }
       // { src: "/photography/landscape/example.jpg", location: "Location", film: "Fuji Velvia 50", camera: "4x5 Rail" },
     ],
   },
