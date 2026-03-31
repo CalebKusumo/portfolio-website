@@ -43,6 +43,30 @@ export default function Projects() {
       slug: "rail-camera",
       description: "Large-format modular camera system featuring 4-axis standard movements and high-extension bellows."
     }
+	{
+  id: "05",
+  title: "Lutron Lighting",
+  category: "Architectural Systems",
+  tools: ["AGI32", "Revit", "Lighting Control"],
+  slug: "lutron-lighting",
+  description: "Award-winning lighting design for a multi-use gallery space focusing on high CRI and automated dimming."
+},
+{
+  id: "06",
+  title: "Waist Level Finder",
+  category: "Optomechanical Design",
+  tools: ["CNC", "Optics", "Ergonomics"],
+  slug: "directors-finder",
+  description: "A custom 1:1 ground glass finder for directors, designed for high-contrast viewing in bright daylight."
+},
+{
+  id: "07",
+  title: "Mamiya Lens Hood",
+  category: "Industrial Design",
+  tools: ["3D Printing", "Stray Light", "CAD"],
+  slug: "mamiya-hood",
+  description: "A specialized bayonet-mount hood for the C330 system, optimized for the 80mm f/2.8 lens."
+}
   ];
 
   return (
