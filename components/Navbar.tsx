@@ -8,7 +8,7 @@ export default function Navbar() {
       </Link>
       <div className="flex gap-8 md:gap-12 opacity-60">
         <Link href="/projects" className="hover:opacity-100 transition-opacity">Projects</Link>
-        <Link href="/experience" className="hover:opacity-100 transition-opacity">Exp</Link>
+        <Link href="/experience" className="hover:opacity-100 transition-opacity">Experience</Link>
         <Link href="/about" className="hover:opacity-100 transition-opacity">About</Link>
         <Link href="/contact" className="hover:opacity-100 transition-opacity text-blue-500">Contact</Link>
       </div>
