@@ -42,7 +42,7 @@ export default function Projects() {
       tools: ["SolidWorks", "CNC", "Anodizing"],
       slug: "rail-camera",
       description: "Large-format modular camera system featuring 4-axis standard movements and high-extension bellows."
-    }
+    },
 	{
   id: "05",
   title: "Lutron Lighting",
