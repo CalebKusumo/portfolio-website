@@ -2,15 +2,15 @@ import Link from 'next/link';
 
 export default function Navbar() {
   return (
-    <nav className="fixed top-0 w-full z-[100] flex justify-between items-center px-12 py-10 mix-blend-difference font-mono text-[10px] tracking-[0.4em] uppercase text-white">
-      <Link href="/" className="font-black tracking-tighter text-xl hover:text-blue-600 transition-colors">
+    <nav className="fixed top-0 w-full z-[100] flex justify-between items-center px-12 py-8 font-mono text-xs tracking-[0.3em] uppercase text-white bg-black/85 backdrop-blur-md border-b border-white/8">
+      <Link href="/" className="font-black tracking-tighter text-xl hover:text-blue-500 transition-colors">
         Home
       </Link>
-      <div className="flex gap-8 md:gap-12 opacity-60">
-        <Link href="/projects" className="hover:opacity-100 transition-opacity">Projects</Link>
-        <Link href="/experience" className="hover:opacity-100 transition-opacity">Experience</Link>
-        <Link href="/about" className="hover:opacity-100 transition-opacity">About</Link>
-        <Link href="/contact" className="hover:opacity-100 transition-opacity text-blue-500">Contact</Link>
+      <div className="flex gap-8 md:gap-12 text-gray-400">
+        <Link href="/projects" className="hover:text-white transition-colors">Projects</Link>
+        <Link href="/experience" className="hover:text-white transition-colors">Experience</Link>
+        <Link href="/about" className="hover:text-white transition-colors">About</Link>
+        <Link href="/contact" className="text-blue-500 hover:text-blue-400 transition-colors">Contact</Link>
       </div>
     </nav>
   );
