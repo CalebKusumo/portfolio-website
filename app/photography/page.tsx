@@ -1,4 +1,5 @@
 "use client";
+import { useState, useEffect, useCallback } from "react";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PHOTOGRAPHY DATA — edit this file to add or remove photos
@@ -37,7 +38,7 @@ const sections: {
     id: "landscape",
     label: "Landscape",
     photos: [
-	 { src: "/photography/landscape/big-bear-scars.jpg", location: "Big Bear, CA", film:  "Kodak Vision3 250D", camera: "Pentax 17" }
+      { src: "/photography/landscape/big-bear-scars.jpg", location: "Big Bear, CA", film: "Kodak Vision3 250D", camera: "Pentax 17" },
       // { src: "/photography/landscape/example.jpg", location: "Location", film: "Fuji Velvia 50", camera: "4x5 Rail" },
     ],
   },
@@ -45,7 +46,102 @@ const sections: {
 
 // ─────────────────────────────────────────────────────────────────────────────
 
+// Flat list of all photos for lightbox navigation
+const allPhotos = sections.flatMap((s) => s.photos);
+
+type Photo = (typeof allPhotos)[number];
+
+function Lightbox({ photo, index, onClose, onPrev, onNext }: {
+  photo: Photo;
+  index: number;
+  onClose: () => void;
+  onPrev: () => void;
+  onNext: () => void;
+}) {
+  // Close on Escape, navigate with arrow keys
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft") onPrev();
+      if (e.key === "ArrowRight") onNext();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [onClose, onPrev, onNext]);
+
+  return (
+    <div
+      className="fixed inset-0 z-[200] bg-black/95 backdrop-blur-md flex flex-col items-center justify-center p-4"
+      onClick={onClose}
+    >
+      {/* Close */}
+      <button
+        onClick={onClose}
+        className="absolute top-6 right-8 font-mono text-xs tracking-[0.4em] uppercase text-gray-500 hover:text-white transition-colors"
+      >
+        Close ✕
+      </button>
+
+      {/* Counter */}
+      <p className="absolute top-6 left-8 font-mono text-[10px] tracking-[0.4em] text-gray-600 uppercase">
+        {String(index + 1).padStart(2, "0")} / {String(allPhotos.length).padStart(2, "0")}
+      </p>
+
+      {/* Image */}
+      <div
+        className="relative max-h-[75vh] max-w-5xl w-full flex items-center justify-center"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <img
+          src={photo.src}
+          alt={photo.location}
+          className="max-h-[75vh] max-w-full object-contain"
+        />
+      </div>
+
+      {/* Caption */}
+      <div className="mt-6 text-center" onClick={(e) => e.stopPropagation()}>
+        <p className="font-mono text-sm text-white tracking-widest uppercase mb-1">{photo.location}</p>
+        <p className="font-mono text-xs text-gray-400 tracking-widest uppercase">{photo.film} · {photo.camera}</p>
+      </div>
+
+      {/* Prev / Next */}
+      <div className="flex gap-10 mt-8" onClick={(e) => e.stopPropagation()}>
+        <button
+          onClick={onPrev}
+          className="font-mono text-sm tracking-[0.2em] uppercase text-gray-500 hover:text-white transition-colors"
+        >
+          ← Prev
+        </button>
+        <button
+          onClick={onNext}
+          className="font-mono text-sm tracking-[0.2em] uppercase text-gray-500 hover:text-white transition-colors"
+        >
+          Next →
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function Photography() {
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  const openLightbox = (photo: Photo) => {
+    const idx = allPhotos.indexOf(photo);
+    setLightboxIndex(idx);
+  };
+
+  const closeLightbox = useCallback(() => setLightboxIndex(null), []);
+
+  const goPrev = useCallback(() => {
+    setLightboxIndex((i) => (i === null ? null : (i - 1 + allPhotos.length) % allPhotos.length));
+  }, []);
+
+  const goNext = useCallback(() => {
+    setLightboxIndex((i) => (i === null ? null : (i + 1) % allPhotos.length));
+  }, []);
+
   const populated = sections.filter((s) => s.photos.length > 0);
 
   return (
@@ -59,7 +155,7 @@ export default function Photography() {
             <span className="text-outline italic text-white opacity-50">Archive</span>
           </h1>
           <p className="font-mono text-xs tracking-[0.5em] text-gray-400 uppercase">
-            Film & Digital // {sections.reduce((n, s) => n + s.photos.length, 0)} Frames
+            Film & Digital // {allPhotos.length} {allPhotos.length === 1 ? "Frame" : "Frames"}
           </p>
         </div>
 
@@ -82,8 +178,10 @@ export default function Photography() {
           <div className="border border-white/10 p-16 text-center">
             <p className="font-mono text-xs tracking-[0.5em] text-gray-600 uppercase mb-4">No photos yet</p>
             <p className="text-gray-500 text-sm max-w-md mx-auto leading-relaxed">
-              Add photos by dropping images into <code className="text-blue-600">public/photography/&lt;section&gt;/</code> and
-              adding entries to the data array at the top of <code className="text-blue-600">app/photography/page.tsx</code>.
+              Add photos by dropping images into{" "}
+              <code className="text-blue-600">public/photography/&lt;section&gt;/</code> and adding entries
+              to the data array at the top of{" "}
+              <code className="text-blue-600">app/photography/page.tsx</code>.
             </p>
           </div>
         ) : (
@@ -95,15 +193,19 @@ export default function Photography() {
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 border border-white/10">
                   {section.photos.map((photo, i) => (
-                    <div key={i} className="group relative aspect-[3/2] overflow-hidden bg-black cursor-pointer">
+                    <div
+                      key={i}
+                      className="group relative aspect-[3/2] overflow-hidden bg-black cursor-pointer"
+                      onClick={() => openLightbox(photo)}
+                    >
                       {/* PHOTO */}
                       <img
                         src={photo.src}
                         alt={`${section.label} — ${photo.location}`}
-                        className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
+                        className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
                       />
                       {/* HOVER OVERLAY */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 gap-1">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 gap-1">
                         <p className="font-mono text-xs text-white tracking-widest uppercase leading-snug">
                           {photo.location}
                         </p>
@@ -127,6 +229,17 @@ export default function Photography() {
         )}
 
       </div>
+
+      {/* LIGHTBOX */}
+      {lightboxIndex !== null && (
+        <Lightbox
+          photo={allPhotos[lightboxIndex]}
+          index={lightboxIndex}
+          onClose={closeLightbox}
+          onPrev={goPrev}
+          onNext={goNext}
+        />
+      )}
     </main>
   );
 }
