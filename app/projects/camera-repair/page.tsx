@@ -139,6 +139,7 @@ export default function CameraRepairProject() {
             { name: "Canon R6",             type: "Digital Mirrorless" },
             { name: "Nikon Coolpix S5600",  type: "Digital Compact"   },
             { name: "Kodak PIXPRO FZ55",    type: "Digital Compact"   },
+            { name: "Canon EF 85mm f/1.8", type: "EF Lens"            },
           ].map((cam) => (
             <div key={cam.name} className="bg-black px-8 py-6 hover:bg-white/[0.03] transition-colors">
               <p className="text-white font-bold uppercase tracking-tight text-sm mb-1">{cam.name}</p>
