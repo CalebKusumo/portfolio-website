@@ -47,7 +47,7 @@ export default function DarkslideProject() {
 
         <div className="h-[60vh] pointer-events-none" />
 
-        <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="flex flex-col gap-y-96 py-20 px-8 md:px-24 lg:px-40">
+        <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="flex flex-col gap-y-96 py-20 px-8 md:px-24 lg:px-40 bg-black/75 backdrop-blur-sm">
           {/* CALLOUT 01: Image Left, Text Right */}
           <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto">
             <div className="aspect-video bg-white/5 overflow-hidden border border-white/10 group">
@@ -92,9 +92,9 @@ export default function DarkslideProject() {
 
         <footer className="py-24 flex flex-col items-center justify-center bg-black relative z-20 pointer-events-auto border-t border-white/10 gap-10">
           <div className="flex items-center gap-8">
-            <Link href="/projects/2023-robot" className="font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 hover:text-white transition-colors">← 2023 Robot</Link>
-            <Link href="/projects" className="px-10 py-4 border border-white/20 font-mono text-[11px] tracking-[0.5em] uppercase hover:bg-white hover:text-black transition-all">Return to Index</Link>
-            <Link href="/projects/rail-camera" className="font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 hover:text-white transition-colors">4x5 Rail →</Link>
+            <Link href="/projects/2023-robot" className="font-mono text-base tracking-[0.15em] uppercase text-gray-400 hover:text-white transition-colors">← 2023 Robot</Link>
+            <Link href="/projects" className="px-14 py-5 border border-white/20 font-mono text-sm tracking-[0.4em] uppercase hover:bg-white hover:text-black transition-all">Return to Index</Link>
+            <Link href="/projects/rail-camera" className="font-mono text-base tracking-[0.15em] uppercase text-gray-400 hover:text-white transition-colors">4x5 Rail →</Link>
           </div>
         </footer>
       </div>

@@ -72,7 +72,7 @@ export default function Robot2025() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="flex flex-col gap-y-96 py-20 px-8 md:px-24 lg:px-40"
+          className="flex flex-col gap-y-96 py-20 px-8 md:px-24 lg:px-40 bg-black/75 backdrop-blur-sm"
         >
           {/* CALLOUT 01: Image Left, Text Right */}
           <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto">
@@ -134,9 +134,9 @@ export default function Robot2025() {
             <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter italic text-white text-center">Project <br/> <span className="text-outline">Archived</span></h2>
           </div>
           <div className="flex items-center gap-8">
-            <Link href="/projects/mamiya-hood" className="font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 hover:text-white transition-colors">← Mamiya Hood</Link>
-            <Link href="/projects" className="px-10 py-4 border border-white/20 font-mono text-[11px] tracking-[0.5em] uppercase hover:bg-white hover:text-black transition-all">Index</Link>
-            <Link href="/projects/2024-robot" className="font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 hover:text-white transition-colors">2024 Robot →</Link>
+            <Link href="/projects/mamiya-hood" className="font-mono text-base tracking-[0.15em] uppercase text-gray-400 hover:text-white transition-colors">← Mamiya Hood</Link>
+            <Link href="/projects" className="px-14 py-5 border border-white/20 font-mono text-sm tracking-[0.4em] uppercase hover:bg-white hover:text-black transition-all">Index</Link>
+            <Link href="/projects/2024-robot" className="font-mono text-base tracking-[0.15em] uppercase text-gray-400 hover:text-white transition-colors">2024 Robot →</Link>
           </div>
         </footer>
       </div>
