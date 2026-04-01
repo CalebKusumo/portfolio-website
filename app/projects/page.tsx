@@ -4,76 +4,76 @@ import Link from 'next/link';
 export default function Projects() {
   const projects = [
     {
-      id: "25",
+      id: "6560-25",
       title: "2025 Robot",
       category: "Mechatronics",
-      tools: ["C++", "Edge AI", "OpenCV"],
+      tools: ["Solidworks", "CNC", "CAN Bus", "Laser Cutting"],
       slug: "2025-robot",
       description: "Reefscape: Advanced vision-tracking and specialized intake for high-precision coral manipulation."
     },
     {
-      id: "24",
+      id: "6560-24",
       title: "2024 Robot",
       category: "Mechatronics",
-      tools: ["Java", "SolidWorks", "Swerve"],
+      tools: ["SolidWorks", "Swerve", "CNC"],
       slug: "2024-robot",
       description: "Crescendo: High-speed swerve drivetrain with vision-aligned note delivery systems."
     },
     {
-      id: "23",
+      id: "6560-23",
       title: "2023 Robot",
       category: "Mechatronics",
-      tools: ["Java", "SolidWorks", "Pneumatics"],
+      tools: ["Java", "SolidWorks", "Pneumatics", "CNC"],
       slug: "2023-robot",
-      description: "Charged Up: Features a custom double-jointed arm and high-torque pneumatic gripper system."
+      description: "Charged Up: Features a piston-actuated arm and motorized gripper geometry capturing conical and square shapes."
     },
     {
-      id: "01",
+      id: "CK-01",
       title: "Darkslide Assembly",
       category: "Mechanical Design",
-      tools: ["SolidWorks", "ANSYS", "GD&T"],
+      tools: ["SolidWorks", "Waterjet", "3D Printing"],
       slug: "darkslide",
       description: "High-precision linear motion sub-assembly utilizing specialized coatings for low-friction operation."
     },
     {
-      id: "04",
+      id: "CK-04",
       title: "4x5 Rail Camera",
       category: "Optomechanical Design",
-      tools: ["SolidWorks", "CNC", "Anodizing"],
+      tools: ["SolidWorks", "3D Printing", "Camera", "Laser Cutting"],
       slug: "rail-camera",
       description: "Large-format modular camera system featuring 4-axis standard movements and high-extension bellows."
     },
     {
-      id: "05",
+      id: "CK-05",
       title: "Lutron Lighting",
       category: "Architectural Systems",
-      tools: ["AGI32", "Revit", "Lighting Control"],
+      tools: ["Fusion360", "Lighting Control", "Circuits", "Laser Cutting", "3D Printing", "Water Jet"],
       slug: "lutron-lighting",
-      description: "Award-winning lighting design for a multi-use gallery space focusing on high CRI and automated dimming."
+      description: "Award-winning (3rd out of 40) lighting display for a 1:100 scale gallery space focusing on seamless design."
     },
     {
-      id: "06",
+      id: "CK-06",
       title: "Waist Level Finder",
       category: "Optomechanical Design",
-      tools: ["CNC", "Optics", "Ergonomics"],
+      tools: ["3d Printing", "Optics", "Solidworks"],
       slug: "directors-finder",
-      description: "A custom 1:1 ground glass finder for directors, designed for high-contrast viewing in bright daylight."
+      description: "A custom EF mount 1:1 ground glass waist-level finder, designed for through-the-lens viewing."
     },
     {
-      id: "07",
+      id: "CK-07",
       title: "Mamiya Lens Hood",
       category: "Industrial Design",
-      tools: ["3D Printing", "Stray Light", "CAD"],
+      tools: ["3D Printing", "Cameras", "CAD", "Solidworks"],
       slug: "mamiya-hood",
-      description: "A specialized bayonet-mount hood for the C330 system, optimized for the 80mm f/2.8 lens."
+      description: "A specialized 3D printed hood for the C330 TLR system, optimized for the 80mm f/2.8 lens."
     },
     {
-      id: "08",
+      id: "CK-08",
       title: "Camera Repair",
       category: "Mechanical Service",
-      tools: ["CLA", "Calibration", "Optics"],
+      tools: ["Calibration", "Repair", "Optics", "Cameras"],
       slug: "camera-repair",
-      description: "CalebColor: Shutter timing, film transport, light seal replacement, and lens service across a range of film and digital bodies."
+      description: "Shutter timing, film transport, light seal replacement, and lens service across a range of film and digital bodies."
     }
   ];
 
