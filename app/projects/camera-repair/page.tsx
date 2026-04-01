@@ -77,7 +77,7 @@ export default function CameraRepairProject() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        className="flex flex-col gap-y-96 py-20 px-8 md:px-24 lg:px-40"
+        className="flex flex-col gap-y-24 py-20 px-8 md:px-24 lg:px-40"
       >
         {/* CALLOUT 01: Image Left, Text Right */}
         <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -144,6 +144,125 @@ export default function CameraRepairProject() {
               className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
               alt="Pentax 67"
             />
+          </div>
+        </motion.div>
+
+        {/* CALLOUT 05: Image Left, Text Right */}
+        <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="aspect-video bg-white/5 overflow-hidden border border-white/10 group">
+            <img
+              src="/projects/camera-repair/detail-5.jpg"
+              className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
+              alt="Fujifilm X100V"
+            />
+          </div>
+          <div className="border-l-2 border-white/20 pl-8">
+            <h3 className="text-3xl font-black uppercase italic text-white mb-2">Fujifilm X100V</h3>
+            <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
+              Digital Compact // Sensor Cleaning // Aperture Blade Service // Optical Viewfinder Alignment
+            </p>
+          </div>
+        </motion.div>
+
+        {/* CALLOUT 06: Text Left, Image Right */}
+        <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="order-2 md:order-1 border-r-2 border-white/20 pr-8 text-right">
+            <h3 className="text-3xl font-black uppercase italic text-white mb-2">Canon R6</h3>
+            <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
+              Digital Mirrorless // Sensor Cleaning // Mount Contact Service // Firmware & Calibration
+            </p>
+          </div>
+          <div className="order-1 md:order-2 aspect-video bg-white/5 overflow-hidden border border-white/10 group">
+            <img
+              src="/projects/camera-repair/detail-6.jpg"
+              className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
+              alt="Canon R6"
+            />
+          </div>
+        </motion.div>
+
+        {/* CALLOUT 07: Image Left, Text Right */}
+        <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="aspect-video bg-white/5 overflow-hidden border border-white/10 group">
+            <img
+              src="/projects/camera-repair/detail-7.jpg"
+              className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
+              alt="Nikon Coolpix S5600"
+            />
+          </div>
+          <div className="border-l-2 border-amber-500 pl-8">
+            <h3 className="text-3xl font-black uppercase italic text-white mb-2">Nikon Coolpix S5600</h3>
+            <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
+              Digital Point & Shoot // Lens Barrel Repair // LCD Service // Battery Contact Cleaning
+            </p>
+          </div>
+        </motion.div>
+
+        {/* CALLOUT 08: Text Left, Image Right */}
+        <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="order-2 md:order-1 border-r-2 border-white/20 pr-8 text-right">
+            <h3 className="text-3xl font-black uppercase italic text-white mb-2">Kodak PIXPRO FZ55</h3>
+            <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
+              Digital Point & Shoot // Lens Mechanism Service // Sensor Cleaning // Mode Dial Repair
+            </p>
+          </div>
+          <div className="order-1 md:order-2 aspect-video bg-white/5 overflow-hidden border border-white/10 group">
+            <img
+              src="/projects/camera-repair/detail-8.jpg"
+              className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
+              alt="Kodak PIXPRO FZ55"
+            />
+          </div>
+        </motion.div>
+
+        {/* CALLOUT 09: Image Left, Text Right */}
+        <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="aspect-video bg-white/5 overflow-hidden border border-white/10 group">
+            <img
+              src="/projects/camera-repair/detail-9.jpg"
+              className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
+              alt="Fujica GS645 Professional"
+            />
+          </div>
+          <div className="border-l-2 border-white/20 pl-8">
+            <h3 className="text-3xl font-black uppercase italic text-white mb-2">Fujica GS645 Professional</h3>
+            <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
+              Medium Format Folder // Bellows Replacement // Shutter CLA // Rangefinder Calibration // Light Seal Kit
+            </p>
+          </div>
+        </motion.div>
+
+        {/* CALLOUT 10: Text Left, Image Right */}
+        <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="order-2 md:order-1 border-r-2 border-amber-500 pr-8 text-right">
+            <h3 className="text-3xl font-black uppercase italic text-white mb-2">Fujica GS645W Professional</h3>
+            <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
+              Medium Format Folder // Bellows Replacement // Shutter CLA // Wide Lens Element Cleaning
+            </p>
+          </div>
+          <div className="order-1 md:order-2 aspect-video bg-white/5 overflow-hidden border border-white/10 group">
+            <img
+              src="/projects/camera-repair/detail-10.jpg"
+              className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
+              alt="Fujica GS645W Professional"
+            />
+          </div>
+        </motion.div>
+
+        {/* CALLOUT 11: Image Left, Text Right */}
+        <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="aspect-video bg-white/5 overflow-hidden border border-white/10 group">
+            <img
+              src="/projects/camera-repair/detail-11.jpg"
+              className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
+              alt="Canon EF 85mm f/1.8"
+            />
+          </div>
+          <div className="border-l-2 border-white/20 pl-8">
+            <h3 className="text-3xl font-black uppercase italic text-white mb-2">Canon EF 85mm f/1.8</h3>
+            <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
+              35mm SLR Lens // Aperture Blade Degreasing // Helicoid Relubrication // Element Cleaning // AF Calibration
+            </p>
           </div>
         </motion.div>
       </motion.div>
