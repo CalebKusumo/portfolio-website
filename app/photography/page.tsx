@@ -21,6 +21,13 @@ const sections: {
   photos: { src: string; location: string; film: string; camera: string }[];
 }[] = [
   {
+    id: "portrait",
+    label: "Portrait",
+    photos: [
+      // { src: "/photography/portrait/example.jpg", location: "Location", film: "Kodak Portra 400", camera: "Canon AE-1" },
+    ],
+  },
+  {
     id: "wildlife",
     label: "Wildlife",
     photos: [
