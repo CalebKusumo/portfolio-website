@@ -34,13 +34,54 @@ const sections: {
       // { src: "/photography/wildlife/example.jpg", location: "Location", film: "Kodak Portra 400", camera: "Mamiya C330" },
     ],
   },
+  const sections: {
+  id: string;
+  label: string;
+  photos: { src: string; location: string; film: string; camera: string }[];
+}[] = [
+  {
+    id: "portrait",
+    label: "Portrait",
+    photos: [
+      // { src: "/photography/portrait/example.jpg", location: "Location", film: "Kodak Portra 400", camera: "Canon AE-1" },
+    ],
+  },
+  {
+    id: "wildlife",
+    label: "Wildlife",
+    photos: [
+      // { src: "/photography/wildlife/example.jpg", location: "Location", film: "Kodak Portra 400", camera: "Mamiya C330" },
+    ],
+  },
   {
     id: "street",
     label: "Street",
     photos: [
-      // { src: "/photography/street/example.jpg", location: "Location", film: "Ilford HP5", camera: "Canon AE-1" },
+      // --- Black and White Photos ---
+      { src: "/photography/street/IMG_0040-Pano.webp", location: "Newport Beach, CA", film: "Kentmere 400", camera: "Canononet QL17 III" },
+      { src: "/photography/street/RB67Wolfman100_3.webp", location: "Laguna Beach, CA", film: "Wolfman 100", camera: "Mamiya RB67" },
+      { src: "/photography/street/RB67_Delta400_10.webp", location: "Newport Beach, CA", film: "Delta 400", camera: "Mamiya RB68" },
+      { src: "/photography/street/RB67_Delta400_5.webp", location: "Newport Beach, CA", film: "Delta 400", camera: "Mamiya RB69" },
+
+      // --- Color & Digital Photos ---
+      { src: "/photography/street/3-18-24_Newport_Portra160-233.webp", location: "Newport Beach, CA", film: "Portra 400", camera: "Canon AE-1" },
+      { src: "/photography/street/billiards.webp", location: "Newport Beach, CA", film: "Portra 400", camera: "Canon AE-1" },
+      { src: "/photography/street/hague-cig.webp", location: "Den Haag, NL", film: "Digital", camera: "Canon R6" },
+      { src: "/photography/street/la-buildings.webp", location: "Los Angeles, CA", film: "Digital", camera: "Fuji X100V" },
+      { src: "/photography/street/Shadows.webp", location: "Tokyo, JP", film: "Digital", camera: "Canon R6" },
+      { src: "/photography/street/showing-off.webp", location: "Brussels, BE", film: "Digital", camera: "Canon R6" },
+      { src: "/photography/street/toyko-cat.webp", location: "Tokyo, JP", film: "Digital", camera: "Canon R6" },
+      { src: "/photography/street/Yashica24Ektar100_13.webp", location: "Tustin, CA", film: "Ektar 100", camera: "Yashica 24" },
     ],
   },
+  {
+    id: "landscape",
+    label: "Landscape",
+    photos: [
+      // ... previous landscape data
+    ],
+  },
+];
   {
     id: "landscape",
     label: "Landscape",
