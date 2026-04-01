@@ -45,22 +45,29 @@ const sections: {
     id: "landscape",
     label: "Landscape",
     photos: [
+      // --- Black and White Photos ---
+      { src: "/photography/landscape/flowerprint.webp", location: "Encinitas, CA", film: "Pan F 50", camera: "Pentax 67" },
+      { src: "/photography/landscape/MamiyaRB67Pan400_7.webp", location: "San Diego, CA", film: "Kentmere 400", camera: "Pentax 67" },
+      { src: "/photography/landscape/RB67Kentmere400_1.webp", location: "Laguna Beach, CA", film: "Kentmere 400", camera: "Mamiya RB67" },
+      { src: "/photography/landscape/RB67Wolfman100_2.webp", location: "San Diego, CA", film: "Wolfman 100", camera: "Mamiya RB68" },
+      { src: "/photography/landscape/RB67_Delta400_11.webp", location: "Newport Beach, CA", film: "Delta 400", camera: "Mamiya RB69" },
+      { src: "/photography/landscape/rowing-RB67_Delta400_17.webp", location: "Newport Beach, CA", film: "Delta 400", camera: "Mamiya RB72" },
+      { src: "/photography/landscape/shadycanyon.webp", location: "Irvine, CA", film: "Lucky 1023", camera: "Pentax 67" },
+
+      // --- Color Photos ---
       { src: "/photography/landscape/big-bear-scars.webp", location: "Big Bear, CA", film: "Portra 400", camera: "Leica M3" },
       { src: "/photography/landscape/hoco-moon.webp", location: "Dana Point, CA", film: "Digital", camera: "Canon R6" },
       { src: "/photography/landscape/laguna-sunset.webp", location: "Laguna Beach, CA", film: "Fuji 200", camera: "Canon Rebel XS" },
-      { src: "/photography/landscape/MamiyaRB67Pan400_7.webp", location: "San Diego, CA", film: "Kentmere 400", camera: "Pentax 67" },
       { src: "/photography/landscape/MamiyaRB67Portra400_3_Original.webp", location: "Wrightwood, CA", film: "Portra 400", camera: "Mamiya RB67" },
       { src: "/photography/landscape/netherlands.webp", location: "Kinderdijk, NL", film: "Ektachrome 100", camera: "Canon Rebel 2000" },
       { src: "/photography/landscape/newport-boat.webp", location: "Newport Beach, CA", film: "Portra 400", camera: "Canon AE-1" },
       { src: "/photography/landscape/newport-shoreline.webp", location: "Newport Beach, CA", film: "Portra 400", camera: "Canon AE-1" },
-      { src: "/photography/landscape/RB67Kentmere400_1.webp", location: "Laguna Beach, CA", film: "Kentmere 400", camera: "Mamiya RB67" },
-      { src: "/photography/landscape/RB67Pan400SprocketShots-LA+Newport.webp", location: "Los Angeles, CA", film: "Kentmere 400", camera: "Mamiya RB67" },
-      { src: "/photography/landscape/rb67portra800scans--6.webp", location: "Irvine, CA", film: "Portra 800", camera: "Mamiya RB67" },
-      { src: "/photography/landscape/RB67Wolfman100_2.webp", location: "San Diego, CA", film: "Wolfman 100", camera: "Mamiya RB68" },
-      { src: "/photography/landscape/RB67_Delta400_11.webp", location: "Newport Beach, CA", film: "Delta 400", camera: "Mamiya RB69" },
       { src: "/photography/landscape/RB67_Portra400_1-Edit-2.webp", location: "Salt Lake City, UT", film: "Portra 400", camera: "Mamiya RB70" },
       { src: "/photography/landscape/RB67_Portra400_6-Edit.webp", location: "Salt Lake City, UT", film: "Portra 400", camera: "Mamiya RB71" },
-      { src: "/photography/landscape/shadycanyon.webp", location: "Irvine, CA", film: "Lucky 1023", camera: "Pentax 67" },
+
+      // --- Special Selections at End ---
+      { src: "/photography/landscape/RB67Pan400SprocketShots-LA+Newport.webp", location: "Los Angeles, CA", film: "Kentmere 400", camera: "Mamiya RB67" },
+      { src: "/photography/landscape/rb67portra800scans--6.webp", location: "Irvine, CA", film: "Portra 800", camera: "Mamiya RB67" },
     ],
   },
 ];
