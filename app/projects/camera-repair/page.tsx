@@ -91,7 +91,7 @@ export default function CameraRepairProject() {
           <div className="border-l-2 border-amber-500 pl-8">
             <h3 className="text-3xl font-black uppercase italic text-white mb-2">Mamiya RB67</h3>
             <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
-              Medium Format SLR // Shutter CLA // Light Seal Replacement // Film Back Service // Bellows Inspection
+              Medium Format SLR // Darkslide Interlock Repair // Light Seal Replacement // Bellows Inspection
             </p>
           </div>
         </motion.div>
@@ -101,7 +101,7 @@ export default function CameraRepairProject() {
           <div className="order-2 md:order-1 border-r-2 border-white/20 pr-8 text-right">
             <h3 className="text-3xl font-black uppercase italic text-white mb-2">Canonet QL17 GIII</h3>
             <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
-              35mm Rangefinder // Rangefinder Patch Alignment // Aperture Blade Degreasing // Shutter Speed Calibration
+              35mm Rangefinder // Rangefinder Cleaning // Aperture Blade Degreasing // Shutter Jam Repair & CLA // Light Seal Replacement
             </p>
           </div>
           <div className="order-1 md:order-2 aspect-video bg-white/5 overflow-hidden border border-white/10 group">
@@ -125,7 +125,7 @@ export default function CameraRepairProject() {
           <div className="border-l-2 border-white/20 pl-8">
             <h3 className="text-3xl font-black uppercase italic text-white mb-2">Canon AE-1 Program</h3>
             <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
-              35mm SLR // Squeaky Mirror Damper // Light Seal Kit // Film Advance Overhaul // Shutter Curtain Inspection
+              35mm SLR // Light Seal Replacement // Shutter Solenoid Repair // CLA
             </p>
           </div>
         </motion.div>
@@ -135,7 +135,7 @@ export default function CameraRepairProject() {
           <div className="order-2 md:order-1 border-r-2 border-amber-500 pr-8 text-right">
             <h3 className="text-3xl font-black uppercase italic text-white mb-2">Pentax 67</h3>
             <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
-              Medium Format SLR // Mirror Box Seal Replacement // Lens Helicoid Relubrication // Advance Mechanism Service
+              Medium Format SLR // Advance & Shutter Mechanism Repair
             </p>
           </div>
           <div className="order-1 md:order-2 aspect-video bg-white/5 overflow-hidden border border-white/10 group">
@@ -159,7 +159,7 @@ export default function CameraRepairProject() {
           <div className="border-l-2 border-white/20 pl-8">
             <h3 className="text-3xl font-black uppercase italic text-white mb-2">Fujifilm X100V</h3>
             <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
-              Digital Compact // Sensor Cleaning // Aperture Blade Service // Optical Viewfinder Alignment
+              Digital Compact // Viewfinder Glass Repair // Water Damage Repair
             </p>
           </div>
         </motion.div>
@@ -169,7 +169,7 @@ export default function CameraRepairProject() {
           <div className="order-2 md:order-1 border-r-2 border-white/20 pr-8 text-right">
             <h3 className="text-3xl font-black uppercase italic text-white mb-2">Canon R6</h3>
             <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
-              Digital Mirrorless // Sensor Cleaning // Mount Contact Service // Firmware & Calibration
+              Digital Mirrorless // Body Panel Repair
             </p>
           </div>
           <div className="order-1 md:order-2 aspect-video bg-white/5 overflow-hidden border border-white/10 group">
@@ -193,7 +193,7 @@ export default function CameraRepairProject() {
           <div className="border-l-2 border-amber-500 pl-8">
             <h3 className="text-3xl font-black uppercase italic text-white mb-2">Nikon Coolpix S5600</h3>
             <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
-              Digital Point & Shoot // Lens Barrel Repair // LCD Service // Battery Contact Cleaning
+              Digital Point & Shoot // LCD Screen Repair // Cleaning
             </p>
           </div>
         </motion.div>
@@ -203,7 +203,7 @@ export default function CameraRepairProject() {
           <div className="order-2 md:order-1 border-r-2 border-white/20 pr-8 text-right">
             <h3 className="text-3xl font-black uppercase italic text-white mb-2">Kodak PIXPRO FZ55</h3>
             <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
-              Digital Point & Shoot // Lens Mechanism Service // Sensor Cleaning // Mode Dial Repair
+              Digital Point & Shoot // Water Damage Repair // Cleaning
             </p>
           </div>
           <div className="order-1 md:order-2 aspect-video bg-white/5 overflow-hidden border border-white/10 group">
@@ -227,7 +227,7 @@ export default function CameraRepairProject() {
           <div className="border-l-2 border-white/20 pl-8">
             <h3 className="text-3xl font-black uppercase italic text-white mb-2">Fujica GS645 Professional</h3>
             <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
-              Medium Format Folder // Bellows Replacement // Shutter CLA // Rangefinder Calibration // Light Seal Kit
+              Medium Format Folding Rangefinder // Shutter Jam Repair & CLA // Rangefinder Cleaning // Light Seal Replacement
             </p>
           </div>
         </motion.div>
@@ -237,7 +237,7 @@ export default function CameraRepairProject() {
           <div className="order-2 md:order-1 border-r-2 border-amber-500 pr-8 text-right">
             <h3 className="text-3xl font-black uppercase italic text-white mb-2">Fujica GS645W Professional</h3>
             <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
-              Medium Format Folder // Bellows Replacement // Shutter CLA // Wide Lens Element Cleaning
+              Medium Format Rangefinder // Sticky Rangefinder Repair // Rangefinder Cleaning // CLA
             </p>
           </div>
           <div className="order-1 md:order-2 aspect-video bg-white/5 overflow-hidden border border-white/10 group">
@@ -261,7 +261,7 @@ export default function CameraRepairProject() {
           <div className="border-l-2 border-white/20 pl-8">
             <h3 className="text-3xl font-black uppercase italic text-white mb-2">Canon EF 85mm f/1.8</h3>
             <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
-              35mm SLR Lens // Aperture Blade Degreasing // Helicoid Relubrication // Element Cleaning // AF Calibration
+              35mm D/SLR Lens // Aperture Blade Degreasing // Autofocus Repair // Lens Element Cleaning
             </p>
           </div>
         </motion.div>
