@@ -20,10 +20,15 @@ export default function Contact() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 border-t border-white/10 pt-16">
 
           {/* EMAIL BLOCK */}
-          <div className="group">
+          <div className="group/email">
             <h3 className="font-mono text-[10px] tracking-widest text-gray-500 uppercase mb-4">Direct_Comm</h3>
-            <a href="mailto:calebk@bu.edu" className="text-2xl md:text-3xl font-bold hover:text-blue-600 transition-colors uppercase tracking-tight">
-              Email Me →
+            <a href="mailto:calebk@bu.edu" className="block">
+              <span className="text-2xl md:text-3xl font-bold group-hover/email:text-blue-600 transition-colors uppercase tracking-tight block">
+                Email Me →
+              </span>
+              <span className="font-mono text-sm text-blue-600 opacity-0 group-hover/email:opacity-100 transition-opacity mt-2 block tracking-wider lowercase">
+                calebk@bu.edu
+              </span>
             </a>
           </div>
 
