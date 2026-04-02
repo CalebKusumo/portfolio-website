@@ -40,7 +40,7 @@ export default function Robot2025() {
         <section className="relative aspect-[3/2] w-full flex flex-col items-center justify-center text-center bg-black overflow-hidden shadow-2xl">
           <div className="absolute inset-0 z-0">
             <img 
-              src="/projects/2025-robot/header.webp" 
+              src="/projects/2025-robot/header.jpg" 
               className="w-full h-full object-cover opacity-40" 
               alt="2025 Robot"
             />
