@@ -5,17 +5,21 @@ import { motion, useScroll } from 'framer-motion';
 
 const ModelViewer = dynamic(() => import('@/components/ModelViewer'), { ssr: false });
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
-};
-
 const itemVariants = {
-  hidden: { opacity: 0, y: 8 },
+  hidden: { opacity: 0, y: 10 },
   visible: {
     opacity: 1,
     y: 0,
     transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
+  },
+};
+
+const detailVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const },
   },
 };
 
@@ -31,6 +35,57 @@ const rightCallouts = [
   { id: '06', label: 'Software Core', title: 'C++ Framework', desc: 'Command-Based // Custom PID Loops // Multithreaded Subsystems' },
   { id: '07', label: 'Scoring Reach', title: 'Elevator',      desc: '3-Stage Cascade // 84in Max Extension // 0.8s Full Travel' },
   { id: '08', label: 'End Effector',  title: 'Coral Scorer',  desc: '±2° Placement Precision // Compliant Geometry // L1–L4 Scoring' },
+];
+
+const details = [
+  {
+    img: '/projects/2025-robot/detail-1.jpg',
+    alt: 'Swerve Drivetrain',
+    label: 'Drivetrain',
+    title: 'MK4i Swerve Drive',
+    body: 'Four independently steered and driven modules give the robot full holonomic freedom — any direction, any heading, at any time. Running L2 gearing with Falcon 500s, the drivetrain achieves 15.1 ft/s free speed with near-instant directional changes. Odometry is fused from wheel encoders and the NavX2 IMU for sub-centimeter dead-reckoning accuracy.',
+    accent: 'border-orange-500',
+  },
+  {
+    img: '/projects/2025-robot/detail-2.jpg',
+    alt: 'Vision & Localization',
+    label: 'Vision System',
+    title: 'AprilTag Localization',
+    body: 'A Limelight 3G camera runs on-board pose estimation using the field\'s AprilTag layout. 3D tag triangulation updates the robot\'s field position at 100Hz, correcting odometry drift in real time. Latency compensation is applied back through the WPILib pose estimator so the fused pose remains accurate even during rapid maneuvers.',
+    accent: 'border-white/20',
+  },
+  {
+    img: '/projects/2025-robot/detail-3.jpg',
+    alt: 'Elevator Mechanism',
+    label: 'Scoring Reach',
+    title: 'Telescoping Elevator',
+    body: 'A 3-stage continuous rigged cascade elevator extends to 84 inches in under 0.8 seconds, powered by two NEO motors on a 9:1 reduction. A custom trapezoidal motion profile minimizes jerk at the top of travel, preventing oscillation when the end effector is extended at full height. Hard stops at both ends are backed by software limits for redundancy.',
+    accent: 'border-orange-500',
+  },
+  {
+    img: '/projects/2025-robot/detail-4.jpg',
+    alt: 'Coral End Effector',
+    label: 'End Effector',
+    title: 'Coral Scorer',
+    body: 'The end effector uses a compliant geometry wrist that self-centers coral pieces during intake. A brushless motor drives the rollers through a torque-sensing loop — grip is confirmed by current spike detection rather than a sensor, removing a potential failure point. The wrist pivots ±90° to address L1 through L4 reef branches without repositioning the elevator.',
+    accent: 'border-white/20',
+  },
+  {
+    img: '/projects/2025-robot/detail-5.jpg',
+    alt: 'Edge AI',
+    label: 'Perception',
+    title: 'Jetson Orin Nano',
+    body: 'A Jetson Orin Nano co-processor handles game-piece classification and field object detection independent of the main RoboRIO. A custom-trained YOLO model identifies coral and algae pieces at 30fps with a 97% mAP. Detections are published over NetworkTables so the main robot controller can act on them within a single 20ms loop cycle.',
+    accent: 'border-orange-500',
+  },
+  {
+    img: '/projects/2025-robot/detail-6.jpg',
+    alt: 'Software Architecture',
+    label: 'Software',
+    title: 'Command-Based C++',
+    body: 'The robot runs a fully command-based C++ architecture built on WPILib. Every mechanism is isolated into its own subsystem with explicit state machines, making autonomous routine composition declarative and testable. PID controllers for the elevator, wrist, and drive are tuned using SysId characterization routines and run at 1kHz on the motor controllers\' onboard processors.',
+    accent: 'border-white/20',
+  },
 ];
 
 export default function Robot2025() {
@@ -79,21 +134,21 @@ export default function Robot2025() {
         {/* REVEAL GAP */}
         <div className="h-[60vh] pointer-events-none" />
 
-        {/* ENGINEERING CALLOUT DIAGRAM */}
-        <motion.section
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          className="relative min-h-screen flex items-center py-24"
-        >
-          <div className="w-full grid grid-cols-[1fr_28%_1fr] items-center">
+        {/* ENGINEERING CALLOUT DIAGRAM — left/right columns staggered vertically */}
+        <section className="relative w-full py-32 pointer-events-none">
+          <div className="w-full grid grid-cols-[1fr_30%_1fr]">
 
             {/* LEFT CALLOUTS */}
-            <div className="flex flex-col gap-y-8 pl-6 md:pl-12 lg:pl-20 pointer-events-auto">
+            <div className="flex flex-col gap-y-40 pt-0 pl-4 md:pl-10 lg:pl-16 pointer-events-auto">
               {leftCallouts.map((c) => (
-                <motion.div key={c.id} variants={itemVariants} className="flex items-center">
-                  {/* Text box */}
+                <motion.div
+                  key={c.id}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: '-60px' }}
+                  variants={itemVariants}
+                  className="flex items-center"
+                >
                   <div className="flex-1 text-right bg-black/70 backdrop-blur-sm p-4 border border-white/10">
                     <div className="flex items-center justify-end gap-2 mb-1">
                       <span className="font-mono text-[8px] text-gray-500 tracking-widest uppercase">{c.label}</span>
@@ -102,8 +157,7 @@ export default function Robot2025() {
                     <h4 className="text-lg font-black uppercase italic text-white leading-tight">{c.title}</h4>
                     <p className="text-gray-500 font-mono text-[8px] tracking-widest uppercase mt-1">{c.desc}</p>
                   </div>
-                  {/* Leader line — dot at model end */}
-                  <div className="flex-shrink-0 w-10 md:w-16 flex items-center relative">
+                  <div className="flex-shrink-0 w-8 md:w-14 flex items-center relative">
                     <div className="w-full" style={{ borderTop: '1px dashed rgba(255,255,255,0.35)' }} />
                     <span className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-orange-500 ring-1 ring-orange-500/40" />
                   </div>
@@ -111,19 +165,24 @@ export default function Robot2025() {
               ))}
             </div>
 
-            {/* CENTER — transparent, model shows through */}
+            {/* CENTER — transparent for model */}
             <div />
 
-            {/* RIGHT CALLOUTS */}
-            <div className="flex flex-col gap-y-8 pr-6 md:pr-12 lg:pr-20 pointer-events-auto">
+            {/* RIGHT CALLOUTS — offset by half a gap to stagger */}
+            <div className="flex flex-col gap-y-40 pt-24 pr-4 md:pr-10 lg:pr-16 pointer-events-auto">
               {rightCallouts.map((c) => (
-                <motion.div key={c.id} variants={itemVariants} className="flex items-center">
-                  {/* Leader line — dot at model end */}
-                  <div className="flex-shrink-0 w-10 md:w-16 flex items-center relative">
+                <motion.div
+                  key={c.id}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: '-60px' }}
+                  variants={itemVariants}
+                  className="flex items-center"
+                >
+                  <div className="flex-shrink-0 w-8 md:w-14 flex items-center relative">
                     <span className="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-orange-500 ring-1 ring-orange-500/40" />
                     <div className="w-full" style={{ borderTop: '1px dashed rgba(255,255,255,0.35)' }} />
                   </div>
-                  {/* Text box */}
                   <div className="flex-1 text-left bg-black/70 backdrop-blur-sm p-4 border border-white/10">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="font-mono text-[9px] text-orange-500 font-bold tracking-widest">{c.id}</span>
@@ -137,7 +196,48 @@ export default function Robot2025() {
             </div>
 
           </div>
-        </motion.section>
+        </section>
+
+        {/* FEATURE DETAIL ROWS */}
+        <div className="flex flex-col gap-y-40 py-40 px-8 md:px-20 lg:px-36">
+          {details.map((d, i) => {
+            const imgLeft = i % 2 === 0;
+            return (
+              <motion.div
+                key={d.label}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: '-80px' }}
+                variants={detailVariants}
+                className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center bg-black/75 backdrop-blur-sm p-8 pointer-events-auto"
+              >
+                {imgLeft ? (
+                  <>
+                    <div className="aspect-video overflow-hidden border border-white/10 group">
+                      <img src={d.img} className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt={d.alt} />
+                    </div>
+                    <div className={`border-l-2 ${d.accent} pl-8`}>
+                      <span className="font-mono text-[9px] text-gray-500 tracking-widest uppercase block mb-2">{d.label}</span>
+                      <h3 className="text-3xl font-black uppercase italic text-white mb-4">{d.title}</h3>
+                      <p className="text-gray-400 font-mono text-xs leading-relaxed">{d.body}</p>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className={`order-2 md:order-1 border-r-2 ${d.accent} pr-8 text-right`}>
+                      <span className="font-mono text-[9px] text-gray-500 tracking-widest uppercase block mb-2">{d.label}</span>
+                      <h3 className="text-3xl font-black uppercase italic text-white mb-4">{d.title}</h3>
+                      <p className="text-gray-400 font-mono text-xs leading-relaxed">{d.body}</p>
+                    </div>
+                    <div className="order-1 md:order-2 aspect-video overflow-hidden border border-white/10 group">
+                      <img src={d.img} className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt={d.alt} />
+                    </div>
+                  </>
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
 
         {/* FOOTER */}
         <footer className="py-24 flex flex-col items-center justify-center bg-black relative z-20 pointer-events-auto border-t border-white/10 gap-10">
