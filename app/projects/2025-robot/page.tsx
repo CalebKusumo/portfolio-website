@@ -199,7 +199,7 @@ export default function Robot2025() {
         </section>
 
         {/* FEATURE DETAIL ROWS */}
-        <div className="flex flex-col py-40 px-8 md:px-20 lg:px-36">
+        <div className="flex flex-col py-40 px-8 md:px-20 lg:px-36 bg-black pointer-events-auto">
           {details.map((d, i) => {
             const imgLeft = i % 2 === 0;
             return (
@@ -209,7 +209,7 @@ export default function Robot2025() {
                 whileInView="visible"
                 viewport={{ once: true, margin: '-80px' }}
                 variants={detailVariants}
-                className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center bg-black/75 backdrop-blur-sm p-8 pointer-events-auto"
+                className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center p-8"
               >
                 {imgLeft ? (
                   <>
