@@ -189,18 +189,30 @@ export default function Home() {
     },
   ];
 
-  const sectionOrder = ['hero', 'projects', 'about', 'experience', 'contact'];
-  const sectionLabels: Record<string, string> = {
-    hero: 'Projects',
-    projects: 'About',
-    about: 'Experience',
+  const sectionOrder = ['hero', 'about', 'projects', 'experience', 'contact'];
+  const nextLabels: Record<string, string> = {
+    hero: 'About',
+    about: 'Projects',
+    projects: 'Experience',
     experience: 'Contact',
   };
-  const sectionTargets: Record<string, string> = {
-    hero: '#projects',
-    projects: '#about',
-    about: '#experience',
+  const nextTargets: Record<string, string> = {
+    hero: '#about',
+    about: '#projects',
+    projects: '#experience',
     experience: '#contact',
+  };
+  const prevLabels: Record<string, string> = {
+    about: 'Top',
+    projects: 'About',
+    experience: 'Projects',
+    contact: 'Experience',
+  };
+  const prevTargets: Record<string, string> = {
+    about: '#hero',
+    projects: '#about',
+    experience: '#projects',
+    contact: '#experience',
   };
 
   const [activeSection, setActiveSection] = useState('hero');
@@ -220,21 +232,33 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const nextLabel = sectionLabels[activeSection];
-  const nextTarget = sectionTargets[activeSection];
+  const nextLabel = nextLabels[activeSection];
+  const nextTarget = nextTargets[activeSection];
+  const prevLabel = prevLabels[activeSection];
+  const prevTarget = prevTargets[activeSection];
 
   return (
     <main className="relative bg-black">
       <ModelViewer modelPath="/model.glb" />
 
-      {nextTarget && (
-        <a
-          href={nextTarget}
-          className="fixed bottom-8 right-8 z-[150] flex items-center gap-2 px-4 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 font-mono text-[10px] tracking-[0.3em] uppercase text-white/70 hover:text-white hover:bg-white/20 transition-all duration-300"
-        >
-          {nextLabel} ↓
-        </a>
-      )}
+      <div className="fixed bottom-8 right-8 z-[150] flex flex-col gap-2">
+        {prevTarget && (
+          <a
+            href={prevTarget}
+            className="flex items-center gap-2 px-4 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 font-mono text-[10px] tracking-[0.3em] uppercase text-white/70 hover:text-white hover:bg-white/20 transition-all duration-300"
+          >
+            ↑ {prevLabel}
+          </a>
+        )}
+        {nextTarget && (
+          <a
+            href={nextTarget}
+            className="flex items-center gap-2 px-4 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 font-mono text-[10px] tracking-[0.3em] uppercase text-white/70 hover:text-white hover:bg-white/20 transition-all duration-300"
+          >
+            {nextLabel} ↓
+          </a>
+        )}
+      </div>
 
       <div className="relative z-10 w-full">
 
@@ -246,6 +270,27 @@ export default function Home() {
           <p className="mt-12 font-mono text-[10px] tracking-[0.5em] uppercase opacity-40 mix-blend-difference">
             System Architecture // Mechanical Design // 2026
           </p>
+        </section>
+
+        <div className="border-t border-white/15 mx-8 md:mx-20" />
+
+        {/* ABOUT */}
+        <section id="about" className="min-h-screen bg-black text-white py-40 px-8">
+          <div className="max-w-5xl mx-auto">
+            <div className="mb-20">
+              <h2 className="text-7xl md:text-[10rem] font-black uppercase tracking-tighter leading-none mb-8">
+                ENGINEERING <br />
+                <span className="text-outline italic text-white">PROFILE</span>
+              </h2>
+              <p className="text-base md:text-lg text-gray-300 max-w-3xl leading-relaxed mb-8">
+                Greetings! My name is Caleb Kusumo and I am a first-year Mechanical Engineering student at Boston University with a deep interest in applying the creative process to the intersection of mechatronics, industrial design, and manufacturing systems. Covering numerous areas, I have a strong background in robotics, electronics, manufacturing, and mechanical systems that stem from my experiences as the founder of a film business, CalebColor, where I primarily focus on camera repair and film sale, the captain and manufacturing lead of FIRST Robotics team 6560, and the steering lead for Terrier Motorsport at Boston University. Outside of my work, you can find me with camera in-hand or amidst a new project along the lines of those displayed here.
+              </p>
+              <p className="text-gray-500 font-mono text-xs tracking-[0.4em] uppercase mb-5">Continue reading about my experiences and skills below:</p>
+              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="inline-block px-10 py-4 border border-white/30 font-mono text-xs tracking-[0.4em] uppercase hover:bg-white hover:text-black transition-all">
+                View Resume
+              </a>
+            </div>
+          </div>
         </section>
 
         <div className="border-t border-white/15 mx-8 md:mx-20" />
@@ -303,28 +348,6 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          </div>
-        </section>
-
-        <div className="border-t border-white/15 mx-8 md:mx-20" />
-
-        {/* ABOUT */}
-        <section id="about" className="min-h-screen bg-black text-white py-40 px-8">
-          <div className="max-w-5xl mx-auto">
-            <div className="mb-20">
-              <h2 className="text-7xl md:text-[10rem] font-black uppercase tracking-tighter leading-none mb-8">
-                ENGINEERING <br />
-                <span className="text-outline italic text-white">PROFILE</span>
-              </h2>
-              <p className="text-base md:text-lg text-gray-300 max-w-3xl leading-relaxed mb-8">
-                Greetings! My name is Caleb Kusumo and I am a first-year Mechanical Engineering student at Boston University with a deep interest in applying the creative process to the intersection of mechatronics, industrial design, and manufacturing systems. Covering numerous areas, I have a strong background in robotics, electronics, manufacturing, and mechanical systems that stem from my experiences as the founder of a film business, CalebColor, where I primarily focus on camera repair and film sale, the captain and manufacturing lead of FIRST Robotics team 6560, and the steering lead for Terrier Motorsport at Boston University. Outside of my work, you can find me with camera in-hand or amidst a new project along the lines of those displayed here.
-              </p>
-              <p className="text-gray-500 font-mono text-xs tracking-[0.4em] uppercase mb-5">Continue reading about my experiences and skills below:</p>
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="inline-block px-10 py-4 border border-white/30 font-mono text-xs tracking-[0.4em] uppercase hover:bg-white hover:text-black transition-all">
-                View Resume
-              </a>
-            </div>
-
           </div>
         </section>
 
@@ -431,8 +454,8 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
             <nav className="flex flex-wrap gap-6 md:gap-10">
               {[
-                { href: '#projects', label: 'Projects' },
                 { href: '#about', label: 'About' },
+                { href: '#projects', label: 'Projects' },
                 { href: '#experience', label: 'Experience' },
                 { href: '#contact', label: 'Contact' },
               ].map(({ href, label }) => (

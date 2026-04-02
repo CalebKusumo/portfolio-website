@@ -7,8 +7,8 @@ export default function Navbar() {
         Home
       </Link>
       <div className="flex gap-8 md:gap-12 text-gray-400">
-        <a href="/#projects" className="hover:text-white transition-colors">Projects</a>
         <a href="/#about" className="hover:text-white transition-colors">About</a>
+        <a href="/#projects" className="hover:text-white transition-colors">Projects</a>
         <a href="/#experience" className="hover:text-white transition-colors">Experience</a>
         <a href="/#contact" className="hover:text-white transition-colors">Contact</a>
         <Link href="/photography" className="text-blue-500 hover:text-blue-400 transition-colors">Photography</Link>
