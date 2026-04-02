@@ -47,9 +47,9 @@ export default function DarkslideProject() {
 
         <div className="h-[60vh] pointer-events-none" />
 
-        <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="flex flex-col gap-y-96 py-20 px-8 md:px-24 lg:px-40 bg-black/75 backdrop-blur-sm">
+        <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="flex flex-col gap-y-96 py-20 px-8 md:px-24 lg:px-40">
           {/* CALLOUT 01: Image Left, Text Right */}
-          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto">
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto bg-black/75 backdrop-blur-sm p-8">
             <div className="aspect-video bg-white/5 overflow-hidden border border-white/10 group">
               <img src="/projects/darkslide/detail-1.jpg" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt="Linear Motion" />
             </div>
@@ -59,7 +59,7 @@ export default function DarkslideProject() {
             </div>
           </motion.div>
           {/* CALLOUT 02: Text Left, Image Right */}
-          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto">
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto bg-black/75 backdrop-blur-sm p-8">
             <div className="order-2 md:order-1 border-r-2 border-white/20 pr-8 text-right">
               <h3 className="text-3xl font-black uppercase italic text-white mb-2">FEA Analysis</h3>
               <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">ANSYS Structural Simulation // Thermal Expansion Mitigation // Strain Gauge Validation</p>
@@ -69,7 +69,7 @@ export default function DarkslideProject() {
             </div>
           </motion.div>
           {/* CALLOUT 03: Image Left, Text Right */}
-          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto">
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto bg-black/75 backdrop-blur-sm p-8">
             <div className="aspect-video bg-white/5 overflow-hidden border border-white/10 group">
               <img src="/projects/darkslide/detail-3.jpg" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt="GD&T Standards" />
             </div>
@@ -79,7 +79,7 @@ export default function DarkslideProject() {
             </div>
           </motion.div>
           {/* CALLOUT 04: Text Left, Image Right */}
-          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto">
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto bg-black/75 backdrop-blur-sm p-8">
             <div className="order-2 md:order-1 border-r-2 border-red-600 pr-8 text-right">
               <h3 className="text-3xl font-black uppercase italic text-white mb-2">Sub-Assembly</h3>
               <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">Modular Integration // Zero-Backlash Coupling // Lightweight Magnesium Alloy Body</p>

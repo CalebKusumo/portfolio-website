@@ -73,10 +73,10 @@ export default function LutronProject() {
           initial="hidden" 
           whileInView="visible" 
           viewport={{ once: true, margin: "-100px" }} 
-          className="flex flex-col gap-y-96 py-20 px-8 md:px-24 lg:px-40 bg-black/75 backdrop-blur-sm"
+          className="flex flex-col gap-y-96 py-20 px-8 md:px-24 lg:px-40"
         >
           {/* CALLOUT 01: Image Left, Text Right */}
-          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto">
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto bg-black/75 backdrop-blur-sm p-8">
             <div className="aspect-video bg-white/5 overflow-hidden border border-white/10 group">
                <img 
                  src="/projects/lutron-lighting/detail-1.jpg" 
@@ -93,7 +93,7 @@ export default function LutronProject() {
           </motion.div>
 
           {/* CALLOUT 02: Text Left, Image Right */}
-          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto">
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto bg-black/75 backdrop-blur-sm p-8">
             <div className="order-2 md:order-1 border-r-2 border-white/20 pr-8 text-right">
               <h3 className="text-3xl font-black uppercase italic text-white mb-2">System Controls</h3>
               <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
@@ -110,7 +110,7 @@ export default function LutronProject() {
           </motion.div>
 
           {/* CALLOUT 03: Image Left, Text Right */}
-          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto">
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto bg-black/75 backdrop-blur-sm p-8">
             <div className="aspect-video bg-white/5 overflow-hidden border border-white/10 group">
                <img 
                  src="/projects/lutron-lighting/detail-3.jpg" 
