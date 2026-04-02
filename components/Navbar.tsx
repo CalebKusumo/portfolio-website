@@ -10,8 +10,8 @@ export default function Navbar() {
         <a href="/#projects" className="hover:text-white transition-colors">Projects</a>
         <a href="/#about" className="hover:text-white transition-colors">About</a>
         <a href="/#experience" className="hover:text-white transition-colors">Experience</a>
-        <Link href="/photography" className="hover:text-white transition-colors">Photography</Link>
-        <a href="/#contact" className="text-blue-500 hover:text-blue-400 transition-colors">Contact</a>
+        <a href="/#contact" className="hover:text-white transition-colors">Contact</a>
+        <Link href="/photography" className="text-blue-500 hover:text-blue-400 transition-colors">Photography</Link>
       </div>
     </nav>
   );

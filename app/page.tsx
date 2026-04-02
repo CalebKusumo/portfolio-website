@@ -206,18 +206,18 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-    sectionOrder.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
-        { threshold: 0.3 }
-      );
-      obs.observe(el);
-      observers.push(obs);
-    });
-    return () => observers.forEach((o) => o.disconnect());
+    const handleScroll = () => {
+      const trigger = window.scrollY + window.innerHeight * 0.4;
+      let current = sectionOrder[0];
+      for (const id of sectionOrder) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= trigger) current = id;
+      }
+      setActiveSection(current);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const nextLabel = sectionLabels[activeSection];
