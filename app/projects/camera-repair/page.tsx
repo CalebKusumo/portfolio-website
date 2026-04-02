@@ -265,6 +265,39 @@ export default function CameraRepairProject() {
             </p>
           </div>
         </motion.div>
+        {/* CALLOUT 12: Text Left, Image Right */}
+        <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="order-2 md:order-1 border-r-2 border-white/20 pr-8 text-right">
+            <h3 className="text-3xl font-black uppercase italic text-white mb-2">Canon G7X III</h3>
+            <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
+              Digital Point & Shoot // Water Damage Repair // Motherboard Replacement // Lens Assembly Replacement
+            </p>
+          </div>
+          <div className="order-1 md:order-2 aspect-video bg-white/5 overflow-hidden border border-white/10 group">
+            <img
+              src="/projects/camera-repair/detail-12.jpg"
+              className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
+              alt="Canon G7X III"
+            />
+          </div>
+        </motion.div>
+
+        {/* CALLOUT 13: Image Left, Text Right */}
+        <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="aspect-video bg-white/5 overflow-hidden border border-white/10 group">
+            <img
+              src="/projects/camera-repair/detail-13.jpg"
+              className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
+              alt="Minolta Dynax 7"
+            />
+          </div>
+          <div className="border-l-2 border-amber-500 pl-8">
+            <h3 className="text-3xl font-black uppercase italic text-white mb-2">Minolta Dynax 7</h3>
+            <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
+              Film SLR // Aperture Drive Gear Replacement
+            </p>
+          </div>
+        </motion.div>
       </motion.div>
 
       {/* FOOTER */}
