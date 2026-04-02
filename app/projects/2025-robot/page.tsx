@@ -199,7 +199,7 @@ export default function Robot2025() {
         </section>
 
         {/* FEATURE DETAIL ROWS */}
-        <div className="flex flex-col gap-y-40 py-40 px-8 md:px-20 lg:px-36">
+        <div className="flex flex-col py-40 px-8 md:px-20 lg:px-36">
           {details.map((d, i) => {
             const imgLeft = i % 2 === 0;
             return (

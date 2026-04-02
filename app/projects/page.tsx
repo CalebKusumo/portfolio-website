@@ -100,7 +100,7 @@ export default function Projects() {
               <div className="w-full aspect-video overflow-hidden bg-white/[0.03]">
                 <img
                   src={`/projects/${project.slug}/header.jpg`}
-                  className="w-full h-full object-cover opacity-60 group-hover:opacity-95 transition-all duration-700"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
                   alt={project.title}
                 />
               </div>
