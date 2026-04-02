@@ -97,7 +97,7 @@ export default function Robot2025() {
       <div className="fixed inset-0 z-0 pointer-events-none">
         <ModelViewer
           modelPath="/models/robot2025.glb"
-          modelScale={4.8}
+          modelScale={3.84}
           modelPosition={[0, -1, 0]}
           scrollProgress={scrollYProgress}
         />
@@ -136,10 +136,10 @@ export default function Robot2025() {
 
         {/* ENGINEERING CALLOUT DIAGRAM — left/right columns staggered vertically */}
         <section className="relative w-full py-32 pointer-events-none">
-          <div className="w-full grid grid-cols-[1fr_30%_1fr]">
+          <div className="w-full grid grid-cols-[1fr_42%_1fr]">
 
             {/* LEFT CALLOUTS */}
-            <div className="flex flex-col gap-y-40 pt-0 pl-4 md:pl-10 lg:pl-16 pointer-events-auto">
+            <div className="flex flex-col gap-y-40 pt-0 pl-2 md:pl-4 lg:pl-6 pointer-events-auto">
               {leftCallouts.map((c) => (
                 <motion.div
                   key={c.id}
@@ -169,7 +169,7 @@ export default function Robot2025() {
             <div />
 
             {/* RIGHT CALLOUTS — offset by half a gap to stagger */}
-            <div className="flex flex-col gap-y-40 pt-24 pr-4 md:pr-10 lg:pr-16 pointer-events-auto">
+            <div className="flex flex-col gap-y-40 pt-24 pr-2 md:pr-4 lg:pr-6 pointer-events-auto">
               {rightCallouts.map((c) => (
                 <motion.div
                   key={c.id}
