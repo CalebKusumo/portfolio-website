@@ -191,14 +191,21 @@ export default function Photography() {
       <div className="max-w-7xl mx-auto">
 
         {/* PAGE HEADER */}
-        <div className="mb-24 border-l-2 border-blue-600 pl-8">
-          <h1 className="text-6xl md:text-9xl font-black uppercase tracking-tighter leading-none mb-4">
-            Photo <br />
-            <span className="text-outline italic text-white opacity-50">Archive</span>
-          </h1>
-          <p className="font-mono text-xs tracking-[0.5em] text-gray-400 uppercase">
-            Film & Digital // {allPhotos.length} {allPhotos.length === 1 ? "Frame" : "Frames"}
-          </p>
+        <div className="mb-24 border-l-2 border-blue-600 pl-8 flex items-start gap-12">
+          <div className="flex-1">
+            <h1 className="text-6xl md:text-9xl font-black uppercase tracking-tighter leading-none mb-4">
+              Photo <br />
+              <span className="text-outline italic text-white opacity-50">Archive</span>
+            </h1>
+            <p className="font-mono text-xs tracking-[0.5em] text-gray-400 uppercase">
+              Film & Digital // {allPhotos.length} {allPhotos.length === 1 ? "Frame" : "Frames"}
+            </p>
+          </div>
+          <img
+            src="/photography/header.jpg"
+            alt="Photography"
+            className="hidden md:block w-64 lg:w-80 object-cover border border-white/10 self-center"
+          />
         </div>
 
         {/* SECTION NAV */}
