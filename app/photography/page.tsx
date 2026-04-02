@@ -34,25 +34,6 @@ const sections: {
       // { src: "/photography/wildlife/example.jpg", location: "Location", film: "Kodak Portra 400", camera: "Mamiya C330" },
     ],
   },
-  const sections: {
-  id: string;
-  label: string;
-  photos: { src: string; location: string; film: string; camera: string }[];
-}[] = [
-  {
-    id: "portrait",
-    label: "Portrait",
-    photos: [
-      // { src: "/photography/portrait/example.jpg", location: "Location", film: "Kodak Portra 400", camera: "Canon AE-1" },
-    ],
-  },
-  {
-    id: "wildlife",
-    label: "Wildlife",
-    photos: [
-      // { src: "/photography/wildlife/example.jpg", location: "Location", film: "Kodak Portra 400", camera: "Mamiya C330" },
-    ],
-  },
   {
     id: "street",
     label: "Street",
@@ -74,14 +55,6 @@ const sections: {
       { src: "/photography/street/Yashica24Ektar100_13.webp", location: "Tustin, CA", film: "Ektar 100", camera: "Yashica 24" },
     ],
   },
-  {
-    id: "landscape",
-    label: "Landscape",
-    photos: [
-      // ... previous landscape data
-    ],
-  },
-];
   {
     id: "landscape",
     label: "Landscape",
