@@ -36,7 +36,7 @@ export default function DarkslideProject() {
       <div className="relative z-10 w-full">
         <section className="relative h-screen w-full flex flex-col items-center justify-center text-center bg-black overflow-hidden shadow-2xl">
           <div className="absolute inset-0 z-0">
-            <img src="/projects/darkslide/header.jpg" className="w-full h-full object-cover opacity-40 grayscale" alt="Darkslide" />
+            <img src="/projects/darkslide/header.jpg" className="w-full h-full object-cover opacity-40" alt="Darkslide" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black" />
           </div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="relative z-10 px-4">

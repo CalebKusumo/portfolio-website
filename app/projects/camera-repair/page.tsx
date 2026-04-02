@@ -28,7 +28,7 @@ export default function CameraRepairProject() {
         <div className="absolute inset-0 z-0">
           <img
             src="/projects/camera-repair/header.jpg"
-            className="w-full h-full object-cover opacity-40 grayscale"
+            className="w-full h-full object-cover opacity-40"
             alt="Camera Repair"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black" />

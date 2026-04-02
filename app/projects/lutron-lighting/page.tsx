@@ -43,7 +43,7 @@ export default function LutronProject() {
           <div className="absolute inset-0 z-0">
             <img 
               src="/projects/lutron-lighting/header.jpg" 
-              className="w-full h-full object-cover opacity-40 grayscale" 
+              className="w-full h-full object-cover opacity-40"
               alt="Lutron" 
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black" />
