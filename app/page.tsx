@@ -1,6 +1,7 @@
 "use client";
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 
 const ModelViewer = dynamic(() => import('@/components/ModelViewer'), { ssr: false });
 
@@ -188,25 +189,63 @@ export default function Home() {
     },
   ];
 
+  const sectionOrder = ['hero', 'projects', 'about', 'experience', 'contact'];
+  const sectionLabels: Record<string, string> = {
+    hero: 'Projects',
+    projects: 'About',
+    about: 'Experience',
+    experience: 'Contact',
+  };
+  const sectionTargets: Record<string, string> = {
+    hero: '#projects',
+    projects: '#about',
+    about: '#experience',
+    experience: '#contact',
+  };
+
+  const [activeSection, setActiveSection] = useState('hero');
+
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+    sectionOrder.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
+        { threshold: 0.3 }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
+
+  const nextLabel = sectionLabels[activeSection];
+  const nextTarget = sectionTargets[activeSection];
+
   return (
     <main className="relative bg-black">
       <ModelViewer modelPath="/model.glb" />
 
+      {nextTarget && (
+        <a
+          href={nextTarget}
+          className="fixed bottom-8 right-8 z-[150] flex items-center gap-2 px-4 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 font-mono text-[10px] tracking-[0.3em] uppercase text-white/70 hover:text-white hover:bg-white/20 transition-all duration-300"
+        >
+          {nextLabel} ↓
+        </a>
+      )}
+
       <div className="relative z-10 w-full">
 
         {/* HERO */}
-        <section id="hero" className="h-screen flex flex-col items-center justify-center px-6 relative">
+        <section id="hero" className="h-screen flex flex-col items-center justify-center px-6">
           <h1 className="text-8xl md:text-[14rem] font-[900] tracking-tighter uppercase leading-[0.8] mix-blend-difference text-center">
             CALEB <br /> KUSUMO
           </h1>
           <p className="mt-12 font-mono text-[10px] tracking-[0.5em] uppercase opacity-40 mix-blend-difference">
             System Architecture // Mechanical Design // 2026
           </p>
-          <div className="absolute bottom-10 right-8 md:right-12">
-            <a href="#projects" className="font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 hover:text-white transition-colors">
-              Projects ↓
-            </a>
-          </div>
         </section>
 
         <div className="border-t border-white/15 mx-8 md:mx-20" />
@@ -264,11 +303,6 @@ export default function Home() {
                 </div>
               ))}
             </div>
-            <div className="flex justify-end mt-16">
-              <a href="#about" className="font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 hover:text-white transition-colors">
-                About ↓
-              </a>
-            </div>
           </div>
         </section>
 
@@ -291,11 +325,6 @@ export default function Home() {
               </a>
             </div>
 
-            <div className="flex justify-end">
-              <a href="#experience" className="font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 hover:text-white transition-colors">
-                Experience ↓
-              </a>
-            </div>
           </div>
         </section>
 
@@ -356,11 +385,6 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex justify-end">
-              <a href="#contact" className="font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 hover:text-white transition-colors">
-                Contact ↓
-              </a>
-            </div>
           </div>
         </section>
 
