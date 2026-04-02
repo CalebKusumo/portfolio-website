@@ -195,14 +195,21 @@ export default function Home() {
       <div className="relative z-10 w-full">
 
         {/* HERO */}
-        <section id="hero" className="h-screen flex flex-col items-center justify-center px-6">
+        <section id="hero" className="h-screen flex flex-col items-center justify-center px-6 relative">
           <h1 className="text-8xl md:text-[14rem] font-[900] tracking-tighter uppercase leading-[0.8] mix-blend-difference text-center">
             CALEB <br /> KUSUMO
           </h1>
           <p className="mt-12 font-mono text-[10px] tracking-[0.5em] uppercase opacity-40 mix-blend-difference">
             System Architecture // Mechanical Design // 2026
           </p>
+          <div className="absolute bottom-10 right-8 md:right-12">
+            <a href="#projects" className="font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 hover:text-white transition-colors">
+              Projects ↓
+            </a>
+          </div>
         </section>
+
+        <div className="border-t border-white/15 mx-8 md:mx-20" />
 
         {/* PROJECTS */}
         <section id="projects" className="min-h-screen bg-black text-white py-40 px-8 md:px-20">
@@ -257,8 +264,15 @@ export default function Home() {
                 </div>
               ))}
             </div>
+            <div className="flex justify-end mt-16">
+              <a href="#about" className="font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 hover:text-white transition-colors">
+                About ↓
+              </a>
+            </div>
           </div>
         </section>
+
+        <div className="border-t border-white/15 mx-8 md:mx-20" />
 
         {/* ABOUT */}
         <section id="about" className="min-h-screen bg-black text-white py-40 px-8">
@@ -277,27 +291,15 @@ export default function Home() {
               </a>
             </div>
 
-            <div className="border-t border-white/10 pt-16">
-              <p className="font-mono text-xs tracking-[0.5em] text-blue-600 uppercase mb-12">Technical Skills</p>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-                {skills.map((group, i) => (
-                  <div key={i} className="flex flex-col gap-5">
-                    <h3 className="font-mono text-[10px] tracking-[0.4em] text-gray-400 uppercase font-bold border-b border-white/10 pb-3">
-                      {group.category}
-                    </h3>
-                    <ul className="flex flex-col gap-3">
-                      {group.items.map((item, j) => (
-                        <li key={j} className="text-sm text-gray-300 font-mono hover:text-white transition-colors cursor-default">
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
+            <div className="flex justify-end">
+              <a href="#experience" className="font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 hover:text-white transition-colors">
+                Experience ↓
+              </a>
             </div>
           </div>
         </section>
+
+        <div className="border-t border-white/15 mx-8 md:mx-20" />
 
         {/* EXPERIENCE */}
         <section id="experience" className="min-h-screen bg-black text-white py-40 px-8 md:px-20">
@@ -333,8 +335,36 @@ export default function Home() {
                 </div>
               </div>
             ))}
+
+            <div className="border-t border-white/10 pt-16 mb-20">
+              <p className="font-mono text-xs tracking-[0.5em] text-blue-600 uppercase mb-12">Technical Skills</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                {skills.map((group, i) => (
+                  <div key={i} className="flex flex-col gap-5">
+                    <h3 className="font-mono text-[10px] tracking-[0.4em] text-gray-400 uppercase font-bold border-b border-white/10 pb-3">
+                      {group.category}
+                    </h3>
+                    <ul className="flex flex-col gap-3">
+                      {group.items.map((item, j) => (
+                        <li key={j} className="text-sm text-gray-300 font-mono hover:text-white transition-colors cursor-default">
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex justify-end">
+              <a href="#contact" className="font-mono text-[10px] tracking-[0.3em] uppercase text-gray-500 hover:text-white transition-colors">
+                Contact ↓
+              </a>
+            </div>
           </div>
         </section>
+
+        <div className="border-t border-white/15 mx-8 md:mx-20" />
 
         {/* CONTACT */}
         <section id="contact" className="min-h-screen bg-black text-white py-40 px-8">
