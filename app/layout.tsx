@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Caleb Kusumo",
+  title: "Caleb Kusumo | Portfolio",
   description: "Mechanical Systems & Design Engineer",
 };
 
