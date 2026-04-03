@@ -24,17 +24,17 @@ const detailVariants = {
 };
 
 const leftCallouts = [
-  { id: '01', label: 'Vision System',      title: 'Limelight 3G',    desc: 'AprilTag Triangulation // 3D Pose Est. // 12ms Latency' },
-  { id: '02', label: 'Intake Mechanism',   title: 'Poly Rollers',    desc: 'Variable-Duro PC // 40N Grip Force // Dual-Game-Piece' },
-  { id: '03', label: 'Drivetrain',         title: 'MK4i Swerve',     desc: '4-Module Independent // L2 Gearing // 15.1 ft/s Free Speed' },
-  { id: '04', label: 'Power Distribution', title: 'REV PDH',         desc: '240A Continuous // 20-Channel // Real-Time CAN Telemetry' },
+  { id: '01', label: 'Vision System',   title: 'Limelight 3G',    desc: 'AprilTag Triangulation // Field Pose Estimation // 100Hz Update Rate' },
+  { id: '02', label: 'Coral Intake',    title: 'Funnel Pickup',   desc: 'Station-Side Collection // Flex Wheel Rollers // 60° Acquisition Window' },
+  { id: '03', label: 'Drivetrain',      title: 'MK4i Swerve',     desc: 'L3+ Reduction (5.36:1) // Kraken X60 Drive // 19 ft/s Free Speed' },
+  { id: '04', label: 'End Game',        title: 'Winch Climb',     desc: 'Intake-Style Deploy // Dyneema Pull // 30in Travel in 2s' },
 ];
 
 const rightCallouts = [
-  { id: '05', label: 'Edge AI',       title: 'Jetson Orin',   desc: 'Nano Deployment // Python Inference // 100 TOPS Compute' },
-  { id: '06', label: 'Software Core', title: 'C++ Framework', desc: 'Command-Based // Custom PID Loops // Multithreaded Subsystems' },
-  { id: '07', label: 'Scoring Reach', title: 'Elevator',      desc: '3-Stage Cascade // 84in Max Extension // 0.8s Full Travel' },
-  { id: '08', label: 'End Effector',  title: 'Coral Scorer',  desc: '±2° Placement Precision // Compliant Geometry // L1–L4 Scoring' },
+  { id: '05', label: 'End Effector',  title: 'Turntable Wrist', desc: '108:1 Gearbox // 10in Turntable Bearing // Dual-Piece Scoring' },
+  { id: '06', label: 'Software Core', title: 'C++ Framework',   desc: 'Command-Based // Custom PID Loops // Multithreaded Subsystems' },
+  { id: '07', label: 'Scoring Reach', title: 'Cascade Elevator',desc: '3-Stage Chain Drive // 60in Full Extension // 0.4s Full Travel' },
+  { id: '08', label: 'Game Pieces',   title: 'Coral + Algae',   desc: 'Reef Zone Pick & Place // Barge Scoring // Retroreflective Confirm' },
 ];
 
 const details = [
@@ -43,7 +43,7 @@ const details = [
     alt: 'Swerve Drivetrain',
     label: 'Drivetrain',
     title: 'MK4i Swerve Drive',
-    body: 'Four independently steered and driven modules give the robot full holonomic freedom — any direction, any heading, at any time. Running L2 gearing with Falcon 500s, the drivetrain achieves 15.1 ft/s free speed with near-instant directional changes. Odometry is fused from wheel encoders and the NavX2 IMU for sub-centimeter dead-reckoning accuracy.',
+    body: 'Four independently steered and driven SDS MK4i modules provide full holonomic freedom across the field. L3+ gearing (5.36:1) driven by Kraken X60 motors achieves 19 ft/s free speed, with NEO motors handling steering. The 27" × 32" chassis runs an aggressively pocketed 1/8" bellypan with the battery offset to balance the center of gravity.',
     accent: 'border-orange-500',
   },
   {
@@ -51,31 +51,31 @@ const details = [
     alt: 'Vision & Localization',
     label: 'Vision System',
     title: 'AprilTag Localization',
-    body: 'A Limelight 3G camera runs on-board pose estimation using the field\'s AprilTag layout. 3D tag triangulation updates the robot\'s field position at 100Hz, correcting odometry drift in real time. Latency compensation is applied back through the WPILib pose estimator so the fused pose remains accurate even during rapid maneuvers.',
+    body: 'A Limelight 3G camera runs on-board pose estimation using the field\'s AprilTag layout. 3D tag triangulation updates the robot\'s field position at 100Hz, correcting odometry drift in real time. Latency compensation is applied back through the WPILib pose estimator so the fused pose remains accurate even during rapid directional changes.',
     accent: 'border-white/20',
   },
   {
     img: '/projects/2025-robot/detail-3.jpg',
     alt: 'Elevator Mechanism',
     label: 'Scoring Reach',
-    title: 'Telescoping Elevator',
-    body: 'A 3-stage continuous rigged cascade elevator extends to 84 inches in under 0.8 seconds, powered by two NEO motors on a 9:1 reduction. A custom trapezoidal motion profile minimizes jerk at the top of travel, preventing oscillation when the end effector is extended at full height. Hard stops at both ends are backed by software limits for redundancy.',
+    title: 'Cascade Elevator',
+    body: 'A 3-stage cascade elevator — chain driven off a 3:1 gearbox powered by two Kraken X60 motors — covers the full 60" range of motion in 0.4 seconds. 2×1×1/8" uprights are braced by an A-frame and crossbars for torsional rigidity at full extension. Hall-effect magnetic limit sensors define travel boundaries, backed by software limits for redundancy.',
     accent: 'border-orange-500',
   },
   {
     img: '/projects/2025-robot/detail-4.jpg',
-    alt: 'Coral End Effector',
+    alt: 'Turntable Wrist',
     label: 'End Effector',
-    title: 'Coral Scorer',
-    body: 'The end effector uses a compliant geometry wrist that self-centers coral pieces during intake. A brushless motor drives the rollers through a torque-sensing loop — grip is confirmed by current spike detection rather than a sensor, removing a potential failure point. The wrist pivots ±90° to address L1 through L4 reef branches without repositioning the elevator.',
+    title: 'Turntable Wrist',
+    body: 'A Kraken X60 drives a 108:1 gearbox that rotates a 10" diameter turntable bearing — giving the end effector full rotational freedom without repositioning the elevator. The coral grabber uses 3" and 2" flex wheels driven by a NEO Vortex through a 3:1 reduction, with a spring-loaded alignment system providing a 60° acquisition window. A retroreflective sensor confirms coral capture.',
     accent: 'border-white/20',
   },
   {
     img: '/projects/2025-robot/detail-5.jpg',
-    alt: 'Edge AI',
-    label: 'Perception',
-    title: 'Jetson Orin Nano',
-    body: 'A Jetson Orin Nano co-processor handles game-piece classification and field object detection independent of the main RoboRIO. A custom-trained YOLO model identifies coral and algae pieces at 30fps with a 97% mAP. Detections are published over NetworkTables so the main robot controller can act on them within a single 20ms loop cycle.',
+    alt: 'Winch Climb',
+    label: 'End Game',
+    title: 'Intake-Style Climb',
+    body: 'The climb mechanism pivots downward from the robot chassis to deploy, then uses a one-way locking anchor to grab the cage bottom. Two Kraken X60 motors drive a 62.5:1 gearbox that spools dyneema onto a 1" drum, pulling 30" of travel in 2 seconds to lift the robot off the ground. The anchor uses a clevis-pin pivot with a custom spring-loaded latch as a one-way gate.',
     accent: 'border-orange-500',
   },
   {
@@ -122,7 +122,7 @@ export default function Robot2025() {
             className="relative z-10 px-4"
           >
             <span className="font-mono text-[10px] tracking-[0.6em] text-orange-500 mb-4 uppercase block text-center">
-              Mechatronics: Reefscape 2025
+              Mechatronics: Reefscape 2025 // 115 lbs // 32″ × 27″ × 42″
             </span>
             <h1 className="text-6xl md:text-[10rem] font-black tracking-tighter uppercase leading-[0.8] mix-blend-difference text-center">
               2025 <br />
