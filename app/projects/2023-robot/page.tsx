@@ -24,66 +24,66 @@ const detailVariants = {
 };
 
 const leftCallouts = [
-  { id: '01', label: 'Arm Mechanism',    title: 'Double-Joint Arm', desc: 'Carbon Fiber Extrusions // Dual-Motor Sync // 78" Extension Reach' },
-  { id: '02', label: 'Game Piece Grip',  title: 'Pneumatic Gripper', desc: '120 PSI Working // High-Torque Actuation // Custom Solenoid Manifold' },
-  { id: '03', label: 'Drivetrain',       title: 'West Coast Drive',  desc: '6-Wheel Tank // Skid-Steer Differential // KOP Chassis Modified' },
-  { id: '04', label: 'Power System',     title: 'PDP Distribution',  desc: '12V 18Ah Battery // 40A Breakers // CAN Bus Monitoring' },
+  { id: '01', label: 'Drivetrain',    title: 'MK4i Swerve',     desc: 'L2 Reduction (6.75:1) // Falcon 500 Drive // 17 ft/s Free Speed' },
+  { id: '02', label: 'Ground Intake', title: 'Cone & Cube',     desc: 'Rotate-Out Deploy // NEO 550 9:1 Pivot // 2" Roller Intake 3:1' },
+  { id: '03', label: 'Pivot Arm',    title: 'Rack & Pinion',    desc: '45:1 Gearbox // 80° Range of Motion // 1.2s Full Travel' },
+  { id: '04', label: 'End Effector', title: 'Roller Grabber',   desc: '8×3" Flex Wheels // 2× NEO 550 5:1 // Current Detect Confirm' },
 ];
 
 const rightCallouts = [
-  { id: '05', label: 'Vision System',   title: 'Limelight 2+',      desc: 'AprilTag Targeting // Grid Alignment // 22ms Pipeline Latency' },
-  { id: '06', label: 'Software Core',   title: 'Java Framework',    desc: 'Command-Based WPILib // IK Arm Pathing // Setpoint Optimization' },
-  { id: '07', label: 'Auto Balance',    title: 'Charge Station',    desc: 'Gyro-Leveling PID // 2-Point Engage // <0.5° Final Pitch Error' },
-  { id: '08', label: 'Chassis Frame',   title: '6061 Aluminum',     desc: '1"×2" Welded Frame // SolidWorks FEA // 122 lb Competition Weight' },
+  { id: '05', label: 'Arm Extension', title: 'Piston Stage',    desc: 'Inner Stage Deploy // Piston Actuated // Extra Scoring Reach' },
+  { id: '06', label: 'Counterbalance', title: 'Spring System',  desc: '6×10lb Constant Force // Pivot-Mounted // Passive Load Offset' },
+  { id: '07', label: 'End Game',      title: 'Landing Gear',    desc: 'Lead Screw Deploy // NEO 550 81:1 // Platform Balance Climb' },
+  { id: '08', label: 'Chassis',       title: '30"×30" Frame',   desc: '1/8" Bellypan Pocketed // Battery Offset CG // Sparkmax on Pan' },
 ];
 
 const details = [
   {
     img: '/projects/2023-robot/detail-1.jpg',
-    alt: 'Double-Jointed Arm',
-    label: 'Arm Mechanism',
-    title: 'Double-Jointed Arm',
-    body: 'A two-degree-of-freedom arm built from carbon fiber tube extrusions gives the robot the reach needed to score on all three grid levels. Each joint is driven by a pair of NEO motors through a custom gearbox, with the joints synchronized via WPILib\'s DifferentialArmFeedforward. The full extension of 78 inches clears the top node while keeping the center of gravity within the robot\'s wheelbase during transport.',
+    alt: 'Swerve Drivetrain',
+    label: 'Drivetrain',
+    title: 'MK4i Swerve Drive',
+    body: 'Four SDS MK4i modules running L2 gearing (6.75:1) with Falcon 500 drive and NEO steer motors give the robot full holonomic mobility at 17 ft/s. The 30" × 30" chassis uses an aggressively pocketed 1/8" bellypan with the battery offset to one side for CG balance. RoboRIO and Swerve Spark MAX controllers are mounted directly to the bellypan.',
     accent: 'border-orange-500',
   },
   {
     img: '/projects/2023-robot/detail-2.jpg',
-    alt: 'Pneumatic Gripper',
-    label: 'Game Piece Grip',
-    title: 'Pneumatic Gripper',
-    body: 'A double-acting pneumatic cylinder drives the gripper between open and close positions in under 80ms, fast enough to snatch cones and cubes from the substation without stopping. A custom solenoid manifold consolidates all pneumatic control onto a single CAN-addressable CTRE PCM, and 120 PSI working pressure ensures consistent actuation force across the full match.',
+    alt: 'Pivot Arm',
+    label: 'Pivot Arm',
+    title: 'Rack & Pinion Arm',
+    body: 'A NEO 550 drives a 45:1 gearbox that meshes with a #25 chain bolted to an arc-shaped metal rack, rotating the arm through 80° of motion in 1.2 seconds. Six 10 lb constant-force springs mounted near the pivot serve as a passive counterbalance. Two PC side plates with standoffs provide impact resistance, and Igus chain routes wiring along the arm structure. A physical limit switch defines the home position.',
     accent: 'border-white/20',
   },
   {
     img: '/projects/2023-robot/detail-3.jpg',
-    alt: 'Controls Logic',
-    label: 'Software',
-    title: 'Inverse Kinematics',
-    body: 'Rather than controlling joint angles directly, the arm runs a full 2-link inverse kinematics solver so the drivers command end-effector position in Cartesian space. Preset positions for each grid node are stored as field-relative coordinates and activated with a single button press. A gravity-compensation feedforward keeps the arm stable at any position without continuous driver input.',
+    alt: 'Ground Intake',
+    label: 'Ground Intake',
+    title: 'Cone & Cube Intake',
+    body: 'The ground intake mounts directly to the chassis perimeter and rotates outward to deploy. Two NEO 550 motors through a 9:1 gearbox direct-drive the pivot shaft to rotate the intake out. A separate NEO 550 powers two 2" rollers through a 3:1 reduction via pulley and gear, either grabbing the cone flange or passing a cube through into the grabber. A PC plate and standoff structure houses and protects the power transmission.',
     accent: 'border-orange-500',
   },
   {
     img: '/projects/2023-robot/detail-4.jpg',
-    alt: 'Chassis Design',
-    label: 'Chassis',
-    title: 'West Coast Drive',
-    body: 'The drivetrain uses a traditional 6-wheel west coast layout with a lowered center wheel for easier turning. The frame is welded 1"×2" 6061 aluminum tube, sized to fit within the 28"×32" bumper perimeter. SolidWorks FEA was used to verify weld joint stress under impact loading, and the final robot weighed in at 122 lbs — well within the 125 lb limit.',
+    alt: 'Roller Grabber',
+    label: 'End Effector',
+    title: 'Roller Grabber',
+    body: 'Eight staggered 3" flex wheels — 1" tall — grip both cones and cubes for intaking and outaking. Two NEO 550 motors through a 5:1 reduction drive the wheels via HTD 5M 9mm pulleys. A 1/4" polycarbonate plate and standoff structure houses the power transmission and wheel geometry. Current control triggers when a cone or cube is acquired, confirming capture without a dedicated sensor.',
     accent: 'border-white/20',
   },
   {
     img: '/projects/2023-robot/detail-5.jpg',
-    alt: 'Vision System',
-    label: 'Vision',
-    title: 'AprilTag Alignment',
-    body: 'A Limelight 2+ mounted on the front of the robot provides real-time AprilTag detection for automated grid alignment. When the driver activates auto-align, the robot drives to the target tag\'s pose using a P controller on both strafe and forward axes. The 22ms pipeline latency is compensated in the pose estimator to prevent targeting overshoot during fast approach runs.',
+    alt: 'Piston Extension',
+    label: 'Arm Extension',
+    title: 'Piston Inner Stage',
+    body: 'An inner stage housed inside the pivot arm deploys via piston actuation to extend reach during scoring. This allows the arm to address all grid levels without repositioning the base. Igus chain routed through the arm enables smooth wire motion during both arm rotation and piston extension.',
     accent: 'border-orange-500',
   },
   {
     img: '/projects/2023-robot/detail-6.jpg',
-    alt: 'Charge Station Balance',
-    label: 'Autonomous',
-    title: 'Charge Station',
-    body: 'The autonomous charge station routine uses the NavX2 IMU\'s pitch reading to drive a bang-bang controller that rocks the robot onto the station and then a fine PID to settle to level. The engage sequence reliably achieves under 0.5° final pitch error, earning the full 10 autonomous points. The routine is tunable per-field through a dashboard-exposed coefficient set.',
+    alt: 'Landing Gear Climb',
+    label: 'End Game',
+    title: 'Landing Gear Climb',
+    body: 'A landing gear-style lead screw actuates downward to deploy, guided by a linear rail screwed onto a nylon block mounted to the chassis and truss. The robot drives onto the charge station ramp with half its frame hanging off the edge, leaving room for two alliance partners. A NEO 550 through an 81:1 reduction powers the lead screw, while a separate NEO through a 9:1 reduction powers wheels on the landing gear feet.',
     accent: 'border-white/20',
   },
 ];
@@ -122,7 +122,7 @@ export default function Robot2023() {
             className="relative z-10 px-4"
           >
             <span className="font-mono text-[10px] tracking-[0.6em] text-orange-500 mb-4 uppercase block text-center">
-              Mechatronics: Charged Up 2023
+              Mechatronics: Charged Up 2023 // 125 lbs // 30″ × 30″ × 54″
             </span>
             <h1 className="text-6xl md:text-[10rem] font-black tracking-tighter uppercase leading-[0.8] mix-blend-difference text-center">
               2023 <br />
