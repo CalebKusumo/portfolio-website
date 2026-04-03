@@ -54,8 +54,9 @@ export default function RailCameraProject() {
       <div className="fixed inset-0 z-0 pointer-events-none">
         <ModelViewer
           modelPath="/models/railcamera.glb"
-          modelScale={5}
+          modelScale={10}
           modelPosition={[0, -0.5, 0]}
+          modelRotation={[0, Math.PI, 0]}
           scrollProgress={scrollYProgress}
         />
       </div>
