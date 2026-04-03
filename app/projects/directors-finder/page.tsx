@@ -54,7 +54,7 @@ const details = [
     img: '/projects/directors-finder/detail-5.jpg',
     alt: 'Section View',
     title: 'Section View',
-    body: 'Section View',
+    body: '',
     accent: 'border-emerald-500',
   },
 ];
