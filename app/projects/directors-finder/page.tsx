@@ -42,7 +42,7 @@ export default function FinderProject() {
           </div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="relative z-10 px-4">
             <span className="font-mono text-[10px] tracking-[0.6em] text-emerald-500 mb-4 uppercase block text-center">Optomechanical: 1:1 Director's View</span>
-            <h1 className="text-6xl md:text-[10rem] font-black tracking-tighter uppercase leading-[0.8] mix-blend-difference text-center">WAIST <br /> <span className="text-outline italic text-white text-7xl md:text-[8rem]">FINDER</span></h1>
+            <h1 className="text-6xl md:text-[10rem] font-black tracking-tighter uppercase leading-[0.8] mix-blend-difference text-center">WAIST-LEVEL <br /> <span className="text-outline italic text-white text-7xl md:text-[8rem]">FINDER</span></h1>
           </motion.div>
         </section>
 
@@ -56,14 +56,14 @@ export default function FinderProject() {
             </div>
             <div className="border-l-2 border-emerald-500 pl-8">
               <h3 className="text-3xl font-black uppercase italic text-white mb-2">Ground Glass</h3>
-              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">Custom Acid-Etched Plane // High-Contrast Micro-Screen // Optimized for 120 Format</p>
+              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">Laser-Cut Acrylic// Hand-Ground Micro-Screen // Optimized for 35mm Coverage</p>
             </div>
           </motion.div>
           {/* CALLOUT 02: Text Left, Image Right */}
           <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto bg-black/75 backdrop-blur-sm p-8">
             <div className="order-2 md:order-1 border-r-2 border-white/20 pr-8 text-right">
               <h3 className="text-3xl font-black uppercase italic text-white mb-2">Glare Control</h3>
-              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">Four-Leaf Shielding // Anti-Reflective Internal Baffling // High-Daylight Visibility</p>
+              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">Laser-Cut Mirror-coated Acrylic // Precise Position // Maintains Flange Distance</p>
             </div>
             <div className="order-1 md:order-2 aspect-video bg-white/5 overflow-hidden border border-white/10 group">
               <img src="/projects/directors-finder/detail-2.jpg" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt="Glare Control" />
@@ -76,14 +76,14 @@ export default function FinderProject() {
             </div>
             <div className="border-l-2 border-white/20 pl-8">
               <h3 className="text-3xl font-black uppercase italic text-white mb-2">Precision Optics</h3>
-              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">Integrated Pop-up Magnifier // Achromatic Lens Element // 3x Critical Focus Check</p>
+              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">EF Mount // Bayonet Mount // Interchangable Lenses</p>
             </div>
           </motion.div>
           {/* CALLOUT 04: Text Left, Image Right */}
           <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto bg-black/75 backdrop-blur-sm p-8">
             <div className="order-2 md:order-1 border-r-2 border-emerald-500 pr-8 text-right">
               <h3 className="text-3xl font-black uppercase italic text-white mb-2">CNC Housing</h3>
-              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">Billet Aluminum Machining // Friction-Fit Hinges // Ergonomic Thumb Release</p>
+              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">Snap-Fit Features// Adhesive and Fastener-Free Assembly // 100% 3D Printed + Laser-Cut</p>
             </div>
             <div className="order-1 md:order-2 aspect-video bg-white/5 overflow-hidden border border-white/10 group">
               <img src="/projects/directors-finder/detail-4.jpg" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt="CNC Housing" />
