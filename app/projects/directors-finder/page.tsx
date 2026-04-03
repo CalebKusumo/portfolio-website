@@ -52,9 +52,9 @@ const details = [
   },
   {
     img: '/projects/directors-finder/detail-5.jpg',
-    alt: 'Detail 5',
-    title: 'Title',
-    body: 'Subtitle',
+    alt: 'Section View',
+    title: 'Section View',
+    body: 'Section View',
     accent: 'border-emerald-500',
   },
 ];
