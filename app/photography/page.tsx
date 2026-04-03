@@ -24,7 +24,14 @@ const sections: {
     id: "portrait",
     label: "Portrait",
     photos: [
-      // { src: "/photography/portrait/example.jpg", location: "Location", film: "Kodak Portra 400", camera: "Canon AE-1" },
+      { src: "/photography/portrait/CWK_1268-Enhanced-NR_Original.jpg", location: "California", film: "Digital", camera: "Canon R6" },
+      { src: "/photography/portrait/CWK_1890.jpg", location: "California", film: "Digital", camera: "Canon R6" },
+      { src: "/photography/portrait/CWK_3691.jpg", location: "California", film: "Digital", camera: "Canon R6" },
+      { src: "/photography/portrait/CWK_3765.jpg", location: "California", film: "Digital", camera: "Canon R6" },
+      { src: "/photography/portrait/CWK_3879.jpg", location: "California", film: "Digital", camera: "Canon R6" },
+      { src: "/photography/portrait/DSCF3450.jpg", location: "California", film: "Digital", camera: "Fuji X100V" },
+      { src: "/photography/portrait/2026-01-19-0013.jpg", location: "California", film: "Digital", camera: "Canon R6" },
+      { src: "/photography/portrait/lucy-dog.webp", location: "California", film: "Digital", camera: "Canon R6" },
     ],
   },
   {
