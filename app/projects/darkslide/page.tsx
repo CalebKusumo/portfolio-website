@@ -77,7 +77,7 @@ export default function DarkslideProject() {
               Mechanical Design: High Precision
             </span>
             <h1 className="text-6xl md:text-[10rem] font-black tracking-tighter uppercase leading-[0.8] mix-blend-difference text-center">
-              DARK <br />
+              RB67 DARK <br />
               <span className="text-outline italic text-white text-7xl md:text-[8rem]">SLIDE</span>
             </h1>
           </motion.div>
