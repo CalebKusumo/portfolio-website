@@ -18,49 +18,43 @@ const details = [
   {
     img: '/projects/directors-finder/detail-0.jpg',
     alt: 'Detail 0',
-    label: 'Label',
     title: 'Title',
-    body: 'Body',
+    body: 'Subtitle',
     accent: 'border-white/20',
   },
   {
     img: '/projects/directors-finder/detail-1.jpg',
     alt: 'Ground Glass',
-    label: 'Focusing Screen',
     title: 'Ground Glass',
-    body: 'Laser-cut acrylic panel hand-ground to a matte finish creates a bright, high-contrast focusing surface optimized for 35mm coverage. The micro-textured plane scatters transmitted light evenly across the full gate area, giving a consistent ground-glass look without hotspotting at the center.',
+    body: 'Laser-Cut Acrylic// Hand-Ground Micro-Screen // Optimized for 35mm Coverage',
     accent: 'border-emerald-500',
   },
   {
     img: '/projects/directors-finder/detail-2.jpg',
     alt: 'Reflex Mirror',
-    label: 'Optical Path',
     title: 'Reflex Mirror',
-    body: 'A laser-cut mirror-coated acrylic element folds the optical path 90° from the lens axis up to the ground glass, matching the reflex geometry of a waist-level finder. Mirror position is set to maintain the correct flange distance for the Canon EF mount so projected image scale stays accurate across the full lens range.',
+    body: 'Laser-Cut Mirror-coated Acrylic // Precise Position // Maintains Flange Distance',
     accent: 'border-white/20',
   },
   {
     img: '/projects/directors-finder/detail-3.jpg',
     alt: 'Lens Mount',
-    label: 'Interchangeability',
     title: 'Lens Mount',
-    body: 'A Canon EF bayonet mount interface lets any EF or EF-S lens attach directly to the finder body. The bayonet registers against a precision-cut seating face to maintain repeatable flange distance across lens swaps, allowing the finder to cover focal lengths from ultra-wide to telephoto without recalibration.',
+    body: 'Canon EF // Bayonet Mount // Interchangable Lenses',
     accent: 'border-emerald-500',
   },
   {
     img: '/projects/directors-finder/detail-4.jpg',
     alt: 'Finder Body',
-    label: 'Construction',
     title: 'Finder Body',
-    body: 'The housing is fully 3D printed and laser-cut with no adhesives or fasteners — all panels and internal components are held by snap-fit geometry. Designed for disassembly and iterative revision, every part can be reprinted independently. The compact form factor keeps total weight low while maintaining rigid alignment between the lens mount, mirror, and ground glass.',
+    body: 'Snap-Fit Features// Adhesive and Fastener-Free Assembly // 100% 3D Printed + Laser-Cut',
     accent: 'border-white/20',
   },
   {
     img: '/projects/directors-finder/detail-5.jpg',
     alt: 'Detail 5',
-    label: 'Label',
     title: 'Title',
-    body: 'Body',
+    body: 'Subtitle',
     accent: 'border-emerald-500',
   },
 ];
@@ -113,7 +107,7 @@ export default function FinderProject() {
             const imgLeft = i % 2 === 0;
             return (
               <motion.div
-                key={d.label + i}
+                key={d.title + i}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: '-80px' }}
@@ -126,7 +120,6 @@ export default function FinderProject() {
                       <img src={d.img} className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt={d.alt} />
                     </div>
                     <div className={`border-l-2 ${d.accent} pl-8`}>
-                      <span className="font-mono text-[9px] text-gray-500 tracking-widest uppercase block mb-2">{d.label}</span>
                       <h3 className="text-3xl font-black uppercase italic text-white mb-4">{d.title}</h3>
                       <p className="text-gray-400 font-mono text-xs leading-relaxed">{d.body}</p>
                     </div>
@@ -134,7 +127,6 @@ export default function FinderProject() {
                 ) : (
                   <>
                     <div className={`order-2 md:order-1 border-r-2 ${d.accent} pr-8 text-right`}>
-                      <span className="font-mono text-[9px] text-gray-500 tracking-widest uppercase block mb-2">{d.label}</span>
                       <h3 className="text-3xl font-black uppercase italic text-white mb-4">{d.title}</h3>
                       <p className="text-gray-400 font-mono text-xs leading-relaxed">{d.body}</p>
                     </div>
