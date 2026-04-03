@@ -47,7 +47,8 @@ const details = [
     accent: 'border-orange-500',
   },
   {
-    img: '/projects/2025-robot/detail-2.jpg',
+    img: '/projects/2025-robot/algaegrabber.mp4',
+    video: '/projects/2025-robot/algaegrabber.mp4',
     alt: 'Algae Grabber',
     label: 'Algae Grabber',
     title: 'Harpoon Intake',
@@ -55,36 +56,49 @@ const details = [
     accent: 'border-white/20',
   },
   {
-    img: '/projects/2025-robot/detail-3.jpg',
-    alt: 'Elevator Mechanism',
+    img: '/projects/2025-robot/elevatorcoral.mp4',
+    video: '/projects/2025-robot/elevatorcoral.mp4',
+    alt: 'Elevator Coral Scoring',
     label: 'Scoring Reach',
     title: 'Cascade Elevator',
     body: 'A 3-stage cascade elevator — chain driven off a 3:1 gearbox powered by two Kraken X60 motors — covers the full 60" range of motion in 0.4 seconds. 2×1×1/8" uprights are supported by an A-frame and crossbars. Two hall-effect magnetic limit sensors define the range of motion. Igus chain is routed on the side to enable smooth wire motion.',
     accent: 'border-orange-500',
   },
   {
-    img: '/projects/2025-robot/detail-4.jpg',
+    img: '/projects/2025-robot/manualelevator.mp4',
+    video: '/projects/2025-robot/manualelevator.mp4',
+    alt: 'Elevator Manual Operation',
+    label: 'Scoring Reach',
+    title: 'Elevator Range',
+    body: 'The carriage moves the full 60" range of motion within 0.4 seconds and is overextended for extra reach. A rectangular frame allows the turntable wrist mounting plates to bolt directly on.',
+    accent: 'border-white/20',
+  },
+  {
+    img: '/projects/2025-robot/wristturntable.mp4',
+    video: '/projects/2025-robot/wristturntable.mp4',
     alt: 'Turntable Wrist',
     label: 'End Effector',
     title: 'Turntable Wrist',
     body: 'A Kraken X60 drives a 108:1 gearbox that rotates a 10" diameter turntable bearing — giving the end effector full rotational freedom without repositioning the elevator. The coral grabber uses 3" and 2" flex wheels driven by a NEO Vortex through a 3:1 reduction, with a spring-loaded alignment system providing a 60° acquisition window. A retroreflective sensor confirms coral capture.',
-    accent: 'border-white/20',
+    accent: 'border-orange-500',
   },
   {
-    img: '/projects/2025-robot/detail-5.jpg',
+    img: '/projects/2025-robot/intakeclimb.mp4',
+    video: '/projects/2025-robot/intakeclimb.mp4',
     alt: 'Winch Climb',
     label: 'End Game',
     title: 'Intake-Style Climb',
     body: 'The climb mechanism pivots downward from the robot chassis to deploy, then uses a one-way locking anchor to grab the cage bottom. Two Kraken X60 motors drive a 62.5:1 gearbox that spools dyneema onto a 1" drum, pulling 30" of travel in 2 seconds to lift the robot off the ground. The anchor uses a clevis-pin pivot with a custom spring-loaded latch as a one-way gate.',
-    accent: 'border-orange-500',
+    accent: 'border-white/20',
   },
   {
-    img: '/projects/2025-robot/detail-6.jpg',
+    img: '/projects/2025-robot/funnel1.avif',
+    video: '/projects/2025-robot/funnel2.mp4',
     alt: 'Coral Intake Funnel',
     label: 'Coral Intake',
     title: 'Station Funnel Pickup',
     body: 'The coral intake uses a funnel-style entry for station-side collection of coral game pieces.',
-    accent: 'border-white/20',
+    accent: 'border-orange-500',
   },
 ];
 
@@ -214,7 +228,11 @@ export default function Robot2025() {
                 {imgLeft ? (
                   <>
                     <div className="aspect-video overflow-hidden border border-white/10 group">
-                      <img src={d.img} className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt={d.alt} />
+                      {d.video ? (
+                        <video src={d.video} className="w-full h-full object-cover opacity-80" autoPlay loop muted playsInline />
+                      ) : (
+                        <img src={d.img} className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt={d.alt} />
+                      )}
                     </div>
                     <div className={`border-l-2 ${d.accent} pl-8`}>
                       <span className="font-mono text-[9px] text-gray-500 tracking-widest uppercase block mb-2">{d.label}</span>
@@ -230,7 +248,11 @@ export default function Robot2025() {
                       <p className="text-gray-400 font-mono text-xs leading-relaxed">{d.body}</p>
                     </div>
                     <div className="order-1 md:order-2 aspect-video overflow-hidden border border-white/10 group">
-                      <img src={d.img} className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt={d.alt} />
+                      {d.video ? (
+                        <video src={d.video} className="w-full h-full object-cover opacity-80" autoPlay loop muted playsInline />
+                      ) : (
+                        <img src={d.img} className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt={d.alt} />
+                      )}
                     </div>
                   </>
                 )}
