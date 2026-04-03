@@ -32,7 +32,7 @@ const leftCallouts = [
 
 const rightCallouts = [
   { id: '05', label: 'Vision System',  title: 'Limelight',         desc: 'Speaker Auto-Aim // Distance Calibrated // Mounted Vantage Point' },
-  { id: '06', label: 'Software Core',  title: 'Java Framework',    desc: 'WPILib Command-Based // AdvantageKit Logging // Custom Kinematics' },
+  { id: '06', label: 'Chassis',         title: '27"×32" Frame',     desc: '1/8" Bellypan Pocketed // Battery Flat for Low CG // PDP on Pan' },
   { id: '07', label: 'End Game',       title: 'Linear Climb',      desc: 'UHMW Hook Carriages // 81:1 Gearbox // 24in Travel in 2s' },
   { id: '08', label: 'End Effector',   title: 'Amp Wrist',         desc: '108:1 Gearbox // Turntable Bearing // Trap + Amp Capable' },
 ];
@@ -43,7 +43,7 @@ const details = [
     alt: 'Swerve Drive',
     label: 'Drivetrain',
     title: 'MK4i Swerve Drive',
-    body: 'Four SDS MK4i modules running L2 gearing (6.75:1) with Falcon 500 drive and NEO steer motors give the robot full holonomic mobility at 15 ft/s. The 27" × 32" chassis uses an aggressively pocketed 1/8" bellypan, with the battery laid down flat to lower the center of gravity and free up space above. RoboRIO, PDP, and Spark MAX controllers are all mounted to the bellypan for consolidated wiring.',
+    body: 'Four SDS MK4i modules running L2 gearing (6.75:1) with Falcon 500 drive and NEO steer motors give the robot full holonomic mobility at 15 ft/s. The 27" × 32" chassis uses an aggressively pocketed 1/8" bellypan, with the battery laid down flat for lower CG and more space up top. RoboRIO, PDP, and Swerve Spark MAX controllers are mounted on the bellypan.',
     accent: 'border-orange-500',
   },
   {
@@ -67,7 +67,7 @@ const details = [
     alt: 'Amp Grabber Wrist',
     label: 'End Effector',
     title: 'Amp Grabber Wrist',
-    body: 'A NEO 550 drives a 108:1 gearbox that rotates a 54T #25 sprocket bolted to a large-diameter turntable, giving the wrist full rotational freedom. Bevel gears between the gearbox and sprocket allow compact packaging within the narrow carriage. The grabber uses 1.625" double horizontal rollers with a silicone sleeve driven by a second NEO 550 through a 3:1 reduction — a limit switch confirms note capture for autonomous handoff.',
+    body: 'A NEO 550 drives a 108:1 gearbox that rotates a 54T #25 sprocket bolted to the turntable — a large-diameter turntable provides strong attachment for the cantilevered application and prevents deformation. Bevel gears between the gearbox and sprocket allow compact packaging within the narrow carriage. The grabber uses 1.625" double horizontal rollers with a PC tube and silicone sleeve driven by a NEO 550 through a 3:1 reduction. A limit switch triggers when the note is acquired.',
     accent: 'border-white/20',
   },
   {
@@ -75,7 +75,7 @@ const details = [
     alt: 'Amp Stinger',
     label: 'Scoring Reach',
     title: 'Stinger Elevator',
-    body: 'A single Falcon 500 through a 3:1 set of 20DP gears drives the stinger — a compact two-stage elevator that moves the amp wrist through 13" of travel in 0.2 seconds. 2×1×1/8" uprights are mounted to an angled pivot for optimal amp station geometry. Igus chain manages wire routing along the carriage, and physical limit switches at both ends define hard travel boundaries.',
+    body: 'A single Falcon 500 through a 3:1 set of 20DP gears drives the stinger, moving the amp wrist through 13" of travel in 0.2 seconds. 2×1×1/8" uprights are mounted to an angled pivot. Igus chain routes wiring along the carriage. Two physical limit switches define the range of motion, with a motor encoder for position tracking.',
     accent: 'border-orange-500',
   },
   {
@@ -83,7 +83,7 @@ const details = [
     alt: 'Linear Climb',
     label: 'Endgame',
     title: 'Winch Linear Climb',
-    body: 'Two linear rails — held by chassis-integrated sideplates and a C-channel crossbar — guide UHMW plastic carriages that carry the stage hooks. Two NEO 550 motors drive an 81:1 gearbox that spools flexible cable wire onto a 1" OD drum, retracting 24" in 2 seconds to pull the 125 lb robot off the ground. The winch mount and anchor structure are integrated directly into the chassis tube for minimal added weight.',
+    body: 'Linear rails are held to the chassis by two sideplates that are part of the robot truss structure. A C-channel connects the top of the rails as a crossbar. Hooks are mounted to UHMW plastic carriages. Two NEO 550 motors drive an 81:1 gearbox that outputs to a 1" OD drum, pulling flexible cable wire to move 24" in 2 seconds. The plate-standoff structure for the winch mounting is integrated into the chassis tube.',
     accent: 'border-white/20',
   },
 ];

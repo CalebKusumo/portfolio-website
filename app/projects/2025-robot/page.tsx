@@ -24,17 +24,17 @@ const detailVariants = {
 };
 
 const leftCallouts = [
-  { id: '01', label: 'Vision System',   title: 'Limelight 3G',    desc: 'AprilTag Triangulation // Field Pose Estimation // 100Hz Update Rate' },
-  { id: '02', label: 'Coral Intake',    title: 'Funnel Pickup',   desc: 'Station-Side Collection // Flex Wheel Rollers // 60° Acquisition Window' },
-  { id: '03', label: 'Drivetrain',      title: 'MK4i Swerve',     desc: 'L3+ Reduction (5.36:1) // Kraken X60 Drive // 19 ft/s Free Speed' },
-  { id: '04', label: 'End Game',        title: 'Winch Climb',     desc: 'Intake-Style Deploy // Dyneema Pull // 30in Travel in 2s' },
+  { id: '01', label: 'Algae Grabber',  title: 'Harpoon Intake',   desc: 'Harpoon Tip Contour // Neo 550 9:1 // SRPP Composite Structure' },
+  { id: '02', label: 'Coral Intake',   title: 'Funnel Pickup',    desc: 'Station Funnel // Coral Game Piece // Station-Side Collection' },
+  { id: '03', label: 'Drivetrain',     title: 'MK4i Swerve',      desc: 'L3+ Reduction (5.36:1) // Kraken X60 Drive // 19 ft/s Free Speed' },
+  { id: '04', label: 'End Game',       title: 'Winch Climb',      desc: 'Intake-Style Deploy // Dyneema Pull // 30in Travel in 2s' },
 ];
 
 const rightCallouts = [
-  { id: '05', label: 'End Effector',  title: 'Turntable Wrist', desc: '108:1 Gearbox // 10in Turntable Bearing // Dual-Piece Scoring' },
-  { id: '06', label: 'Software Core', title: 'C++ Framework',   desc: 'Command-Based // Custom PID Loops // Multithreaded Subsystems' },
-  { id: '07', label: 'Scoring Reach', title: 'Cascade Elevator',desc: '3-Stage Chain Drive // 60in Full Extension // 0.4s Full Travel' },
-  { id: '08', label: 'Game Pieces',   title: 'Coral + Algae',   desc: 'Reef Zone Pick & Place // Barge Scoring // Retroreflective Confirm' },
+  { id: '05', label: 'End Effector',  title: 'Turntable Wrist',  desc: '108:1 Gearbox // 10in Turntable Bearing // Dual-Piece Scoring' },
+  { id: '06', label: 'Chassis',       title: '27"×32" Frame',    desc: '1/8" Bellypan Pocketed // Battery Offset CG // Sparkmax on Pan' },
+  { id: '07', label: 'Scoring Reach', title: 'Cascade Elevator', desc: '3-Stage Chain Drive // 60in Full Extension // 0.4s Full Travel' },
+  { id: '08', label: 'Game Pieces',   title: 'Coral + Algae',    desc: 'Reef Zone Pick & Place // Barge Scoring // Retroreflective Confirm' },
 ];
 
 const details = [
@@ -48,10 +48,10 @@ const details = [
   },
   {
     img: '/projects/2025-robot/detail-2.jpg',
-    alt: 'Vision & Localization',
-    label: 'Vision System',
-    title: 'AprilTag Localization',
-    body: 'A Limelight 3G camera runs on-board pose estimation using the field\'s AprilTag layout. 3D tag triangulation updates the robot\'s field position at 100Hz, correcting odometry drift in real time. Latency compensation is applied back through the WPILib pose estimator so the fused pose remains accurate even during rapid directional changes.',
+    alt: 'Algae Grabber',
+    label: 'Algae Grabber',
+    title: 'Harpoon Intake',
+    body: 'The algae grabber uses 3" flex wheels 1" tall for linear speed when intaking algae. A harpoon-shaped tip on the contour deforms the ball when compressed for better grip and secure holding. A Neo 550 through a 9:1 reduction powers the wheels via HTD 5M 9mm pulleys. The structure is built from SRPP composite — a military-grade material chosen for its light weight and stiffness.',
     accent: 'border-white/20',
   },
   {
@@ -59,7 +59,7 @@ const details = [
     alt: 'Elevator Mechanism',
     label: 'Scoring Reach',
     title: 'Cascade Elevator',
-    body: 'A 3-stage cascade elevator — chain driven off a 3:1 gearbox powered by two Kraken X60 motors — covers the full 60" range of motion in 0.4 seconds. 2×1×1/8" uprights are braced by an A-frame and crossbars for torsional rigidity at full extension. Hall-effect magnetic limit sensors define travel boundaries, backed by software limits for redundancy.',
+    body: 'A 3-stage cascade elevator — chain driven off a 3:1 gearbox powered by two Kraken X60 motors — covers the full 60" range of motion in 0.4 seconds. 2×1×1/8" uprights are supported by an A-frame and crossbars. Two hall-effect magnetic limit sensors define the range of motion. Igus chain is routed on the side to enable smooth wire motion.',
     accent: 'border-orange-500',
   },
   {
@@ -80,10 +80,10 @@ const details = [
   },
   {
     img: '/projects/2025-robot/detail-6.jpg',
-    alt: 'Software Architecture',
-    label: 'Software',
-    title: 'Command-Based C++',
-    body: 'The robot runs a fully command-based C++ architecture built on WPILib. Every mechanism is isolated into its own subsystem with explicit state machines, making autonomous routine composition declarative and testable. PID controllers for the elevator, wrist, and drive are tuned using SysId characterization routines and run at 1kHz on the motor controllers\' onboard processors.',
+    alt: 'Coral Intake Funnel',
+    label: 'Coral Intake',
+    title: 'Station Funnel Pickup',
+    body: 'The coral intake uses a funnel-style entry for station-side collection of coral game pieces.',
     accent: 'border-white/20',
   },
 ];
