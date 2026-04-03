@@ -38,7 +38,7 @@ const sections: {
     id: "wildlife",
     label: "Wildlife",
     photos: [
-      { src: "/photography/wildlife/CWK_6221.JPG", location: "California", film: "Digital", camera: "Canon R6" },
+      { src: "/photography/wildlife/CWK_6221.jpg", location: "California", film: "Digital", camera: "Canon R6" },
       { src: "/photography/wildlife/CWK_6543.jpg", location: "California", film: "Digital", camera: "Canon R6" },
       { src: "/photography/wildlife/CWK_6644.jpg", location: "California", film: "Digital", camera: "Canon R6" },
       { src: "/photography/wildlife/CWK_6965.jpg", location: "California", film: "Digital", camera: "Canon R6" },
