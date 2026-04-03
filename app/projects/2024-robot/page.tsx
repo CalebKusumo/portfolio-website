@@ -39,7 +39,7 @@ const rightCallouts = [
 
 const details = [
   {
-    img: '/projects/2024-robot/detail-1.jpg',
+    img: '/projects/2024-robot/swervecad.jpg',
     alt: 'Swerve Drive',
     label: 'Drivetrain',
     title: 'MK4i Swerve Drive',
@@ -47,7 +47,8 @@ const details = [
     accent: 'border-orange-500',
   },
   {
-    img: '/projects/2024-robot/detail-2.jpg',
+    img: '/projects/2024-robot/hoodshooter.mp4',
+    video: '/projects/2024-robot/hoodshooter.mp4',
     alt: 'Note Shooter',
     label: 'Shooter',
     title: 'Flywheel + Adjustable Hood',
@@ -55,7 +56,8 @@ const details = [
     accent: 'border-white/20',
   },
   {
-    img: '/projects/2024-robot/detail-3.jpg',
+    img: '/projects/2024-robot/notegroundintake.mp4',
+    video: '/projects/2024-robot/notegroundintake.mp4',
     alt: 'Ground Intake',
     label: 'Note Intake',
     title: 'Under-Bumper Intake',
@@ -63,7 +65,8 @@ const details = [
     accent: 'border-orange-500',
   },
   {
-    img: '/projects/2024-robot/detail-4.jpg',
+    img: '/projects/2024-robot/ampwrist.mp4',
+    video: '/projects/2024-robot/ampwrist.mp4',
     alt: 'Amp Grabber Wrist',
     label: 'End Effector',
     title: 'Amp Grabber Wrist',
@@ -71,7 +74,8 @@ const details = [
     accent: 'border-white/20',
   },
   {
-    img: '/projects/2024-robot/detail-5.jpg',
+    img: '/projects/2024-robot/climbchain.mp4',
+    video: '/projects/2024-robot/climbchain.mp4',
     alt: 'Amp Stinger',
     label: 'Scoring Reach',
     title: 'Stinger Elevator',
@@ -79,7 +83,8 @@ const details = [
     accent: 'border-orange-500',
   },
   {
-    img: '/projects/2024-robot/detail-6.jpg',
+    img: '/projects/2024-robot/climb.mp4',
+    video: '/projects/2024-robot/climb.mp4',
     alt: 'Linear Climb',
     label: 'Endgame',
     title: 'Winch Linear Climb',
@@ -214,7 +219,11 @@ export default function Robot2024() {
                 {imgLeft ? (
                   <>
                     <div className="aspect-video overflow-hidden border border-white/10 group">
-                      <img src={d.img} className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt={d.alt} />
+                      {d.video ? (
+                        <video src={d.video} className="w-full h-full object-cover opacity-80" autoPlay loop muted playsInline />
+                      ) : (
+                        <img src={d.img} className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt={d.alt} />
+                      )}
                     </div>
                     <div className={`border-l-2 ${d.accent} pl-8`}>
                       <span className="font-mono text-[9px] text-gray-500 tracking-widest uppercase block mb-2">{d.label}</span>
@@ -230,7 +239,11 @@ export default function Robot2024() {
                       <p className="text-gray-400 font-mono text-xs leading-relaxed">{d.body}</p>
                     </div>
                     <div className="order-1 md:order-2 aspect-video overflow-hidden border border-white/10 group">
-                      <img src={d.img} className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt={d.alt} />
+                      {d.video ? (
+                        <video src={d.video} className="w-full h-full object-cover opacity-80" autoPlay loop muted playsInline />
+                      ) : (
+                        <img src={d.img} className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt={d.alt} />
+                      )}
                     </div>
                   </>
                 )}
