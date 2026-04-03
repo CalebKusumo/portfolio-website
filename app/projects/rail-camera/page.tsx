@@ -16,32 +16,53 @@ const detailVariants = {
 
 const details = [
   {
+    img: '/projects/rail-camera/detail-0.jpg',
+    alt: 'Full Assembly',
+    title: 'Full Assembly',
+    body: 'Monorail Architecture // Modular Standards // Field-Ready Rigid Construction',
+    accent: 'border-emerald-500',
+  },
+  {
     img: '/projects/rail-camera/detail-1.jpg',
     alt: '4-Axis Motion',
     title: '4-Axis Motion',
     body: 'Independent Rise, Fall, Shift, and Swing // Geared Precision Drives // Lead-Screw Accuracy',
-    accent: 'border-emerald-500',
+    accent: 'border-white/20',
   },
   {
     img: '/projects/rail-camera/detail-2.jpg',
     alt: 'Modular Bellows',
     title: 'Modular Bellows',
     body: 'High-Extension Synthetic Fabric // Magnetic Quick-Release Frames // Light-Tight Optimization',
-    accent: 'border-white/20',
+    accent: 'border-emerald-500',
   },
   {
     img: '/projects/rail-camera/detail-3.jpg',
     alt: 'CNC Machining',
     title: 'CNC Machining',
     body: 'Aircraft Aluminum Chassis // Type III Hard Anodizing // Laser-Etched Vernier Scales',
-    accent: 'border-emerald-500',
+    accent: 'border-white/20',
   },
   {
     img: '/projects/rail-camera/detail-4.jpg',
     alt: 'Optical Path',
     title: 'Optical Path',
     body: 'Zero-Vignetting Architecture // Ground Glass Focus Plane Alignment // Custom Lens Board Support',
+    accent: 'border-emerald-500',
+  },
+  {
+    img: '/projects/rail-camera/detail-5.jpg',
+    alt: 'Ground Glass',
+    title: 'Ground Glass',
+    body: 'Precision-Lapped Borosilicate // Fresnel Brightness Enhancement // Loupe-Compatible Matte',
     accent: 'border-white/20',
+  },
+  {
+    img: '/projects/rail-camera/detail-6.jpg',
+    alt: 'Film Back',
+    title: 'Film Back',
+    body: 'Standard 4x5 Graflock Interface // Spring-Loaded Dark Slide Retention // Dual-Format Ready',
+    accent: 'border-emerald-500',
   },
 ];
 
