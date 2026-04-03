@@ -70,7 +70,9 @@ export default function LutronProject() {
           modelPath="/models/lutron.glb"
           modelScale={7}
           modelPosition={[0, -0.5, 0]}
+          modelRotation={[0, Math.PI, 0]}
           scrollProgress={scrollYProgress}
+          fov={55}
         />
       </div>
 

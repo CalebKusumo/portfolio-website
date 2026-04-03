@@ -34,10 +34,10 @@ function Model({ url, scale, position, scrollProgress, initialRotation = [0, 0, 
   );
 }
 
-export default function ModelViewer({ modelPath, modelScale = 1, modelPosition = [0, 0, 0], modelRotation = [0, 0, 0], scrollProgress }: any) {
+export default function ModelViewer({ modelPath, modelScale = 1, modelPosition = [0, 0, 0], modelRotation = [0, 0, 0], scrollProgress, fov = 35 }: any) {
   return (
     <div className="w-full h-full bg-black">
-      <Canvas camera={{ position: [0, 0, 10], fov: 35 }} dpr={[1, 2]}>
+      <Canvas camera={{ position: [0, 0, 10], fov }} dpr={[1, 2]}>
         <Suspense fallback={null}>
           <Stage intensity={0.5} environment="city" adjustCamera={false}>
             <Model
