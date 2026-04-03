@@ -40,6 +40,7 @@ const rightCallouts = [
 const details = [
   {
     img: '/projects/2025-robot/detail-1.jpg',
+    video: '/projects/2025-robot/swerve.mp4',
     alt: 'Swerve Drivetrain',
     label: 'Drivetrain',
     title: 'MK4i Swerve Drive',
