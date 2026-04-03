@@ -16,42 +16,43 @@ const detailVariants = {
 
 const details = [
   {
-    img: '/projects/lutron-lighting/detail-1.jpg',
+    img: '/projects/lutron-lighting/TheExhibition.jpg',
     alt: 'The Exhibition',
     title: 'The Exhibition',
     body: 'The exhibition presents itself simultaneously as a finished artifact and a complete record of its own making — displaying the final product alongside the full arc of its conception, from the buildings that inspired it to every step taken in its fabrication.',
     accent: 'border-blue-600',
+    fullAspect: true,
   },
   {
-    img: '/projects/lutron-lighting/detail-2.jpg',
+    img: '/projects/lutron-lighting/origins.jpg',
     alt: 'Architectural Origins',
     title: 'Architectural Origins',
     body: 'The work is derived from existing buildings — their forms, materials, and spatial logic serving as the primary source. These architectural references are not reproduced but interpreted, extracted, and reconstructed into a new proposition.',
     accent: 'border-white/20',
   },
   {
-    img: '/projects/lutron-lighting/detail-3.jpg',
+    img: '/projects/lutron-lighting/FirstFloor.jpg',
     alt: 'First Floor',
     title: 'First Floor',
     body: 'The first floor communicates the inspirations behind the work — the buildings, precedents, and ideas from which the exhibition draws. It frames the context before the design process begins.',
     accent: 'border-blue-600',
   },
   {
-    img: '/projects/lutron-lighting/detail-4.jpg',
+    img: '/projects/lutron-lighting/secondfloor.jpg',
     alt: 'Second Floor',
     title: 'Second Floor',
     body: 'The second floor documents the iterations and versions considered for the building\'s form — the alternatives explored, the proposals tested, and the decisions made between one configuration and the next.',
     accent: 'border-white/20',
   },
   {
-    img: '/projects/lutron-lighting/detail-5.jpg',
+    img: '/projects/lutron-lighting/thirdfloor.jpg',
     alt: 'Third Floor',
     title: 'Third Floor',
     body: 'The third floor reveals the process of prototyping and assembly — showing how the building\'s facade, circuitry, and interior decor were each built up through successive stages of making, testing, and refinement.',
     accent: 'border-blue-600',
   },
   {
-    img: '/projects/lutron-lighting/detail-6.jpg',
+    img: '/projects/lutron-lighting/fabrication.jpg',
     alt: 'Fabrication',
     title: 'Fabrication',
     body: 'Across all three floors, the steps taken throughout fabrication are legible — the exhibition does not conceal its construction but makes it part of the display, treating process and product as inseparable.',
@@ -110,6 +111,28 @@ export default function LutronProject() {
         <div className="flex flex-col py-40 px-8 md:px-20 lg:px-36 bg-black pointer-events-auto">
           {details.map((d, i) => {
             const imgLeft = i % 2 === 0;
+
+            if (d.fullAspect) {
+              return (
+                <motion.div
+                  key={d.title}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: '-80px' }}
+                  variants={detailVariants}
+                  className="flex flex-col gap-10 p-8"
+                >
+                  <div className="overflow-hidden border border-white/10 w-full">
+                    <img src={d.img} className="w-full h-auto opacity-80" alt={d.alt} />
+                  </div>
+                  <div className={`border-l-2 ${d.accent} pl-8 max-w-2xl`}>
+                    <h3 className="text-3xl font-black uppercase italic text-white mb-4">{d.title}</h3>
+                    <p className="text-gray-400 font-mono text-xs leading-relaxed">{d.body}</p>
+                  </div>
+                </motion.div>
+              );
+            }
+
             return (
               <motion.div
                 key={d.title}
