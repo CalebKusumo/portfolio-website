@@ -4,7 +4,16 @@
       "Bash(git push:*)",
       "Bash(git add:*)",
       "Bash(git commit -m ':*)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(mv header.JPG header.jpg)",
+      "Bash(mv detail-1.JPG detail-1.jpg)",
+      "Bash(mv detail-2.JPG detail-2.jpg)",
+      "Bash(mv detail-3.JPG detail-3.jpg)",
+      "Bash(mv detail-5.JPG detail-5.jpg)",
+      "Bash(git -C /c/Users/Caleb/portfolio-new add public/projects/directors-finder/)",
+      "Bash(git -C /c/Users/Caleb/portfolio-new commit -m ':*)",
+      "Bash(git -C /c/Users/Caleb/portfolio-new push)",
+      "Bash(git:*)"
     ]
   }
 }
