@@ -19,14 +19,14 @@ const details = [
     img: '/projects/mamiya-hood/detail-0.jpg',
     alt: 'Overview',
     title: 'Overview',
-    body: 'Custom C330 System Hood // Designed for the 80mm f/2.8 // Seamless Vintage Integration',
+    body: 'Custom C330 System Hood // Designed for the Mamiya 135 4.5 // Seamless Vintage Integration',
     accent: 'border-purple-500',
   },
   {
     img: '/projects/mamiya-hood/detail-1.jpg',
     alt: 'Stray Light',
     title: 'Stray Light',
-    body: 'Non-Sequential Ray Tracing // Flare Reduction Geometry // Optimized for 80mm f/2.8',
+    body: 'Non-Sequential Ray Tracing // Flare Reduction Geometry // Optimized for Mamiya 135 4.5',
     accent: 'border-white/20',
   },
   {
