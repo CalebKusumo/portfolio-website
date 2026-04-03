@@ -28,7 +28,7 @@ export default function About() {
             <div className="clear-both" />
           </div>
           <p className="text-gray-500 font-mono text-xs tracking-[0.4em] uppercase mb-5">Continue reading about my experiences and skills below:</p>
-          <a href="https://calebcolor.com/resume.pdf" target="_blank" rel="noopener noreferrer" className="inline-block px-10 py-4 border border-white/30 font-mono text-xs tracking-[0.4em] uppercase hover:bg-white hover:text-black transition-all">
+          <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="inline-block px-10 py-4 border border-white/30 font-mono text-xs tracking-[0.4em] uppercase hover:bg-white hover:text-black transition-all">
             View Resume
           </a>
         </div>
