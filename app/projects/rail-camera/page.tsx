@@ -45,9 +45,9 @@ const details = [
   },
   {
     img: '/projects/rail-camera/detail-4.jpg',
-    alt: 'Modular Film Holder Mount',
-    title: 'Modular Film Holder Mount',
-    body: 'Modular Film Holder Mount',
+    alt: 'Film Back',
+    title: 'Film Back',
+    body: 'Standard 4x5 Graflock Interface // Spring-Loaded Back Retention',
     accent: 'border-emerald-500',
   },
   {
@@ -59,9 +59,9 @@ const details = [
   },
   {
     img: '/projects/rail-camera/detail-6.jpg',
-    alt: 'Film Back',
-    title: 'Film Back',
-    body: 'Standard 4x5 Graflock Interface // Spring-Loaded Dark Slide Retention // Dual-Format Ready',
+    alt: 'Kodak Ektar 152 4.5 Lens',
+    title: 'Kodak Ektar 152 4.5 Lens',
+    body: 'Kodak Flash Supermatic Shutter',
     accent: 'border-emerald-500',
   },
 ];
