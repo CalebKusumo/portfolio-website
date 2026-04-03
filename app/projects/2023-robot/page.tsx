@@ -80,6 +80,7 @@ const details = [
   },
   {
     img: '/projects/2023-robot/detail-6.jpg',
+    video: '/projects/2023-robot/climb.mp4',
     alt: 'Landing Gear Climb',
     label: 'End Game',
     title: 'Landing Gear Climb',
@@ -214,7 +215,11 @@ export default function Robot2023() {
                 {imgLeft ? (
                   <>
                     <div className="aspect-video overflow-hidden border border-white/10 group">
-                      <img src={d.img} className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt={d.alt} />
+                      {d.video ? (
+                        <video src={d.video} className="w-full h-full object-cover opacity-80" autoPlay loop muted playsInline />
+                      ) : (
+                        <img src={d.img} className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt={d.alt} />
+                      )}
                     </div>
                     <div className={`border-l-2 ${d.accent} pl-8`}>
                       <span className="font-mono text-[9px] text-gray-500 tracking-widest uppercase block mb-2">{d.label}</span>
@@ -230,7 +235,11 @@ export default function Robot2023() {
                       <p className="text-gray-400 font-mono text-xs leading-relaxed">{d.body}</p>
                     </div>
                     <div className="order-1 md:order-2 aspect-video overflow-hidden border border-white/10 group">
-                      <img src={d.img} className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt={d.alt} />
+                      {d.video ? (
+                        <video src={d.video} className="w-full h-full object-cover opacity-80" autoPlay loop muted playsInline />
+                      ) : (
+                        <img src={d.img} className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt={d.alt} />
+                      )}
                     </div>
                   </>
                 )}
