@@ -16,28 +16,28 @@ const detailVariants = {
 
 const details = [
   {
-    img: '/projects/darkslide/detail-1.jpg',
+    img: '/projects/darkslide/PrecisionManufacturing.jpg',
     alt: 'Precision Manufacturing',
     title: 'Precision Manufacturing',
     body: 'Water-jet Steel // 22 Gauge Galvanized // ± 0.005″ Tolerances',
     accent: 'border-red-600',
   },
   {
-    img: '/projects/darkslide/detail-2.jpg',
+    img: '/projects/darkslide/ErgonomicHandle.jpg',
     alt: 'Ergonomic Handle',
     title: 'Ergonomic Handle',
     body: 'Tapered Design // Textured Hold // 3D Printed',
     accent: 'border-white/20',
   },
   {
-    img: '/projects/darkslide/detail-3.jpg',
+    img: '/projects/darkslide/InterlockIndexer.jpg',
     alt: 'Interlock Indexer',
     title: 'Interlock Indexer',
     body: 'Optimized for Manufacturing // Modular Design // Layer-Line Strength',
     accent: 'border-red-600',
   },
   {
-    img: '/projects/darkslide/detail-4.jpg',
+    img: '/projects/darkslide/reverseengineered.jpg',
     alt: 'Reverse-Engineered',
     title: 'Reverse-Engineered',
     body: 'Based on 120 Back Measurements // A Modern Part for a 55 Year old Camera',
@@ -64,7 +64,7 @@ export default function DarkslideProject() {
         {/* HERO HEADER */}
         <section className="relative aspect-[3/2] w-full flex flex-col items-center justify-center text-center bg-black overflow-hidden shadow-2xl">
           <div className="absolute inset-0 z-0">
-            <img src="/projects/darkslide/header.jpg" className="w-full h-full object-cover opacity-40" alt="Mamiya RB67 Darkslide" />
+            <img src="/projects/darkslide/Header.jpg" className="w-full h-full object-cover opacity-40" alt="Mamiya RB67 Darkslide" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black" />
           </div>
           <motion.div
