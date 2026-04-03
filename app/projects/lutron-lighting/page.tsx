@@ -112,10 +112,10 @@ export default function LutronProject() {
           {/* CALLOUT 03: Image Left, Text Right */}
           <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto bg-black/75 backdrop-blur-sm p-8">
             <div className="aspect-video bg-white/5 overflow-hidden border border-white/10 group">
-               <img 
-                 src="/projects/lutron-lighting/detail-3.jpg" 
-                 className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" 
-                 alt="Fixture Design Detail" 
+               <img
+                 src="/projects/lutron-lighting/detail-3.jpg"
+                 className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
+                 alt="Fixture Design Detail"
                />
             </div>
             <div className="border-l-2 border-white/20 pl-8">
@@ -123,6 +123,57 @@ export default function LutronProject() {
               <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
                 Recessed Linear Flangeless // Custom 2700K-5000K Tunable White // Zero-Sightline Trim
               </p>
+            </div>
+          </motion.div>
+
+          {/* CALLOUT 04: Text Left, Image Right */}
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto bg-black/75 backdrop-blur-sm p-8">
+            <div className="order-2 md:order-1 border-r-2 border-blue-600 pr-8 text-right">
+              <h3 className="text-3xl font-black uppercase italic text-white mb-2">Scene Programming</h3>
+              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
+                8 Preset Scenes // Fade Curve Mapping // Circadian Rhythm Scheduling // Keypad Integration
+              </p>
+            </div>
+            <div className="order-1 md:order-2 aspect-video bg-white/5 overflow-hidden border border-white/10 group">
+               <img
+                 src="/projects/lutron-lighting/detail-4.jpg"
+                 className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
+                 alt="Scene Programming Detail"
+               />
+            </div>
+          </motion.div>
+
+          {/* CALLOUT 05: Image Left, Text Right */}
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto bg-black/75 backdrop-blur-sm p-8">
+            <div className="aspect-video bg-white/5 overflow-hidden border border-white/10 group">
+               <img
+                 src="/projects/lutron-lighting/detail-5.jpg"
+                 className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
+                 alt="Scale Model Detail"
+               />
+            </div>
+            <div className="border-l-2 border-white/20 pl-8">
+              <h3 className="text-3xl font-black uppercase italic text-white mb-2">Scale Model</h3>
+              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
+                1:100 Gallery Mockup // Laser-Cut Acrylic Structure // True-Scale Fixture Placement
+              </p>
+            </div>
+          </motion.div>
+
+          {/* CALLOUT 06: Text Left, Image Right */}
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto bg-black/75 backdrop-blur-sm p-8">
+            <div className="order-2 md:order-1 border-r-2 border-blue-600 pr-8 text-right">
+              <h3 className="text-3xl font-black uppercase italic text-white mb-2">Energy Analysis</h3>
+              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">
+                Watts-per-Square-Foot Compliance // Load Calculations // Dimming Efficiency Curves
+              </p>
+            </div>
+            <div className="order-1 md:order-2 aspect-video bg-white/5 overflow-hidden border border-white/10 group">
+               <img
+                 src="/projects/lutron-lighting/detail-6.jpg"
+                 className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
+                 alt="Energy Analysis Detail"
+               />
             </div>
           </motion.div>
         </motion.div>
