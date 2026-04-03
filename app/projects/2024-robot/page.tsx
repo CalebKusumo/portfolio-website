@@ -24,17 +24,17 @@ const detailVariants = {
 };
 
 const leftCallouts = [
-  { id: '01', label: 'Drivetrain',        title: 'MK4i Swerve',     desc: 'Falcon 500 Powered // Field-Oriented // 16 ft/s Top Speed' },
-  { id: '02', label: 'Note Intake',       title: 'Ground Pickup',    desc: 'Beam-Break Confirmation // 0.3s Cycle Time // Over-Bumper Deploy' },
-  { id: '03', label: 'Shooter System',    title: 'Dual Flywheel',    desc: 'Variable RPM // Speaker & Amp // Spin-Up Under 0.4s' },
-  { id: '04', label: 'Power System',      title: 'REV PDH',          desc: '240A Continuous // 20-Channel // Real-Time CAN Telemetry' },
+  { id: '01', label: 'Drivetrain',     title: 'MK4i Swerve',      desc: 'L2 Reduction (6.75:1) // Falcon 500 Drive // 15 ft/s Free Speed' },
+  { id: '02', label: 'Note Intake',    title: 'Under-Bumper',      desc: '5 Roller Sets // NEO 550 5:1 // Chassis-Integrated Mount' },
+  { id: '03', label: 'Shooter System', title: 'Dual Flywheel',     desc: '8×4" Colson Wheels // 2× Kraken X60 // 9" Gear Rack Hood' },
+  { id: '04', label: 'Amp Stinger',    title: 'Linear Elevator',   desc: '3:1 Falcon 500 // 13in Travel // 0.2s Full Cycle' },
 ];
 
 const rightCallouts = [
-  { id: '05', label: 'Vision System',    title: 'PhotonVision',     desc: 'Pose Estimation // Auto Note Tracking // AprilTag Alignment' },
-  { id: '06', label: 'Software Core',   title: 'Java Framework',    desc: 'WPILib Command-Based // Custom Kinematics // AdvantageKit Logging' },
-  { id: '07', label: 'Climb System',    title: 'Twin-Arm Hooks',    desc: 'Chain Driven // 1.8s Full Deploy // Stage Trap Capable' },
-  { id: '08', label: 'CAD Design',      title: 'SolidWorks',        desc: 'Managed Assembly // Stress FEA on Pivots // Weight Optimized' },
+  { id: '05', label: 'Vision System',  title: 'Limelight',         desc: 'Speaker Auto-Aim // Distance Calibrated // Mounted Vantage Point' },
+  { id: '06', label: 'Software Core',  title: 'Java Framework',    desc: 'WPILib Command-Based // AdvantageKit Logging // Custom Kinematics' },
+  { id: '07', label: 'End Game',       title: 'Linear Climb',      desc: 'UHMW Hook Carriages // 81:1 Gearbox // 24in Travel in 2s' },
+  { id: '08', label: 'End Effector',   title: 'Amp Wrist',         desc: '108:1 Gearbox // Turntable Bearing // Trap + Amp Capable' },
 ];
 
 const details = [
@@ -43,47 +43,47 @@ const details = [
     alt: 'Swerve Drive',
     label: 'Drivetrain',
     title: 'MK4i Swerve Drive',
-    body: 'SDS MK4i modules with Falcon 500 drive and steer motors give the robot full holonomic mobility at 16 ft/s. Field-oriented control is handled by a custom swerve kinematics implementation layered on top of WPILib\'s SwerveDriveKinematics, with continuous heading correction from the NavX2 IMU. Odometry is fused with vision measurements for accurate autonomous positioning.',
+    body: 'Four SDS MK4i modules running L2 gearing (6.75:1) with Falcon 500 drive and NEO steer motors give the robot full holonomic mobility at 15 ft/s. The 27" × 32" chassis uses an aggressively pocketed 1/8" bellypan, with the battery laid down flat to lower the center of gravity and free up space above. RoboRIO, PDP, and Spark MAX controllers are all mounted to the bellypan for consolidated wiring.',
     accent: 'border-orange-500',
   },
   {
     img: '/projects/2024-robot/detail-2.jpg',
-    alt: 'Vision Alignment',
-    label: 'Vision',
-    title: 'PhotonVision',
-    body: 'Two OV9281 cameras running PhotonVision provide pose estimation and automated note tracking. AprilTag detections from both cameras are fused into the pose estimator using a Kalman filter, dramatically reducing accumulated odometry error across the field. A separate pipeline handles note (ring) detection, enabling the robot to auto-drive to the nearest game piece with a single driver input.',
+    alt: 'Note Shooter',
+    label: 'Shooter',
+    title: 'Flywheel + Adjustable Hood',
+    body: 'Eight 4" Colson wheels driven by two Kraken X60 motors launch notes at high linear speed from the shooter chamber. A 9" radius gear rack powered by a Falcon 500 through an 81:1 gearbox adjusts the hood angle in real time, enabling variable-distance speaker shots. A Limelight camera mounted at a fixed vantage point feeds distance data to the hood controller for auto-calibrated aiming.',
     accent: 'border-white/20',
   },
   {
     img: '/projects/2024-robot/detail-3.jpg',
-    alt: 'Mechanical CAD',
-    label: 'Mechanical Design',
-    title: 'SolidWorks Assembly',
-    body: 'The entire robot was modeled in SolidWorks before any metal was cut, using a top-down assembly workflow that let subsystem designers work concurrently without conflicts. Pivot arms on both the intake and shooter were run through static structural FEA to verify they wouldn\'t yield under game-piece impact loads. The final design came in 6 lbs under the weight limit, leaving margin for late-season additions.',
+    alt: 'Ground Intake',
+    label: 'Note Intake',
+    title: 'Under-Bumper Intake',
+    body: 'An under-the-bumper intake mounts directly to the chassis perimeter, keeping the note acquisition geometry low and protected. Five sets of 1.625" horizontal rollers — each with a polycarbonate tube and silicone sleeve — grab notes immediately on contact. A NEO 550 motor through a 5:1 reduction drives the rollers via HTD 5M pulleys and 20DP spur gears for reliable transfer into the shooter path.',
     accent: 'border-orange-500',
   },
   {
     img: '/projects/2024-robot/detail-4.jpg',
-    alt: 'Java Software',
-    label: 'Software',
-    title: 'AdvantageKit Logging',
-    body: 'The robot runs WPILib\'s command-based Java framework with AdvantageKit for full data replay. Every sensor input is logged to a structured binary file, allowing any match replay to be run through the exact same robot code off-board for debugging. Custom kinematics handle the shooter\'s variable spin angle and the intake\'s over-bumper pivot, all with full SysId-characterized PID gains.',
+    alt: 'Amp Grabber Wrist',
+    label: 'End Effector',
+    title: 'Amp Grabber Wrist',
+    body: 'A NEO 550 drives a 108:1 gearbox that rotates a 54T #25 sprocket bolted to a large-diameter turntable, giving the wrist full rotational freedom. Bevel gears between the gearbox and sprocket allow compact packaging within the narrow carriage. The grabber uses 1.625" double horizontal rollers with a silicone sleeve driven by a second NEO 550 through a 3:1 reduction — a limit switch confirms note capture for autonomous handoff.',
     accent: 'border-white/20',
   },
   {
     img: '/projects/2024-robot/detail-5.jpg',
-    alt: 'Shooter System',
-    label: 'Shooter',
-    title: 'Dual Flywheel',
-    body: 'A pair of independently-controlled flywheels spin the note out at different RPMs to apply deliberate backspin, improving arc consistency and reducing sensitivity to launch angle error. The shooter spins up from rest in under 0.4 seconds and holds velocity within ±30 RPM under load. Speed setpoints are interpolated from a range-to-speaker lookup table updated by the vision system in real time.',
+    alt: 'Amp Stinger',
+    label: 'Scoring Reach',
+    title: 'Stinger Elevator',
+    body: 'A single Falcon 500 through a 3:1 set of 20DP gears drives the stinger — a compact two-stage elevator that moves the amp wrist through 13" of travel in 0.2 seconds. 2×1×1/8" uprights are mounted to an angled pivot for optimal amp station geometry. Igus chain manages wire routing along the carriage, and physical limit switches at both ends define hard travel boundaries.',
     accent: 'border-orange-500',
   },
   {
     img: '/projects/2024-robot/detail-6.jpg',
-    alt: 'Climb System',
+    alt: 'Linear Climb',
     label: 'Endgame',
-    title: 'Twin-Arm Climb',
-    body: 'Two independently-actuated climb arms deploy in 1.8 seconds and hook onto the stage chain for the endgame hang. Each arm is driven by a single NEO through a 45:1 reduction, generating enough torque to lift the 118 lb robot reliably. A ratchet mechanism holds position with zero motor power once engaged, freeing the controller for other tasks. The trap scoring attachment is bolted directly to the arm carriage.',
+    title: 'Winch Linear Climb',
+    body: 'Two linear rails — held by chassis-integrated sideplates and a C-channel crossbar — guide UHMW plastic carriages that carry the stage hooks. Two NEO 550 motors drive an 81:1 gearbox that spools flexible cable wire onto a 1" OD drum, retracting 24" in 2 seconds to pull the 125 lb robot off the ground. The winch mount and anchor structure are integrated directly into the chassis tube for minimal added weight.',
     accent: 'border-white/20',
   },
 ];
@@ -122,7 +122,7 @@ export default function Robot2024() {
             className="relative z-10 px-4"
           >
             <span className="font-mono text-[10px] tracking-[0.6em] text-orange-500 mb-4 uppercase block text-center">
-              Mechatronics: Crescendo 2024
+              Mechatronics: Crescendo 2024 // 125 lbs // 32″ × 27″ × 27″
             </span>
             <h1 className="text-6xl md:text-[10rem] font-black tracking-tighter uppercase leading-[0.8] mix-blend-difference text-center">
               2024 <br />
