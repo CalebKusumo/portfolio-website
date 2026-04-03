@@ -68,7 +68,7 @@ export default function LutronProject() {
       <div className="fixed inset-0 z-0 pointer-events-none">
         <ModelViewer
           modelPath="/models/lutron.glb"
-          modelScale={7}
+          modelScale={21}
           modelPosition={[0, -0.5, 0]}
           modelRotation={[0, Math.PI, 0]}
           scrollProgress={scrollYProgress}
