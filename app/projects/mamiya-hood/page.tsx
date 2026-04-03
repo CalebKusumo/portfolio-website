@@ -16,28 +16,28 @@ const detailVariants = {
 
 const details = [
   {
-    img: '/projects/mamiya-hood/detail-1.jpg',
+    img: '/projects/mamiya-hood/detail-1.JPG',
     alt: 'Stray Light',
     title: 'Stray Light',
     body: 'Non-Sequential Ray Tracing // Flare Reduction Geometry // Optimized for 80mm f/2.8',
     accent: 'border-purple-500',
   },
   {
-    img: '/projects/mamiya-hood/detail-2.jpg',
+    img: '/projects/mamiya-hood/detail-2.JPG',
     alt: 'Additive Mfg',
     title: 'Additive Mfg',
     body: 'High-Resolution SLS Nylon // Matte Black Internal Flocking // Impact Resistant',
     accent: 'border-white/20',
   },
   {
-    img: '/projects/mamiya-hood/detail-3.jpg',
+    img: '/projects/mamiya-hood/detail-3.JPG',
     alt: 'Bayonet Mount',
     title: 'Bayonet Mount',
     body: 'Spring-Loaded Tension Tabs // Perfect Mamiya Alignment // One-Hand Operation',
     accent: 'border-purple-500',
   },
   {
-    img: '/projects/mamiya-hood/detail-4.jpg',
+    img: '/projects/mamiya-hood/detail-4.JPG',
     alt: 'Aesthetic ID',
     title: 'Aesthetic ID',
     body: 'Continuation of Vintage Form Language // Chamfered Edge Profiles // Sandblasted Texture',
@@ -64,7 +64,7 @@ export default function HoodProject() {
         {/* HERO HEADER */}
         <section className="relative aspect-[3/2] w-full flex flex-col items-center justify-center text-center bg-black overflow-hidden shadow-2xl">
           <div className="absolute inset-0 z-0">
-            <img src="/projects/mamiya-hood/header.jpg" className="w-full h-full object-cover opacity-40" alt="Mamiya Hood" />
+            <img src="/projects/mamiya-hood/header.JPG" className="w-full h-full object-cover opacity-40" alt="Mamiya Hood" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black" />
           </div>
           <motion.div
