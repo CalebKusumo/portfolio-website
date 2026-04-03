@@ -1,9 +1,6 @@
 "use client";
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { motion, useScroll } from 'framer-motion';
-
-const ModelViewer = dynamic(() => import('@/components/ModelViewer'), { ssr: false });
+import { motion } from 'framer-motion';
 
 const itemVariants = {
   hidden: { opacity: 0, y: 10 },
@@ -92,20 +89,8 @@ const details = [
 ];
 
 export default function Robot2023() {
-  const { scrollYProgress } = useScroll();
-
   return (
     <main className="relative bg-black min-h-screen">
-      {/* FIXED 3D BACKGROUND */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <ModelViewer
-          modelPath="/models/robot2023.glb"
-          modelScale={4.8}
-          modelPosition={[0, -1, 0]}
-          scrollProgress={scrollYProgress}
-        />
-      </div>
-
       <div className="relative z-10 w-full">
         {/* HERO HEADER */}
         <section className="relative aspect-[3/2] w-full flex flex-col items-center justify-center text-center bg-black overflow-hidden shadow-2xl">
@@ -133,9 +118,6 @@ export default function Robot2023() {
             </h1>
           </motion.div>
         </section>
-
-        {/* REVEAL GAP */}
-        <div className="h-[60vh] pointer-events-none" />
 
         {/* ENGINEERING CALLOUT DIAGRAM */}
         <section className="relative w-full py-32 pointer-events-none">
@@ -168,8 +150,14 @@ export default function Robot2023() {
               ))}
             </div>
 
-            {/* CENTER — transparent for model */}
-            <div />
+            {/* CENTER — CAD image */}
+            <div className="flex items-center justify-center">
+              <img
+                src="/projects/2023-robot/2023-cad.jpg"
+                alt="2023 Robot CAD"
+                className="w-full h-full object-contain opacity-90"
+              />
+            </div>
 
             {/* RIGHT CALLOUTS — staggered */}
             <div className="flex flex-col gap-y-40 pt-24 pr-2 md:pr-4 lg:pr-6 pointer-events-auto">
