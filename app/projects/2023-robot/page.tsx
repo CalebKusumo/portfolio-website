@@ -39,7 +39,8 @@ const rightCallouts = [
 
 const details = [
   {
-    img: '/projects/2023-robot/detail-1.jpg',
+    img: '/projects/2023-robot/swervedrive.mp4',
+    video: '/projects/2023-robot/swervedrive.mp4',
     alt: 'Swerve Drivetrain',
     label: 'Drivetrain',
     title: 'MK4i Swerve Drive',
@@ -47,7 +48,8 @@ const details = [
     accent: 'border-orange-500',
   },
   {
-    img: '/projects/2023-robot/detail-2.jpg',
+    img: '/projects/2023-robot/rackpinionarm.mp4',
+    video: '/projects/2023-robot/rackpinionarm.mp4',
     alt: 'Pivot Arm',
     label: 'Pivot Arm',
     title: 'Rack & Pinion Arm',
@@ -55,7 +57,7 @@ const details = [
     accent: 'border-white/20',
   },
   {
-    img: '/projects/2023-robot/detail-3.jpg',
+    img: '/projects/2023-robot/groundintake.jpg',
     alt: 'Ground Intake',
     label: 'Ground Intake',
     title: 'Cone & Cube Intake',
@@ -63,7 +65,7 @@ const details = [
     accent: 'border-orange-500',
   },
   {
-    img: '/projects/2023-robot/detail-4.jpg',
+    img: '/projects/2023-robot/rollergrabber.jpg',
     alt: 'Roller Grabber',
     label: 'End Effector',
     title: 'Roller Grabber',
@@ -71,7 +73,7 @@ const details = [
     accent: 'border-white/20',
   },
   {
-    img: '/projects/2023-robot/detail-5.jpg',
+    img: '/projects/2023-robot/pistonextension.jpg',
     alt: 'Piston Extension',
     label: 'Arm Extension',
     title: 'Piston Inner Stage',
