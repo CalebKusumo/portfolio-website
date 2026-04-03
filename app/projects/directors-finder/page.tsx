@@ -16,9 +16,9 @@ const detailVariants = {
 
 const details = [
   {
-    img: '/projects/directors-finder/detail-0.jpg',
-    alt: 'Detail 0',
-    title: 'Title',
+    img: '/projects/directors-finder/conceptsketch.jpg',
+    alt: 'Concept Sketch',
+    title: 'Concept Sketch',
     body: 'Subtitle',
     accent: 'border-white/20',
   },
