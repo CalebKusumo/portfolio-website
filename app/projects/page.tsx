@@ -29,7 +29,7 @@ export default function Projects() {
     },
     {
       id: "CK-01",
-      title: "Darkslide Assembly",
+      title: "RB67 Darkslide",
       category: "Mechanical Design",
       tools: ["SolidWorks", "Waterjet", "3D Printing"],
       slug: "darkslide",
