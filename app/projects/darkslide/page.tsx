@@ -36,7 +36,7 @@ export default function DarkslideProject() {
       <div className="relative z-10 w-full">
         <section className="relative h-screen w-full flex flex-col items-center justify-center text-center bg-black overflow-hidden shadow-2xl">
           <div className="absolute inset-0 z-0">
-            <img src="/projects/darkslide/header.jpg" className="w-full h-full object-cover opacity-40" alt="Darkslide" />
+            <img src="/projects/darkslide/header.jpg" className="w-full h-full object-cover opacity-40" alt="Mamiya RB67 Darkslide" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black" />
           </div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="relative z-10 px-4">
@@ -54,15 +54,15 @@ export default function DarkslideProject() {
               <img src="/projects/darkslide/detail-1.jpg" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt="Linear Motion" />
             </div>
             <div className="border-l-2 border-red-600 pl-8">
-              <h3 className="text-3xl font-black uppercase italic text-white mb-2">Linear Motion</h3>
-              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">Specialized Low-Friction Coatings // 0.005mm Tolerance // SolidWorks Managed Assembly</p>
+              <h3 className="text-3xl font-black uppercase italic text-white mb-2">Precision Manufacturing</h3>
+              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">Water-jet Steel // 22 Gauge Galvanized // ± 0.005″ Tolerances</p>
             </div>
           </motion.div>
           {/* CALLOUT 02: Text Left, Image Right */}
           <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto bg-black/75 backdrop-blur-sm p-8">
             <div className="order-2 md:order-1 border-r-2 border-white/20 pr-8 text-right">
-              <h3 className="text-3xl font-black uppercase italic text-white mb-2">FEA Analysis</h3>
-              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">ANSYS Structural Simulation // Thermal Expansion Mitigation // Strain Gauge Validation</p>
+              <h3 className="text-3xl font-black uppercase italic text-white mb-2">Ergonomic Handle</h3>
+              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">Tapered Design // Textured Hold // 3D Printed</p>
             </div>
             <div className="order-1 md:order-2 aspect-video bg-white/5 overflow-hidden border border-white/10 group">
               <img src="/projects/darkslide/detail-2.jpg" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt="FEA Analysis" />
@@ -74,15 +74,15 @@ export default function DarkslideProject() {
               <img src="/projects/darkslide/detail-3.jpg" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt="GD&T Standards" />
             </div>
             <div className="border-l-2 border-white/20 pl-8">
-              <h3 className="text-3xl font-black uppercase italic text-white mb-2">GD&T Standards</h3>
-              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">ASME Y14.5 Compliance // Form and Orientation Controls // Critical Interface Mapping</p>
+              <h3 className="text-3xl font-black uppercase italic text-white mb-2">Interlock Indexer</h3>
+              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">Optimized for Manufacturing // Modular Design // Layer-Line Strength</p>
             </div>
           </motion.div>
           {/* CALLOUT 04: Text Left, Image Right */}
           <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-auto bg-black/75 backdrop-blur-sm p-8">
             <div className="order-2 md:order-1 border-r-2 border-red-600 pr-8 text-right">
-              <h3 className="text-3xl font-black uppercase italic text-white mb-2">Sub-Assembly</h3>
-              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">Modular Integration // Zero-Backlash Coupling // Lightweight Magnesium Alloy Body</p>
+              <h3 className="text-3xl font-black uppercase italic text-white mb-2">Reverse-Engineered</h3>
+              <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase">Based on 120 Back Measurements // A Modern Part for a 55 Year old Camera</p>
             </div>
             <div className="order-1 md:order-2 aspect-video bg-white/5 overflow-hidden border border-white/10 group">
               <img src="/projects/darkslide/detail-4.jpg" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" alt="Sub-Assembly" />
