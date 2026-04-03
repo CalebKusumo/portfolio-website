@@ -25,11 +25,12 @@ export default function FinderProject() {
   return (
     <main className="relative bg-black min-h-screen">
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <ModelViewer 
-          modelPath="/models/finder.glb" 
-          modelScale={9} 
-          modelPosition={[0, 0, 0]} 
-          scrollProgress={scrollYProgress} 
+        <ModelViewer
+          modelPath="/models/finder.glb"
+          modelScale={13.5}
+          modelPosition={[0, 0, 0]}
+          modelRotation={[0.6155, Math.PI / 4, 0]}
+          scrollProgress={scrollYProgress}
         />
       </div>
 
