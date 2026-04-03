@@ -19,7 +19,7 @@ const details = [
     img: '/projects/directors-finder/conceptsketch.jpg',
     alt: 'Concept Sketch',
     title: 'Concept Sketch',
-    body: 'Subtitle',
+    body: '',
     accent: 'border-white/20',
   },
   {
