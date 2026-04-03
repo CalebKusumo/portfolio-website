@@ -27,7 +27,7 @@ export default function DarkslideProject() {
       <div className="fixed inset-0 z-0 pointer-events-none">
         <ModelViewer 
           modelPath="/models/darkslide.glb" 
-          modelScale={8} 
+          modelScale={20} 
           modelPosition={[0, 0, 0]} 
           scrollProgress={scrollYProgress} 
         />
