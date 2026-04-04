@@ -7,10 +7,8 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; }
-
   body { font-family: system-ui, -apple-system, sans-serif; background: #f1f5f9; }
 
-  /* ── Sidebar ── */
   .sidebar { background: #0f172a; width: 290px; min-width: 290px; }
   .sidebar::-webkit-scrollbar { width: 3px; }
   .sidebar::-webkit-scrollbar-thumb { background: #334155; border-radius: 2px; }
@@ -20,42 +18,30 @@
     letter-spacing: 0.12em; color: #475569;
     padding-bottom: 6px; border-bottom: 1px solid #1e293b; margin-bottom: 10px;
   }
-
-  .inp-label {
-    font-size: 0.62rem; font-weight: 700; color: #64748b;
-    text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 3px;
-  }
-
+  .inp-label { font-size: 0.62rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 3px; }
   .inp-field {
     width: 100%; background: #1e293b; border: 1px solid #334155;
     border-radius: 6px; color: #e2e8f0; padding: 7px 10px;
-    font-size: 0.875rem; font-family: 'Courier New', monospace;
-    transition: border-color 0.15s;
+    font-size: 0.875rem; font-family: 'Courier New', monospace; transition: border-color 0.15s;
   }
   .inp-field:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 2px #3b82f620; }
-
   .inp-unit { font-size: 0.58rem; color: #475569; margin-top: 2px; font-style: italic; }
 
-  /* ── Metrics ── */
   .mc { background: white; border-radius: 10px; padding: 12px 14px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
   .mc-label { font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; }
   .mc-val { font-size: 1.55rem; font-weight: 800; line-height: 1.1; margin-top: 2px; }
   .mc-sub { font-size: 0.6rem; color: #94a3b8; margin-top: 1px; }
 
-  /* ── Tabs ── */
   .tab-btn {
-    padding: 6px 14px; font-size: 0.65rem; font-weight: 700;
+    padding: 5px 12px; font-size: 0.62rem; font-weight: 700;
     border-radius: 6px; cursor: pointer; color: #64748b;
-    border: none; background: transparent;
-    letter-spacing: 0.04em; text-transform: uppercase; transition: all 0.15s;
+    border: none; background: transparent; letter-spacing: 0.04em; text-transform: uppercase; transition: all 0.15s;
   }
   .tab-btn:hover { background: #f1f5f9; color: #334155; }
   .tab-btn.active { background: #1e293b; color: white; }
 
-  /* ── Canvas ── */
   canvas { display: block; background: #0f172a; border-radius: 8px; width: 100%; height: auto; }
 
-  /* ── Diagram cards ── */
   .dc { background: white; border-radius: 10px; border: 1px solid #e2e8f0; overflow: hidden; }
   .dc-hdr { background: #f8fafc; border-bottom: 1px solid #e2e8f0; padding: 8px 12px; font-size: 0.65rem; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.08em; }
   .dc-body { padding: 12px; }
@@ -73,7 +59,7 @@
       <div class="mb-6 pt-1">
         <div class="text-xs font-bold text-blue-500 uppercase tracking-widest mb-1">FSAE Engineering</div>
         <h1 class="text-2xl font-black text-white tracking-tight">Steering Lab</h1>
-        <p class="text-xs text-slate-500 mt-1">Kinematics · Constraints · Forces · Bump Steer</p>
+        <p class="text-xs text-slate-500 mt-1">Kinematics · Camber · U-Joints · Column Torsion</p>
       </div>
 
       <!-- Vehicle Dimensions -->
@@ -122,7 +108,7 @@
           <div>
             <div class="inp-label">Ackermann %</div>
             <input class="inp-field" type="number" id="ackPerc" value="100" step="5" oninput="compute()">
-            <div class="inp-unit">% — 0 = parallel, 100 = full Ackermann</div>
+            <div class="inp-unit">% — 0 = parallel steer, 100 = full Ackermann</div>
           </div>
           <div>
             <div class="inp-label">Total Rack Stroke</div>
@@ -150,6 +136,67 @@
             <div class="inp-label">Peak Lateral Force (Fy)</div>
             <input class="inp-field" type="number" id="fy" value="1500" step="50" oninput="compute()">
             <div class="inp-unit">N — front axle, worst-case cornering load</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kingpin & Caster -->
+      <div class="mb-5">
+        <div class="sec-hdr">Kingpin &amp; Caster (Steer Camber)</div>
+        <div class="space-y-3">
+          <div>
+            <div class="inp-label">Kingpin Inclination (KPI)</div>
+            <input class="inp-field" type="number" id="kpi" value="12" step="0.5" oninput="compute()">
+            <div class="inp-unit">° — inward tilt of kingpin axis (front view)</div>
+          </div>
+          <div>
+            <div class="inp-label">Caster Angle</div>
+            <input class="inp-field" type="number" id="caster" value="5" step="0.5" oninput="compute()">
+            <div class="inp-unit">° — rearward tilt of kingpin axis (side view)</div>
+          </div>
+          <div>
+            <div class="inp-label">Static Camber (SC)</div>
+            <input class="inp-field" type="number" id="sc" value="-2" step="0.5" oninput="compute()">
+            <div class="inp-unit">° — negative = top of wheel tilts inward</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- U-Joints -->
+      <div class="mb-5">
+        <div class="sec-hdr">Steering Column U-Joints</div>
+        <div class="space-y-3">
+          <div>
+            <div class="inp-label">U-Joint Misalignment Angle (γ)</div>
+            <input class="inp-field" type="number" id="gamma" value="15" step="1" oninput="compute()">
+            <div class="inp-unit">° — bend angle at each U-joint (operating limit: 32°)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column Torsion -->
+      <div class="mb-5">
+        <div class="sec-hdr">Column Torsion &amp; Stress</div>
+        <div class="space-y-3">
+          <div>
+            <div class="inp-label">Column Length</div>
+            <input class="inp-field" type="number" id="colLen" value="400" step="10" oninput="compute()">
+            <div class="inp-unit">mm — total steering column length</div>
+          </div>
+          <div>
+            <div class="inp-label">Shaft Outer Radius (r_o)</div>
+            <input class="inp-field" type="number" id="ro" value="9.5" step="0.5" oninput="compute()">
+            <div class="inp-unit">mm — outer radius (e.g. 9.5 = 19mm OD shaft)</div>
+          </div>
+          <div>
+            <div class="inp-label">Shaft Inner Radius (r_i)</div>
+            <input class="inp-field" type="number" id="ri" value="0" step="0.5" oninput="compute()">
+            <div class="inp-unit">mm — inner radius (0 = solid shaft)</div>
+          </div>
+          <div>
+            <div class="inp-label">Shear Modulus (G)</div>
+            <input class="inp-field" type="number" id="Gmod" value="80" step="1" oninput="compute()">
+            <div class="inp-unit">GPa — steel ≈ 80, aluminium ≈ 26</div>
           </div>
         </div>
       </div>
@@ -183,7 +230,7 @@
   <main class="flex-1 overflow-y-auto bg-slate-50">
     <div class="p-6 max-w-5xl mx-auto space-y-6">
 
-      <!-- ── Results Dashboard ── -->
+      <!-- ── Results: Row 1 — Kinematics ── -->
       <section>
         <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Live Results</div>
 
@@ -210,6 +257,7 @@
           </div>
         </div>
 
+        <!-- Row 2 — Angles & Geometry -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-3">
           <div class="mc">
             <div class="mc-label">Inner Wheel δᵢ</div>
@@ -232,6 +280,30 @@
             <div class="mc-sub">N at peak Fy</div>
           </div>
         </div>
+
+        <!-- Row 3 — Steer Camber + U-Joint -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-3">
+          <div class="mc border-t-4 border-t-rose-500">
+            <div class="mc-label">Steer Camber @ full lock</div>
+            <div id="steerCamberOut" class="mc-val text-rose-600">--</div>
+            <div class="mc-sub">° induced camber at δᵢ</div>
+          </div>
+          <div class="mc border-t-4 border-t-cyan-500">
+            <div class="mc-label">U-Joint Peak Ratio</div>
+            <div id="ujointPeakOut" class="mc-val text-cyan-600">--</div>
+            <div class="mc-sub">max ωₒ/ωᵢ (at θ = 0°)</div>
+          </div>
+          <div class="mc border-t-4 border-t-orange-500">
+            <div class="mc-label">Angle of Twist (φ)</div>
+            <div id="phiOut" class="mc-val text-orange-600">--</div>
+            <div class="mc-sub">° — target &lt; 0.01°</div>
+          </div>
+          <div class="mc border-t-4 border-t-red-500">
+            <div class="mc-label">Max Shear Stress (τ)</div>
+            <div id="tauOut" class="mc-val text-red-600">--</div>
+            <div class="mc-sub">MPa — column surface</div>
+          </div>
+        </div>
       </section>
 
       <!-- ── Validation ── -->
@@ -242,16 +314,22 @@
       <!-- ── Tabbed Visualizations ── -->
       <section class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
         <div class="flex items-center gap-1 px-4 pt-3 pb-3 border-b border-slate-100 flex-wrap">
-          <button class="tab-btn active" onclick="switchTab('kin')">Ackermann Geometry</button>
+          <button class="tab-btn active" onclick="switchTab('kin')">Ackermann</button>
           <button class="tab-btn" onclick="switchTab('con')">Rim Clearance</button>
           <button class="tab-btn" onclick="switchTab('bump')">Bump Steer</button>
           <button class="tab-btn" onclick="switchTab('force')">Force Chain</button>
+          <button class="tab-btn" onclick="switchTab('camber')">Steer Camber</button>
+          <button class="tab-btn" onclick="switchTab('ujoint')">U-Joint</button>
+          <button class="tab-btn" onclick="switchTab('column')">Column Torsion</button>
         </div>
         <div class="p-4">
-          <div id="tab-kin"><canvas id="kinCanvas" width="860" height="480"></canvas></div>
-          <div id="tab-con" style="display:none"><canvas id="conCanvas" width="860" height="480"></canvas></div>
-          <div id="tab-bump" style="display:none"><canvas id="bumpCanvas" width="860" height="480"></canvas></div>
-          <div id="tab-force" style="display:none"><canvas id="forceCanvas" width="860" height="480"></canvas></div>
+          <div id="tab-kin">    <canvas id="kinCanvas"    width="860" height="480"></canvas></div>
+          <div id="tab-con"    style="display:none"><canvas id="conCanvas"    width="860" height="480"></canvas></div>
+          <div id="tab-bump"   style="display:none"><canvas id="bumpCanvas"   width="860" height="480"></canvas></div>
+          <div id="tab-force"  style="display:none"><canvas id="forceCanvas"  width="860" height="480"></canvas></div>
+          <div id="tab-camber" style="display:none"><canvas id="camberCanvas" width="860" height="480"></canvas></div>
+          <div id="tab-ujoint" style="display:none"><canvas id="ujointCanvas" width="860" height="480"></canvas></div>
+          <div id="tab-column" style="display:none"><canvas id="columnCanvas" width="860" height="480"></canvas></div>
         </div>
       </section>
 
@@ -269,152 +347,169 @@
                   <marker id="ah1" markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#f59e0b"/></marker>
                   <marker id="ah1b" markerWidth="6" markerHeight="6" refX="0" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 z" fill="#f59e0b"/></marker>
                 </defs>
-                <!-- car body -->
                 <rect x="30" y="35" width="160" height="40" rx="4" fill="none" stroke="#334155" stroke-width="1.5"/>
-                <!-- front wheels -->
                 <rect x="168" y="25" width="14" height="18" rx="2" fill="#3b82f6" opacity=".8"/>
                 <rect x="168" y="67" width="14" height="18" rx="2" fill="#3b82f6" opacity=".8"/>
-                <!-- rear wheels -->
                 <rect x="38" y="25" width="14" height="18" rx="2" fill="#64748b" opacity=".7"/>
                 <rect x="38" y="67" width="14" height="18" rx="2" fill="#64748b" opacity=".7"/>
-                <!-- L arrow -->
                 <line x1="45" y1="96" x2="175" y2="96" stroke="#f59e0b" stroke-width="1.5" marker-start="url(#ah1b)" marker-end="url(#ah1)"/>
                 <text x="110" y="108" text-anchor="middle" font-size="9" fill="#f59e0b" font-weight="700">L = Wheelbase</text>
-                <!-- labels -->
                 <text x="179" y="37" font-size="8" fill="#3b82f6">Front</text>
                 <text x="20" y="37" font-size="8" fill="#64748b">Rear</text>
               </svg>
-              <div class="dc-desc">Distance between front and rear axle centrelines. Longer wheelbase increases stability and reduces sensitivity to driver inputs, but increases the minimum turn radius.</div>
+              <div class="dc-desc">Distance between front and rear axle centrelines. Longer wheelbase increases stability and reduces sensitivity, but increases minimum turn radius.</div>
             </div>
           </div>
 
-          <!-- Track Width -->
+          <!-- Ackermann Condition -->
           <div class="dc">
-            <div class="dc-hdr">Track Width (T)</div>
-            <div class="dc-body">
-              <svg viewBox="0 0 220 110" class="w-full">
-                <defs>
-                  <marker id="ah2" markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#f59e0b"/></marker>
-                  <marker id="ah2b" markerWidth="6" markerHeight="6" refX="0" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 z" fill="#f59e0b"/></marker>
-                </defs>
-                <!-- road -->
-                <rect x="0" y="88" width="220" height="6" fill="#1e293b"/>
-                <!-- left wheel (front view) -->
-                <rect x="18" y="48" width="32" height="42" rx="3" fill="#3b82f6" opacity=".7"/>
-                <!-- right wheel -->
-                <rect x="170" y="48" width="32" height="42" rx="3" fill="#3b82f6" opacity=".7"/>
-                <!-- hub centre lines -->
-                <line x1="34" y1="88" x2="34" y2="96" stroke="#94a3b8" stroke-width="1"/>
-                <line x1="186" y1="88" x2="186" y2="96" stroke="#94a3b8" stroke-width="1"/>
-                <!-- T arrow -->
-                <line x1="34" y1="30" x2="186" y2="30" stroke="#f59e0b" stroke-width="1.5" marker-start="url(#ah2b)" marker-end="url(#ah2)"/>
-                <text x="110" y="22" text-anchor="middle" font-size="9" fill="#f59e0b" font-weight="700">T = Track Width</text>
-              </svg>
-              <div class="dc-desc">Hub-centreline-to-hub-centreline width. Wider track lowers roll, improves lateral grip, and reduces Ackermann angles required. Used to compute inner/outer turn radii.</div>
-            </div>
-          </div>
-
-          <!-- Rim ID -->
-          <div class="dc">
-            <div class="dc-hdr">Rim Inner Diameter</div>
-            <div class="dc-body">
-              <svg viewBox="0 0 220 110" class="w-full">
-                <!-- tyre outer -->
-                <circle cx="110" cy="58" r="46" fill="none" stroke="#334155" stroke-width="12"/>
-                <!-- rim ID circle -->
-                <circle cx="110" cy="58" r="34" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,3"/>
-                <!-- hub -->
-                <circle cx="110" cy="58" r="6" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
-                <!-- steer arm clearance zone -->
-                <circle cx="110" cy="58" r="28" fill="none" stroke="#10b981" stroke-width="1" stroke-dasharray="3,3" opacity=".6"/>
-                <!-- radius label -->
-                <line x1="110" y1="58" x2="144" y2="58" stroke="#f59e0b" stroke-width="1.5"/>
-                <text x="118" y="52" font-size="8" fill="#f59e0b" font-weight="700">rimID / 2</text>
-                <!-- clearance label -->
-                <text x="60" y="28" font-size="8" fill="#10b981">safe zone for steer arm</text>
-                <line x1="108" y1="30" x2="110" y2="30" stroke="#10b981" stroke-width="1"/>
-              </svg>
-              <div class="dc-desc">Inner diameter of the rim bead seat. The steer arm must fit within half this value (minus 10 mm safety margin) to avoid contact with the rim during full lock.</div>
-            </div>
-          </div>
-
-          <!-- Ackermann % -->
-          <div class="dc">
-            <div class="dc-hdr">Ackermann Percentage</div>
+            <div class="dc-hdr">Ackermann Condition</div>
             <div class="dc-body">
               <svg viewBox="0 0 220 120" class="w-full">
-                <!-- turn centre -->
                 <circle cx="35" cy="105" r="4" fill="#10b981"/>
                 <text x="8" y="118" font-size="7" fill="#10b981">Turn centre</text>
-                <!-- 100% Ackermann -->
                 <line x1="35" y1="105" x2="80" y2="25" stroke="#10b981" stroke-width="1" stroke-dasharray="3,3"/>
                 <line x1="35" y1="105" x2="145" y2="35" stroke="#10b981" stroke-width="1" stroke-dasharray="3,3"/>
-                <rect x="68" y="18" width="24" height="12" rx="2" fill="#10b981" opacity=".8" transform="rotate(-20 80 24)"/>
-                <rect x="130" y="28" width="24" height="12" rx="2" fill="#10b981" opacity=".8" transform="rotate(-8 142 34)"/>
-                <text x="165" y="25" font-size="7" fill="#10b981" font-weight="700">100%</text>
-                <!-- 0% parallel -->
-                <rect x="68" y="55" width="24" height="12" rx="2" fill="#94a3b8" opacity=".7" transform="rotate(-12 80 61)"/>
-                <rect x="130" y="55" width="24" height="12" rx="2" fill="#94a3b8" opacity=".7" transform="rotate(-12 142 61)"/>
-                <text x="165" y="65" font-size="7" fill="#94a3b8" font-weight="700">0%</text>
-                <!-- 50% -->
-                <rect x="68" y="85" width="24" height="12" rx="2" fill="#f59e0b" opacity=".8" transform="rotate(-16 80 91)"/>
-                <rect x="130" y="87" width="24" height="12" rx="2" fill="#f59e0b" opacity=".8" transform="rotate(-10 142 93)"/>
-                <text x="165" y="97" font-size="7" fill="#f59e0b" font-weight="700">50%</text>
+                <rect x="68" y="18" width="24" height="12" rx="2" fill="#3b82f6" opacity=".8" transform="rotate(-20 80 24)"/>
+                <rect x="130" y="28" width="24" height="12" rx="2" fill="#06b6d4" opacity=".8" transform="rotate(-8 142 34)"/>
+                <text x="165" y="18" font-size="7" fill="#3b82f6" font-weight="700">δᵢ (inner)</text>
+                <text x="165" y="38" font-size="7" fill="#06b6d4" font-weight="700">δₒ (outer)</text>
+                <text x="50" y="75" font-size="7.5" fill="#f59e0b" font-weight="700">cot δₒ − cot δᵢ = w / (l · x)</text>
+                <text x="50" y="90" font-size="7" fill="#94a3b8">x = Ackermann fraction</text>
+              </svg>
+              <div class="dc-desc">The Ackermann condition ensures both wheels point toward a common turn centre. <strong>cot δₒ − cot δᵢ = w / (l · x)</strong> where x = Ackermann % / 100. At 100%, the inner wheel traces a tighter circle than the outer.</div>
+            </div>
+          </div>
+
+          <!-- Steer Camber -->
+          <div class="dc">
+            <div class="dc-hdr">Steer Camber Formula</div>
+            <div class="dc-body">
+              <svg viewBox="0 0 220 110" class="w-full">
+                <!-- front view wheel tilted -->
+                <rect x="0" y="88" width="220" height="5" fill="#1e293b"/>
+                <!-- wheel tilted (camber) -->
+                <rect x="82" y="20" width="16" height="66" rx="2" fill="#3b82f6" opacity=".7" transform="rotate(8 90 53)"/>
+                <!-- KPI angle at kingpin -->
+                <line x1="110" y1="88" x2="95" y2="20" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <text x="112" y="55" font-size="7" fill="#ef4444">KPI</text>
+                <!-- camber angle arc -->
+                <path d="M 100 50 A 20 20 0 0 1 116 56" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+                <text x="118" y="52" font-size="7" fill="#f59e0b">SC</text>
+                <!-- formula -->
+                <text x="10" y="15" font-size="7" fill="#94a3b8">C = KPI(1−cosθ) − Caster·sinθ + SC</text>
               </svg>
               <div class="dc-desc">
-                <strong>100%:</strong> Inner wheel turns more than outer — both tyres trace concentric circles. Perfect for low-speed, low-slip-angle driving.<br>
-                <strong>0%:</strong> Both wheels turn equally (parallel steer). Better at high speed where slip angles dominate.<br>
-                FSAE cars typically run 50–100%.
+                Induced camber when the wheel is steered through angle θ:<br>
+                <strong>C = KPI × (1 − cos θ) − Caster × sin θ + SC</strong><br>
+                KPI creates positive camber gain; caster subtracts camber on the inner wheel. SC is the static (setup) camber.
               </div>
             </div>
           </div>
 
-          <!-- Steer Arm -->
+          <!-- KPI -->
           <div class="dc">
-            <div class="dc-hdr">Steer Arm Length</div>
+            <div class="dc-hdr">Kingpin Inclination (KPI)</div>
             <div class="dc-body">
-              <svg viewBox="0 0 220 110" class="w-full">
-                <!-- hub / rim outline -->
-                <circle cx="90" cy="58" r="38" fill="none" stroke="#334155" stroke-width="10"/>
-                <!-- kingpin -->
-                <circle cx="90" cy="58" r="6" fill="#1e293b" stroke="#94a3b8" stroke-width="1.5"/>
-                <!-- steer arm -->
-                <line x1="90" y1="58" x2="158" y2="85" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
-                <circle cx="158" cy="85" r="6" fill="#f59e0b"/>
-                <!-- tie rod continuation -->
-                <line x1="158" y1="85" x2="200" y2="72" stroke="#60a5fa" stroke-width="2" stroke-dasharray="4,3"/>
-                <text x="188" y="68" font-size="7" fill="#60a5fa">tie rod →</text>
-                <!-- dimension arrow -->
-                <line x1="90" y1="48" x2="158" y2="75" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2"/>
-                <text x="115" y="55" font-size="9" fill="#f59e0b" font-weight="700">Arm Length</text>
-                <!-- kingpin label -->
-                <text x="55" y="100" font-size="7" fill="#94a3b8">Kingpin axis</text>
+              <svg viewBox="0 0 220 115" class="w-full">
+                <rect x="0" y="100" width="220" height="5" fill="#1e293b"/>
+                <!-- wheel box (front view) -->
+                <rect x="88" y="28" width="16" height="70" rx="2" fill="#3b82f6" opacity=".6"/>
+                <!-- kingpin axis (tilted inward) -->
+                <line x1="110" y1="105" x2="96" y2="22" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,3"/>
+                <!-- vertical reference -->
+                <line x1="110" y1="22" x2="110" y2="105" stroke="#334155" stroke-width="1" stroke-dasharray="2,4"/>
+                <!-- KPI angle arc -->
+                <path d="M 110 45 A 18 18 0 0 0 97 40" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+                <text x="112" y="44" font-size="8" fill="#f59e0b" font-weight="700">KPI</text>
+                <text x="55" y="15" font-size="8" fill="#ef4444">Kingpin axis</text>
               </svg>
-              <div class="dc-desc">Lever from the kingpin (steering axis) to the tie-rod ball joint. Longer arm = lower tie-rod force and less rack travel needed, but must fit inside the rim. Key packaging constraint.</div>
+              <div class="dc-desc">Inward tilt of the steering axis as viewed from the front. Reduces scrub radius and creates a jacking effect that returns the wheel to centre. Typical FSAE: 8–15°.</div>
             </div>
           </div>
 
-          <!-- Lock-to-Lock -->
+          <!-- Caster -->
           <div class="dc">
-            <div class="dc-hdr">Lock-to-Lock Rotation</div>
+            <div class="dc-hdr">Caster Angle</div>
+            <div class="dc-body">
+              <svg viewBox="0 0 220 115" class="w-full">
+                <defs>
+                  <marker id="ah3" markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#f59e0b"/></marker>
+                  <marker id="ah3b" markerWidth="6" markerHeight="6" refX="0" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 z" fill="#f59e0b"/></marker>
+                </defs>
+                <line x1="20" y1="100" x2="200" y2="100" stroke="#334155" stroke-width="2"/>
+                <ellipse cx="115" cy="65" rx="28" ry="32" fill="none" stroke="#3b82f6" stroke-width="2"/>
+                <!-- caster axis (tilted rearward) -->
+                <line x1="100" y1="15" x2="130" y2="100" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <!-- vertical ref -->
+                <line x1="115" y1="15" x2="115" y2="100" stroke="#334155" stroke-width="1" stroke-dasharray="2,4"/>
+                <!-- caster arc -->
+                <path d="M 115 35 A 18 18 0 0 1 126 40" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+                <text x="128" y="38" font-size="8" fill="#f59e0b" font-weight="700">Caster</text>
+                <!-- trail -->
+                <line x1="122" y1="107" x2="130" y2="107" stroke="#a855f7" stroke-width="1.5" marker-start="url(#ah3b)" marker-end="url(#ah3)"/>
+                <text x="120" y="115" font-size="7" fill="#a855f7">Trail</text>
+                <text x="40" y="22" font-size="7" fill="#ef4444">Kingpin axis (side)</text>
+              </svg>
+              <div class="dc-desc">Rearward tilt of the steering axis as viewed from the side. Positive caster increases mechanical trail and self-aligning torque, giving steering feel. Typical FSAE: 3–8°.</div>
+            </div>
+          </div>
+
+          <!-- U-Joint -->
+          <div class="dc">
+            <div class="dc-hdr">U-Joint Velocity Ratio</div>
             <div class="dc-body">
               <svg viewBox="0 0 220 110" class="w-full">
-                <!-- steering wheel -->
-                <circle cx="110" cy="62" r="36" fill="none" stroke="#475569" stroke-width="3"/>
-                <circle cx="110" cy="62" r="5" fill="#334155"/>
-                <!-- spokes -->
-                <line x1="110" y1="62" x2="110" y2="26" stroke="#475569" stroke-width="2"/>
-                <line x1="110" y1="62" x2="141" y2="80" stroke="#475569" stroke-width="2"/>
-                <line x1="110" y1="62" x2="79" y2="80" stroke="#475569" stroke-width="2"/>
-                <!-- rotation arc -->
-                <path d="M 80 28 A 36 36 0 1 1 140 28" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="5,3"/>
-                <!-- arc arrow tip -->
-                <polygon points="140,28 148,20 142,32" fill="#f59e0b"/>
-                <!-- angle label -->
-                <text x="110" y="17" text-anchor="middle" font-size="9" fill="#f59e0b" font-weight="700">Lock-to-Lock</text>
-                <text x="110" y="105" text-anchor="middle" font-size="8" fill="#94a3b8">Half = lock/2 → wheel goes to δᵢ</text>
+                <!-- input shaft -->
+                <line x1="20" y1="55" x2="80" y2="55" stroke="#3b82f6" stroke-width="4" stroke-linecap="round"/>
+                <!-- U-joint cross -->
+                <circle cx="90" cy="55" r="10" fill="#334155" stroke="#475569" stroke-width="1.5"/>
+                <line x1="84" y1="49" x2="96" y2="61" stroke="#94a3b8" stroke-width="2"/>
+                <line x1="84" y1="61" x2="96" y2="49" stroke="#94a3b8" stroke-width="2"/>
+                <!-- output shaft (angled) -->
+                <line x1="100" y1="49" x2="175" y2="25" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+                <!-- angle γ arc -->
+                <path d="M 120 55 A 25 25 0 0 0 138 36" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+                <text x="138" y="52" font-size="8" fill="#f59e0b" font-weight="700">γ</text>
+                <!-- ω labels -->
+                <text x="30" y="48" font-size="8" fill="#3b82f6" font-weight="700">ωᵢ</text>
+                <text x="148" y="22" font-size="8" fill="#10b981" font-weight="700">ωₒ</text>
+                <!-- formula -->
+                <text x="15" y="88" font-size="7" fill="#94a3b8">ωₒ/ωᵢ = cosγ / (1 − sin²γ · cos²θ)</text>
+                <text x="15" y="100" font-size="7" fill="#64748b">Limit: 32° | Recommended: ≤ 20°</text>
               </svg>
-              <div class="dc-desc">Total rotation of the steering wheel from full left lock to full right lock. Half this rotation moves the wheel from centre to full δᵢ. Determines steering ratio and pinion radius.</div>
+              <div class="dc-desc">A single U-joint produces a non-constant output velocity. The ratio fluctuates sinusoidally with shaft rotation θ. <strong>Use two U-joints phased 90° apart</strong> to cancel the fluctuation and achieve constant velocity output. Operating limit: 32°; recommended max: 20°.</div>
+            </div>
+          </div>
+
+          <!-- Column Torsion -->
+          <div class="dc">
+            <div class="dc-hdr">Column Torsion</div>
+            <div class="dc-body">
+              <svg viewBox="0 0 220 110" class="w-full">
+                <!-- shaft cylinder (simplified) -->
+                <rect x="30" y="42" width="160" height="26" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+                <!-- torque arrows at each end -->
+                <path d="M 42 36 A 16 16 0 0 1 42 70" fill="none" stroke="#f59e0b" stroke-width="2"/>
+                <polygon points="42,36 35,43 48,44" fill="#f59e0b"/>
+                <text x="14" y="56" font-size="8" fill="#f59e0b" font-weight="700">T</text>
+                <path d="M 178 70 A 16 16 0 0 1 178 36" fill="none" stroke="#f59e0b" stroke-width="2"/>
+                <polygon points="178,70 171,63 184,62" fill="#f59e0b"/>
+                <!-- length arrow -->
+                <line x1="30" y1="84" x2="190" y2="84" stroke="#94a3b8" stroke-width="1.5" marker-start="url(#ah1b)" marker-end="url(#ah1)"/>
+                <text x="105" y="96" text-anchor="middle" font-size="8" fill="#94a3b8">L (column length)</text>
+                <!-- cross section circle inset -->
+                <circle cx="196" cy="55" r="12" fill="none" stroke="#a855f7" stroke-width="1.5"/>
+                <circle cx="196" cy="55" r="5" fill="none" stroke="#475569" stroke-width="1" stroke-dasharray="2,2"/>
+                <text x="185" y="80" font-size="6" fill="#a855f7">r_o, r_i</text>
+                <!-- formula -->
+                <text x="30" y="16" font-size="7.5" fill="#94a3b8">φ = TL/GJ    τ_max = Tr/J</text>
+              </svg>
+              <div class="dc-desc">
+                <strong>φ = TL / GJ</strong> — angle of twist (target: &lt; 0.01°)<br>
+                <strong>τ = Tr / J</strong> — peak shear stress at outer surface<br>
+                J = π(r_o⁴ − r_i⁴)/2 — polar moment of inertia. Use hollow shafts to maximise J/weight.
+              </div>
             </div>
           </div>
 
@@ -424,58 +519,23 @@
             <div class="dc-body">
               <svg viewBox="0 0 220 115" class="w-full">
                 <defs>
-                  <marker id="ah3" markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#f59e0b"/></marker>
-                  <marker id="ah3b" markerWidth="6" markerHeight="6" refX="0" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 z" fill="#f59e0b"/></marker>
+                  <marker id="ah3c" markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#f59e0b"/></marker>
+                  <marker id="ah3d" markerWidth="6" markerHeight="6" refX="0" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 z" fill="#f59e0b"/></marker>
                 </defs>
-                <!-- ground -->
                 <line x1="20" y1="98" x2="200" y2="98" stroke="#334155" stroke-width="2"/>
-                <!-- tyre (side view ellipse) -->
                 <ellipse cx="120" cy="68" rx="30" ry="32" fill="none" stroke="#3b82f6" stroke-width="2"/>
-                <!-- caster axis (kingpin, tilted) -->
                 <line x1="100" y1="15" x2="130" y2="98" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="5,3"/>
-                <!-- kingpin ground point -->
                 <circle cx="121" cy="98" r="4" fill="#10b981"/>
-                <!-- contact patch -->
                 <circle cx="133" cy="98" r="4" fill="#ef4444"/>
-                <!-- trail dimension -->
-                <line x1="121" y1="107" x2="133" y2="107" stroke="#f59e0b" stroke-width="1.5" marker-start="url(#ah3b)" marker-end="url(#ah3)"/>
+                <line x1="121" y1="107" x2="133" y2="107" stroke="#f59e0b" stroke-width="1.5" marker-start="url(#ah3d)" marker-end="url(#ah3c)"/>
                 <text x="127" y="115" text-anchor="middle" font-size="8" fill="#f59e0b" font-weight="700">Trail</text>
                 <text x="86" y="22" font-size="7" fill="#ef4444">Kingpin axis</text>
-                <text x="135" y="94" font-size="7" fill="#ef4444">patch</text>
-                <text x="95" y="94" font-size="7" fill="#10b981">KP gnd</text>
               </svg>
-              <div class="dc-desc">Horizontal distance from where the kingpin axis meets the ground to the tyre contact patch centre. Creates self-aligning torque: <strong>T = Fy × trail</strong>. More trail = more feedback and effort.</div>
+              <div class="dc-desc">Horizontal distance from where the kingpin axis meets the ground to the tyre contact patch. Creates self-aligning torque: <strong>T = Fy × trail</strong>. More trail = more feedback and effort.</div>
             </div>
           </div>
 
-          <!-- Lateral Force -->
-          <div class="dc">
-            <div class="dc-hdr">Peak Lateral Force (Fy)</div>
-            <div class="dc-body">
-              <svg viewBox="0 0 220 110" class="w-full">
-                <defs>
-                  <marker id="ah4" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#3b82f6"/></marker>
-                </defs>
-                <!-- tyre patch -->
-                <ellipse cx="110" cy="80" rx="45" ry="20" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
-                <text x="110" y="84" text-anchor="middle" font-size="8" fill="#64748b">Contact Patch</text>
-                <!-- Fy arrow -->
-                <line x1="60" y1="80" x2="108" y2="80" stroke="#3b82f6" stroke-width="3" marker-end="url(#ah4)"/>
-                <text x="75" y="68" font-size="10" fill="#3b82f6" font-weight="800">Fy</text>
-                <!-- normal force down arrow -->
-                <line x1="110" y1="25" x2="110" y2="58" stroke="#94a3b8" stroke-width="2"/>
-                <polygon points="110,62 105,53 115,53" fill="#94a3b8"/>
-                <text x="114" y="45" font-size="8" fill="#94a3b8">Fz (load)</text>
-                <!-- self-aligning torque arc -->
-                <path d="M 145 65 A 20 20 0 0 0 145 95" fill="none" stroke="#10b981" stroke-width="2"/>
-                <polygon points="145,95 138,88 150,87" fill="#10b981"/>
-                <text x="150" y="80" font-size="8" fill="#10b981">Talign</text>
-              </svg>
-              <div class="dc-desc">Maximum lateral (cornering) force on the front axle. Use combined left + right tyre capacity. Sets the worst-case aligning torque: <strong>T_align = Fy × trail</strong>, which drives steering effort.</div>
-            </div>
-          </div>
-
-          <!-- Tie-Rod Height / Bump Steer -->
+          <!-- Bump Steer -->
           <div class="dc">
             <div class="dc-hdr">Tie-Rod Height Offset (Bump Steer)</div>
             <div class="dc-body">
@@ -484,24 +544,16 @@
                   <marker id="ah5" markerWidth="5" markerHeight="5" refX="5" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 z" fill="#f59e0b"/></marker>
                   <marker id="ah5b" markerWidth="5" markerHeight="5" refX="0" refY="2.5" orient="auto"><path d="M5,0 L0,2.5 L5,5 z" fill="#f59e0b"/></marker>
                 </defs>
-                <!-- chassis block -->
                 <rect x="5" y="10" width="60" height="20" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1"/>
                 <text x="35" y="24" text-anchor="middle" font-size="7" fill="#64748b">Chassis</text>
-                <!-- upright -->
                 <rect x="150" y="25" width="10" height="60" fill="#475569"/>
-                <!-- wishbone (blue) -->
                 <line x1="35" y1="30" x2="155" y2="55" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/>
                 <text x="80" y="38" font-size="7" fill="#3b82f6">wishbone</text>
-                <!-- tie rod zero offset (green dashed) -->
                 <line x1="35" y1="30" x2="152" y2="55" stroke="#10b981" stroke-width="1" stroke-dasharray="3,2" opacity=".5"/>
-                <!-- tie rod with offset (amber) -->
                 <line x1="35" y1="18" x2="152" y2="42" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
                 <text x="75" y="14" font-size="7" fill="#f59e0b">tie rod (+offset)</text>
-                <!-- offset dimension -->
                 <line x1="22" y1="18" x2="22" y2="30" stroke="#f59e0b" stroke-width="1.5" marker-start="url(#ah5b)" marker-end="url(#ah5)"/>
                 <text x="25" y="26" font-size="7" fill="#f59e0b">offset</text>
-                <!-- wheel travel arrows -->
-                <text x="155" y="100" font-size="7" fill="#94a3b8">↕ bump travel</text>
               </svg>
               <div class="dc-desc">Vertical mismatch between tie-rod inner pivot and wishbone pivot. <strong>Zero offset = zero bump steer.</strong> Any offset causes the wheel to toe in or out as it travels over bumps. Target &lt; 5 mm for FSAE.</div>
             </div>
@@ -511,7 +563,7 @@
       </section>
 
       <div class="text-center text-xs text-slate-400 py-4 border-t border-slate-200">
-        FSAE Steering Design Calculator · Ackermann geometry · Rack-and-pinion mechanics · Static force analysis
+        FSAE Steering Design Calculator · Ackermann · Steer Camber · U-Joints · Column Torsion
       </div>
 
     </div>
@@ -520,16 +572,13 @@
 
 <!-- ══════════════════ JAVASCRIPT ══════════════════ -->
 <script>
-// ─────────────────────────────────────────────────────────
-// CONSTANTS
-// ─────────────────────────────────────────────────────────
 const DEG = Math.PI / 180;
 const RAD = 180 / Math.PI;
 
 // ─────────────────────────────────────────────────────────
 // TAB SWITCHING
 // ─────────────────────────────────────────────────────────
-const TABS = ['kin','con','bump','force'];
+const TABS = ['kin','con','bump','force','camber','ujoint','column'];
 
 function switchTab(name) {
   TABS.forEach(t => {
@@ -545,11 +594,12 @@ function switchTab(name) {
 // MAIN COMPUTATION
 // ─────────────────────────────────────────────────────────
 function compute() {
+  // ── Inputs ──
   const L          = +document.getElementById('L').value;
   const T          = +document.getElementById('T').value;
   const rimID      = +document.getElementById('rimID').value;
   const rackStroke = +document.getElementById('rackStroke').value;
-  const R          = +document.getElementById('targetR').value * 1000; // → mm
+  const R          = +document.getElementById('targetR').value * 1000;
   const armL       = +document.getElementById('armL').value;
   const ackPct     = +document.getElementById('ackPerc').value;
   const lock       = +document.getElementById('lock').value;
@@ -558,101 +608,159 @@ function compute() {
   const rackY      = +document.getElementById('rackY').value;
   const suspArmL   = +document.getElementById('suspArmL').value;
   const bumpTravel = +document.getElementById('bumpTravel').value;
+  const kpi        = +document.getElementById('kpi').value;
+  const caster     = +document.getElementById('caster').value;
+  const sc         = +document.getElementById('sc').value;
+  const gamma_deg  = +document.getElementById('gamma').value;
+  const colLen     = +document.getElementById('colLen').value;
+  const ro         = +document.getElementById('ro').value;
+  const ri         = +document.getElementById('ri').value;
+  const G_GPa      = +document.getElementById('Gmod').value;
 
-  if ([L,T,rimID,rackStroke,R,armL,lock,trail,fy,suspArmL,bumpTravel].some(v => isNaN(v) || v <= 0)) return;
+  if ([L,T,rimID,rackStroke,R,armL,lock,trail,fy,suspArmL,bumpTravel,ro,G_GPa,colLen].some(v => isNaN(v) || v <= 0)) return;
 
-  // ── ACKERMANN GEOMETRY ──────────────────────────────────────────
+  // ── 1. ACKERMANN GEOMETRY ───────────────────────────────────────
   //
-  // True Ackermann condition: cot(δᵢ) − cot(δₒ) = T / L
+  // Full Ackermann angles at design turn radius R (to vehicle CL):
+  //   inner hub radius = R − T/2,  outer = R + T/2
   //
-  // At the design turn radius R (to vehicle CL):
-  //   inner hub radius  = R − T/2
-  //   outer hub radius  = R + T/2
-  //
-  // Full-Ackermann angles:
   const delta_i_100 = Math.atan(L / (R - T / 2));   // inner, 100% Ackermann
-  const delta_o_ref = Math.atan(L / (R + T / 2));   // outer — always the Ackermann reference
+  const delta_o_ref = Math.atan(L / (R + T / 2));   // outer (reference, fixed)
 
-  // Ackermann %: outer stays fixed at delta_o_ref.
-  //   0 %  → inner equals outer (parallel steer, no differential)
-  //   100% → inner at delta_i_100 (full concentric geometry)
-  //   Intermediate → linear interpolation between the two
+  // Ackermann %: interpolate inner between parallel (0%) and full Ackermann (100%)
+  //   0 %  → delta_i = delta_o (parallel steer)
+  //   100% → delta_i = delta_i_100
   const delta_o = delta_o_ref;
   const delta_i = delta_o_ref + (ackPct / 100) * (delta_i_100 - delta_o_ref);
 
-  // ── RACK TRAVEL ─────────────────────────────────────────────────
+  // Verify Ackermann condition: cot(δₒ) − cot(δᵢ) should equal T / (L · x)
+  const cotO    = 1 / Math.tan(delta_o);
+  const cotI    = 1 / Math.tan(delta_i);
+  const ackConditionActual = cotO - cotI;
+  const ackConditionTarget = T / (L * (ackPct / 100));  // w / (l · x)
+
+  // ── 2. RACK TRAVEL ─────────────────────────────────────────────
   //
-  // The inner wheel requires more rack travel than the outer because
-  // it must rotate through a larger angle.
-  //
-  //   rackTravel = armL · sin(δᵢ)      [mm, one side, centre → full lock]
-  //
-  // Full rack stroke must satisfy:  rackStroke ≥ 2 · rackTravel
+  // Inner wheel requires the most travel:  rackTravel = armL · sin(δᵢ)
   const rackTravel = armL * Math.sin(delta_i);
+  const halfStroke = rackStroke / 2;
 
-  // ── STEERING RATIO ──────────────────────────────────────────────
+  // ── 3. STEERING RATIO & PINION ─────────────────────────────────
   //
-  // From centre to full lock:
-  //   steering wheel turns  lock/2  degrees
-  //   inner wheel turns     δᵢ      degrees
-  //
-  //   ratio = (lock/2) / δᵢ                [dimensionless, e.g. 3.5 : 1]
-  const ratio = (lock / 2) / (delta_i * RAD);
-
-  // ── PINION RADIUS ────────────────────────────────────────────────
-  //
-  // The pinion converts rotary (SW) to linear (rack) motion:
-  //   rack travel = pinion_radius × steering_wheel_angle_in_radians
-  //
-  //   pinionRad = rackTravel / (lock/2 × π/180)          [mm]
+  //   ratio      = (lock/2) / δᵢ [deg]
+  //   pinionRad  = rackTravel / (lock/2 · π/180)    [mm]
+  const ratio       = (lock / 2) / (delta_i * RAD);
   const lockHalfRad = (lock / 2) * DEG;
   const pinionRad   = rackTravel / lockHalfRad;
 
-  // ── STEERING EFFORT ──────────────────────────────────────────────
+  // ── 4. STEERING EFFORT (FORCE CHAIN) ───────────────────────────
   //
-  // Step 1: Self-aligning torque from tyre lateral force
-  //   T_align = Fy × trail                               [N·m]
+  //   T_align = Fy × trail                [N·m]
+  //   F_tie   = T_align / armL            [N]
+  //   T_sw    = F_tie × pinionRad         [N·m]
   const T_align = fy * (trail / 1000);
+  const F_tie   = T_align / (armL / 1000);
+  const T_sw    = F_tie * (pinionRad / 1000);
 
-  // Step 2: Tie-rod force to overcome T_align via steer arm lever
-  //   F_tie = T_align / armL                             [N]
-  const F_tie = T_align / (armL / 1000);
+  // ── 5. STEER CAMBER ────────────────────────────────────────────
+  //
+  //   C(θ) = KPI · (1 − cos θ) − Caster · sin θ + SC
+  //
+  // θ = wheel steer angle (radians), KPI/Caster/SC in degrees
+  // Result C is in degrees.
+  //
+  const steerCamberAtLock = kpi * (1 - Math.cos(delta_i)) - caster * Math.sin(delta_i) + sc;
 
-  // Step 3: Steering wheel torque — F_tie at pinion radius
-  //   T_sw = F_tie × pinionRad                           [N·m]
-  const T_sw = F_tie * (pinionRad / 1000);
+  // Build curve data (0 → delta_i in 50 steps)
+  const camberCurve = [];
+  const steps = 60;
+  for (let i = 0; i <= steps; i++) {
+    const theta = (i / steps) * delta_i;
+    camberCurve.push(kpi * (1 - Math.cos(theta)) - caster * Math.sin(theta) + sc);
+  }
 
-  // ── DERIVED OUTPUTS ──────────────────────────────────────────────
-  const outerPathDia   = 2 * (R + T / 2) / 1000;         // m, outer hub path diameter
-  const ackErr         = (delta_i - delta_i_100) * RAD;  // ° — deviation from ideal inner angle
+  // ── 6. U-JOINT VELOCITY RATIO ──────────────────────────────────
+  //
+  //   ωₒ/ωᵢ = cos γ / (1 − sin²γ · cos²θ)
+  //
+  // γ = misalignment angle, θ = input shaft angular position (0 → 2π)
+  // For a single U-joint:
+  //   max ratio = 1/cos γ  (at θ = 0, π)
+  //   min ratio = cos γ    (at θ = π/2, 3π/2)
+  //
+  // Two U-joints in phase (90° offset) cancel the fluctuation → CV output.
+  //
+  const gamma_rad    = gamma_deg * DEG;
+  const sinG         = Math.sin(gamma_rad);
+  const cosG         = Math.cos(gamma_rad);
+  const ujPeakRatio  = 1 / cosG;                            // at θ = 0
+  const ujMinRatio   = cosG;                                 // at θ = π/2
+  const ujFluctPct   = ((ujPeakRatio - ujMinRatio) / 1) * 100;  // % swing around 1.0
 
-  // ── UPDATE DISPLAY ───────────────────────────────────────────────
-  const halfStroke = rackStroke / 2;
+  // Build ratio curve (0 → 2π)
+  const ujCurve = [];
+  const ujSteps = 120;
+  for (let i = 0; i <= ujSteps; i++) {
+    const theta = (i / ujSteps) * 2 * Math.PI;
+    const denom = 1 - sinG * sinG * Math.cos(theta) * Math.cos(theta);
+    ujCurve.push(cosG / denom);
+  }
 
-  document.getElementById('ratioOut').textContent      = ratio.toFixed(2) + ' : 1';
-  document.getElementById('rackOut').textContent       = rackTravel.toFixed(1);
-  document.getElementById('rackLimitLabel').textContent = halfStroke.toFixed(1);
-  document.getElementById('torqueOut').textContent     = T_sw.toFixed(1);
-  document.getElementById('pinionOut').textContent     = pinionRad.toFixed(1);
-  document.getElementById('innerAngOut').textContent   = (delta_i * RAD).toFixed(1) + '°';
-  document.getElementById('outerAngOut').textContent   = (delta_o * RAD).toFixed(1) + '°';
-  document.getElementById('turnCircleOut').textContent = outerPathDia.toFixed(2);
-  document.getElementById('fTieRodOut').textContent    = F_tie.toFixed(0);
+  // ── 7. COLUMN TORSION ──────────────────────────────────────────
+  //
+  //   J       = π(r_o⁴ − r_i⁴) / 2          [m⁴] polar moment of inertia
+  //   φ       = T · L / (G · J)              [rad] angle of twist
+  //   τ_max   = T · r_o / J                  [Pa]  max shear stress
+  //
+  const ro_m   = ro / 1000;                              // mm → m
+  const ri_m   = ri / 1000;
+  const L_col  = colLen / 1000;                          // mm → m
+  const G_Pa   = G_GPa * 1e9;                            // GPa → Pa
+  const J      = (Math.PI / 2) * (Math.pow(ro_m, 4) - Math.pow(ri_m, 4));  // m⁴
+  const phi_rad  = (T_sw * L_col) / (G_Pa * J);         // radians
+  const phi_deg  = phi_rad * RAD;                        // degrees
+  const tau_max  = (T_sw * ro_m) / J;                   // Pa
+  const tau_MPa  = tau_max / 1e6;                        // MPa
 
-  // Colour the rack travel metric
+  // ── 8. DERIVED ─────────────────────────────────────────────────
+  const outerPathDia = 2 * (R + T / 2) / 1000;           // m
+
+  // ── 9. UPDATE DISPLAY ──────────────────────────────────────────
+  document.getElementById('ratioOut').textContent        = ratio.toFixed(2) + ' : 1';
+  document.getElementById('rackOut').textContent         = rackTravel.toFixed(1);
+  document.getElementById('rackLimitLabel').textContent  = halfStroke.toFixed(1);
+  document.getElementById('torqueOut').textContent       = T_sw.toFixed(1);
+  document.getElementById('pinionOut').textContent       = pinionRad.toFixed(1);
+  document.getElementById('innerAngOut').textContent     = (delta_i * RAD).toFixed(1) + '°';
+  document.getElementById('outerAngOut').textContent     = (delta_o * RAD).toFixed(1) + '°';
+  document.getElementById('turnCircleOut').textContent   = outerPathDia.toFixed(2);
+  document.getElementById('fTieRodOut').textContent      = F_tie.toFixed(0);
+  document.getElementById('steerCamberOut').textContent  = steerCamberAtLock.toFixed(2) + '°';
+  document.getElementById('ujointPeakOut').textContent   = ujPeakRatio.toFixed(3);
+  document.getElementById('phiOut').textContent          = phi_deg.toFixed(4) + '°';
+  document.getElementById('tauOut').textContent          = tau_MPa.toFixed(1);
+
   document.getElementById('rackOut').style.color = rackTravel < halfStroke ? '#059669' : '#dc2626';
+  document.getElementById('phiOut').style.color  = phi_deg < 0.01 ? '#ea580c' : '#dc2626';
+  document.getElementById('ujointPeakOut').style.color = gamma_deg <= 20 ? '#0891b2' : gamma_deg <= 32 ? '#d97706' : '#dc2626';
 
-  // ── VALIDATION ───────────────────────────────────────────────────
-  const isRimOK    = armL < (rimID / 2 - 10);
-  const isRackOK   = rackTravel < halfStroke;
-  const isTorqueOK = T_sw < 15;
-  const isRatioOK  = ratio >= 2 && ratio <= 8;
+  // ── 10. VALIDATION ─────────────────────────────────────────────
+  const isRimOK      = armL < (rimID / 2 - 10);
+  const isRackOK     = rackTravel < halfStroke;
+  const isTorqueOK   = T_sw < 15;
+  const isRatioOK    = ratio >= 2 && ratio <= 8;
+  const isGammaWarn  = gamma_deg > 20 && gamma_deg <= 32;
+  const isGammaErr   = gamma_deg > 32;
+  const isTwistOK    = phi_deg < 0.01;
 
   const issues = [];
   if (!isRimOK)    issues.push(`Steer arm (${armL} mm) too long for rim — max ${(rimID/2-10).toFixed(0)} mm`);
   if (!isRackOK)   issues.push(`Rack travel needed (${rackTravel.toFixed(1)} mm) > half-stroke (${halfStroke.toFixed(1)} mm)`);
   if (!isTorqueOK) issues.push(`Steering effort ${T_sw.toFixed(1)} Nm exceeds 15 Nm (FSAE guideline)`);
   if (!isRatioOK)  issues.push(`Ratio ${ratio.toFixed(1)}:1 outside typical 2 – 8:1 range`);
+  if (isGammaErr)  issues.push(`U-joint angle ${gamma_deg}° exceeds 32° operating limit — risk of binding`);
+  if (isGammaWarn) issues.push(`U-joint angle ${gamma_deg}° exceeds 20° recommended max — CV output degraded`);
+  if (!isTwistOK)  issues.push(`Column twist ${phi_deg.toFixed(4)}° exceeds 0.01° target — increase shaft diameter or reduce length`);
 
   const vp = document.getElementById('validPanel');
   if (issues.length === 0) {
@@ -660,13 +768,20 @@ function compute() {
     vp.textContent = '✓  All constraints satisfied — design within limits';
   } else {
     vp.className = 'p-4 rounded-xl text-sm font-semibold border bg-rose-50 text-rose-700 border-rose-200';
-    vp.innerHTML  = '<strong>⚠  Design issues:</strong><ul class="list-disc list-inside mt-1 font-normal">'
+    vp.innerHTML = '<strong>⚠  Design issues:</strong><ul class="list-disc list-inside mt-1 font-normal">'
       + issues.map(s => `<li>${s}</li>`).join('') + '</ul>';
   }
 
-  // Store for re-render on tab switch
-  window._last = { L, T, rimID, rackStroke, R, armL, ackPct, lock, trail, fy, rackY, suspArmL, bumpTravel,
-    delta_i, delta_o, delta_i_100, rackTravel, ratio, pinionRad, T_align, F_tie, T_sw, halfStroke, ackErr };
+  // Store computed state
+  window._last = {
+    L, T, rimID, rackStroke, R, armL, ackPct, lock, trail, fy, rackY, suspArmL, bumpTravel,
+    kpi, caster, sc, gamma_deg, gamma_rad, colLen, ro, ri, G_GPa, G_Pa,
+    delta_i, delta_o, delta_i_100, rackTravel, halfStroke, ratio, pinionRad,
+    T_align, F_tie, T_sw, outerPathDia,
+    steerCamberAtLock, camberCurve,
+    ujPeakRatio, ujMinRatio, ujFluctPct, ujCurve,
+    J, phi_deg, tau_MPa, ro_m, ri_m
+  };
 
   renderAll(window._last);
 }
@@ -677,10 +792,13 @@ function renderAll(d) {
   renderConstraints(d);
   renderBumpSteer(d);
   renderForceDiagram(d);
+  renderSteerCamber(d);
+  renderUJoint(d);
+  renderColumn(d);
 }
 
 // ─────────────────────────────────────────────────────────
-// HELPERS
+// CANVAS HELPERS
 // ─────────────────────────────────────────────────────────
 function setupCanvas(id) {
   const c = document.getElementById(id);
@@ -705,144 +823,113 @@ function drawArrow(ctx, x1, y1, x2, y2, color, lw = 2, hw = 9) {
   ctx.restore();
 }
 
-function label(ctx, txt, x, y, color = '#94a3b8', size = 10, align = 'left') {
+function lbl(ctx, txt, x, y, color = '#94a3b8', size = 10, align = 'left') {
   ctx.save();
   ctx.fillStyle = color; ctx.font = `${size}px monospace`; ctx.textAlign = align;
   ctx.fillText(txt, x, y);
   ctx.restore();
 }
 
+function drawGrid(ctx, W, H) {
+  ctx.strokeStyle = '#1e293b'; ctx.lineWidth = 1;
+  for (let x = 0; x < W; x += 40) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+  for (let y = 0; y < H; y += 40) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+}
+
 // ─────────────────────────────────────────────────────────
-// VIEW 1: ACKERMANN GEOMETRY (TOP VIEW)
+// VIEW 1: ACKERMANN GEOMETRY
 // ─────────────────────────────────────────────────────────
 function renderKinematics(d) {
   const { ctx, W, H } = setupCanvas('kinCanvas');
   const { L, T, R, delta_i, delta_o, delta_i_100, ackPct } = d;
+  drawGrid(ctx, W, H);
 
-  // Grid
-  ctx.strokeStyle = '#1e293b'; ctx.lineWidth = 1;
-  for (let x = 0; x < W; x += 40) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
-  for (let y = 0; y < H; y += 40) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
-
-  // Scale to fit car + partial arc
-  const margin = 80;
-  const scaleX = (W - margin * 2) / (T * 2.2);
-  const scaleY = (H - margin * 2) / (L * 1.5);
-  const s = Math.min(scaleX, scaleY, 0.25);
-
-  // Car position (centred slightly right to leave room for turn centre)
+  const s = Math.min((W - 160) / (T * 2.2), (H - 160) / (L * 1.5), 0.25);
   const carCX = W * 0.52;
   const frontY = H * 0.18;
   const rearY  = frontY + L * s;
   const leftX  = carCX - (T / 2) * s;
   const rightX = carCX + (T / 2) * s;
+  const tcX    = carCX - R * s;
+  const tcY    = rearY;
 
-  // Turn centre (to the left, at rear-axle level per Ackermann geometry)
-  const tcX = carCX - R * s;
-  const tcY = rearY;
-
-  // Radii in pixels
-  const rInner = (R - T / 2) * s;
-  const rOuter = (R + T / 2) * s;
-  const rCentre = R * s;
-
-  // ── Turn path arcs ──
-  const arcStart = -Math.PI * 0.55, arcEnd = 0.05;
-  const drawArc = (r, col) => {
+  // Turn path arcs
+  [[R - T/2, '#3b82f628'], [R, '#10b98138'], [R + T/2, '#06b6d428']].forEach(([r, col]) => {
     ctx.beginPath(); ctx.strokeStyle = col; ctx.lineWidth = 1.5; ctx.setLineDash([6,4]);
-    ctx.arc(tcX, tcY, r, arcStart, arcEnd); ctx.stroke(); ctx.setLineDash([]);
-  };
-  drawArc(rInner,  '#3b82f630');
-  drawArc(rCentre, '#10b98140');
-  drawArc(rOuter,  '#06b6d430');
+    ctx.arc(tcX, tcY, r * s, -Math.PI * 0.55, 0.05); ctx.stroke();
+  });
+  ctx.setLineDash([]);
 
-  // ── Radius lines (dashed from TC to hubs) ──
+  // Radius lines to hubs
   ctx.setLineDash([4,4]); ctx.strokeStyle = '#334155'; ctx.lineWidth = 1;
-  [[leftX, frontY], [rightX, frontY], [leftX, rearY], [rightX, rearY]].forEach(([x,y]) => {
+  [[leftX,frontY],[rightX,frontY],[leftX,rearY],[rightX,rearY]].forEach(([x,y]) => {
     ctx.beginPath(); ctx.moveTo(tcX, tcY); ctx.lineTo(x, y); ctx.stroke();
   });
   ctx.setLineDash([]);
 
-  // ── Turn centre ──
-  ctx.beginPath(); ctx.arc(tcX, tcY, 6, 0, Math.PI*2);
-  ctx.fillStyle = '#10b981'; ctx.fill();
-  label(ctx, 'Turn Centre', tcX + 10, tcY - 5, '#10b981', 10);
+  // Turn centre
+  ctx.beginPath(); ctx.arc(tcX, tcY, 6, 0, Math.PI*2); ctx.fillStyle = '#10b981'; ctx.fill();
+  lbl(ctx, 'Turn Centre', tcX + 10, tcY - 6, '#10b981', 10);
 
-  // ── Car chassis outline ──
+  // Chassis
   ctx.strokeStyle = '#334155'; ctx.lineWidth = 1.5;
   ctx.strokeRect(leftX - 10, frontY, T * s + 20, L * s);
-
-  // Centreline
   ctx.strokeStyle = '#1e293b'; ctx.lineWidth = 1; ctx.setLineDash([6,4]);
-  ctx.beginPath(); ctx.moveTo(carCX, frontY - 25); ctx.lineTo(carCX, rearY + 20); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(carCX, frontY - 20); ctx.lineTo(carCX, rearY + 20); ctx.stroke();
   ctx.setLineDash([]);
 
-  // ── Wheel drawing helper ──
-  function drawWheel(cx, cy, ang, col, angText) {
-    ctx.save();
-    ctx.translate(cx, cy); ctx.rotate(-ang);
+  function drawWheel(cx, cy, ang, col, angLabel) {
+    ctx.save(); ctx.translate(cx, cy); ctx.rotate(-ang);
     ctx.fillStyle = col;
     ctx.beginPath(); ctx.roundRect(-7, -22, 14, 44, 2); ctx.fill();
-    // direction arrow
-    ctx.strokeStyle = 'rgba(255,255,255,0.6)'; ctx.lineWidth = 1.5;
+    ctx.strokeStyle = 'rgba(255,255,255,0.5)'; ctx.lineWidth = 1.5;
     ctx.beginPath(); ctx.moveTo(0, -22); ctx.lineTo(0, -34); ctx.stroke();
     ctx.restore();
-    // angle text
     ctx.fillStyle = col; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'center';
-    ctx.fillText(angText, cx, cy + 32);
-    ctx.textAlign = 'left';
+    ctx.fillText(angLabel, cx, cy + 32); ctx.textAlign = 'left';
   }
 
-  // Front wheels
   drawWheel(leftX,  frontY, delta_i, '#3b82f6', (delta_i * RAD).toFixed(1) + '°');
   drawWheel(rightX, frontY, delta_o, '#06b6d4', (delta_o * RAD).toFixed(1) + '°');
-
-  // Rear wheels (straight)
   ctx.fillStyle = '#475569';
   ctx.fillRect(leftX - 7, rearY - 22, 14, 44);
   ctx.fillRect(rightX - 7, rearY - 22, 14, 44);
 
-  // ── Dimension callouts ──
-  // Wheelbase L
+  // Dimension callouts
   const lbX = rightX + 28;
   ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = 1;
   ctx.beginPath(); ctx.moveTo(lbX, frontY); ctx.lineTo(lbX, rearY); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(lbX - 5, frontY); ctx.lineTo(lbX + 5, frontY); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(lbX - 5, rearY);  ctx.lineTo(lbX + 5, rearY);  ctx.stroke();
-  label(ctx, 'L', lbX + 7, (frontY + rearY) / 2 + 4, '#f59e0b', 10);
+  ctx.beginPath(); ctx.moveTo(lbX-5, frontY); ctx.lineTo(lbX+5, frontY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(lbX-5, rearY);  ctx.lineTo(lbX+5, rearY);  ctx.stroke();
+  lbl(ctx, 'L', lbX + 7, (frontY+rearY)/2 + 4, '#f59e0b', 10);
 
-  // Track T
   const tbY = rearY + 38;
-  ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = 1;
+  ctx.strokeStyle = '#f59e0b';
   ctx.beginPath(); ctx.moveTo(leftX, tbY); ctx.lineTo(rightX, tbY); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(leftX,  tbY - 5); ctx.lineTo(leftX,  tbY + 5); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(rightX, tbY - 5); ctx.lineTo(rightX, tbY + 5); ctx.stroke();
-  label(ctx, 'T', carCX - 4, tbY + 14, '#f59e0b', 10);
+  ctx.beginPath(); ctx.moveTo(leftX, tbY-5); ctx.lineTo(leftX, tbY+5); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(rightX, tbY-5); ctx.lineTo(rightX, tbY+5); ctx.stroke();
+  ctx.fillStyle = '#f59e0b'; ctx.font = '10px monospace'; ctx.textAlign = 'center';
+  ctx.fillText('T', carCX, tbY + 14); ctx.textAlign = 'left';
 
-  // ── Legend box ──
+  // Legend
   const lx = W - 230, ly = 16;
-  ctx.fillStyle = '#0f172a80'; ctx.fillRect(lx - 8, ly - 8, 222, 120);
-  ctx.strokeStyle = '#334155'; ctx.lineWidth = 1;
-  ctx.strokeRect(lx - 8, ly - 8, 222, 120);
-
-  const rows = [
-    ['#3b82f6',  `Inner wheel δᵢ = ${(delta_i * RAD).toFixed(1)}°`],
-    ['#06b6d4',  `Outer wheel δₒ = ${(delta_o * RAD).toFixed(1)}°`],
-    ['#10b981',  `Ideal inner    = ${(delta_i_100 * RAD).toFixed(1)}°`],
-    [null,       `Ackermann       = ${ackPct}%`],
-    [null,       `Turn radius R   = ${(R/1000).toFixed(1)} m`],
-  ];
-  rows.forEach(([col, txt], i) => {
-    if (col) { ctx.fillStyle = col; ctx.fillRect(lx, ly + i * 20 + 4, 10, 10); }
-    label(ctx, txt, lx + (col ? 16 : 0), ly + i * 20 + 14, '#94a3b8', 10);
+  ctx.fillStyle = '#0f172a90'; ctx.fillRect(lx-8, ly-8, 222, 120);
+  ctx.strokeStyle = '#334155'; ctx.lineWidth = 1; ctx.strokeRect(lx-8, ly-8, 222, 120);
+  [
+    ['#3b82f6', `Inner δᵢ = ${(delta_i*RAD).toFixed(1)}°`],
+    ['#06b6d4', `Outer δₒ = ${(delta_o*RAD).toFixed(1)}°`],
+    ['#10b981', `Ideal δᵢ = ${(delta_i_100*RAD).toFixed(1)}°`],
+    [null,      `Ackermann = ${ackPct}%`],
+    [null,      `R = ${(R/1000).toFixed(1)} m to centreline`],
+  ].forEach(([col, txt], i) => {
+    if (col) { ctx.fillStyle = col; ctx.fillRect(lx, ly + i*20 + 4, 10, 10); }
+    lbl(ctx, txt, lx + (col ? 16 : 0), ly + i*20 + 14, '#94a3b8', 10);
   });
-
-  // Title
-  label(ctx, 'ACKERMANN GEOMETRY — Top View', 16, 18, '#475569', 10);
+  lbl(ctx, 'ACKERMANN GEOMETRY — Top View', 16, 18, '#475569', 10);
 }
 
 // ─────────────────────────────────────────────────────────
-// VIEW 2: RIM CLEARANCE (FRONT VIEW)
+// VIEW 2: RIM CLEARANCE
 // ─────────────────────────────────────────────────────────
 function renderConstraints(d) {
   const { ctx, W, H } = setupCanvas('conCanvas');
@@ -850,228 +937,140 @@ function renderConstraints(d) {
 
   const cX = W / 2, cY = H / 2;
   const s  = Math.min((H * 0.65) / (rimID / 2), 2.2);
-  const rimR  = (rimID / 2) * s;
-  const armPx = armL * s;
-  const maxArmPx = (rimID / 2 - 10) * s;
+  const rimR   = (rimID / 2) * s;
+  const armPx  = armL * s;
+  const maxArm = (rimID / 2 - 10) * s;
 
-  // ── Tyre cross-section (side view of rim & tyre) ──
-  // Tyre rubber (outer)
+  // Tyre
   ctx.beginPath(); ctx.arc(cX, cY, rimR * 1.38, 0, Math.PI * 2);
-  ctx.strokeStyle = '#334155'; ctx.lineWidth = 18 * s * 0.08;
-  ctx.stroke();
-
+  ctx.strokeStyle = '#334155'; ctx.lineWidth = rimR * 0.28; ctx.stroke();
   // Rim barrel
   ctx.beginPath(); ctx.arc(cX, cY, rimR * 1.02, 0, Math.PI * 2);
-  ctx.strokeStyle = '#1e293b'; ctx.lineWidth = rimR * 0.08;
-  ctx.stroke();
-
-  // Rim inner face
+  ctx.strokeStyle = '#1e293b'; ctx.lineWidth = rimR * 0.08; ctx.stroke();
+  // Rim ID
   ctx.beginPath(); ctx.arc(cX, cY, rimR, 0, Math.PI * 2);
-  ctx.strokeStyle = '#475569'; ctx.lineWidth = 2;
-  ctx.stroke();
-
-  // Safe zone ring (arm length limit)
-  ctx.beginPath(); ctx.arc(cX, cY, maxArmPx, 0, Math.PI * 2);
-  ctx.strokeStyle = '#10b98140'; ctx.lineWidth = 1.5; ctx.setLineDash([5,4]);
-  ctx.stroke(); ctx.setLineDash([]);
-
-  // Rim ID radius label
+  ctx.strokeStyle = '#475569'; ctx.lineWidth = 2; ctx.stroke();
+  // Safe zone
+  ctx.beginPath(); ctx.arc(cX, cY, maxArm, 0, Math.PI * 2);
+  ctx.strokeStyle = '#10b98150'; ctx.lineWidth = 1.5; ctx.setLineDash([5,4]); ctx.stroke(); ctx.setLineDash([]);
+  // Radius label
   ctx.strokeStyle = '#64748b'; ctx.lineWidth = 1; ctx.setLineDash([3,3]);
-  ctx.beginPath(); ctx.moveTo(cX, cY); ctx.lineTo(cX + rimR, cY); ctx.stroke();
-  ctx.setLineDash([]);
-  label(ctx, `rimID/2 = ${(rimID/2).toFixed(0)} mm`, cX + rimR * 0.12, cY - 8, '#64748b', 9);
+  ctx.beginPath(); ctx.moveTo(cX, cY); ctx.lineTo(cX + rimR, cY); ctx.stroke(); ctx.setLineDash([]);
+  lbl(ctx, `rimID/2 = ${(rimID/2).toFixed(0)} mm`, cX + rimR*0.08, cY - 8, '#64748b', 9);
+  lbl(ctx, `max arm = ${(rimID/2-10).toFixed(0)} mm`, cX + maxArm*0.05, cY + maxArm*0.7, '#10b981', 9);
 
-  // Safe arm limit label
-  label(ctx, `max arm = ${(rimID/2-10).toFixed(0)} mm`, cX + maxArmPx * 0.08, cY + maxArmPx * 0.7, '#10b981', 9);
-
-  // ── Hub / Kingpin ──
+  // Hub
   ctx.beginPath(); ctx.arc(cX, cY, 9, 0, Math.PI * 2);
   ctx.fillStyle = '#0f172a'; ctx.fill();
   ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2; ctx.stroke();
-  label(ctx, 'Kingpin', cX - 26, cY + 22, '#64748b', 8);
 
-  // ── Steer Arm ──
-  // Position at current steer angle (visual rotation from upward position)
-  const ang = -delta_i + Math.PI * 0.4;
-  const aX  = cX + armPx * Math.cos(ang);
-  const aY  = cY + armPx * Math.sin(ang);
+  // Steer arm
+  const ang  = -delta_i + Math.PI * 0.4;
+  const aX   = cX + armPx * Math.cos(ang);
+  const aY   = cY + armPx * Math.sin(ang);
+  const clr  = rimID / 2 - 10 - armL;
+  const armCol = clr >= 0 ? '#f59e0b' : '#ef4444';
 
-  const clearance = rimID / 2 - 10 - armL;
-  const armCol    = clearance >= 0 ? '#f59e0b' : '#ef4444';
-
-  // Arm sweep arc
   ctx.beginPath(); ctx.arc(cX, cY, armPx, 0, Math.PI * 2);
-  ctx.strokeStyle = armCol + '35'; ctx.lineWidth = 1; ctx.setLineDash([3,3]);
-  ctx.stroke(); ctx.setLineDash([]);
+  ctx.strokeStyle = armCol + '30'; ctx.lineWidth = 1; ctx.setLineDash([3,3]); ctx.stroke(); ctx.setLineDash([]);
 
-  // Arm
   ctx.strokeStyle = armCol; ctx.lineWidth = 5; ctx.lineCap = 'round';
   ctx.beginPath(); ctx.moveTo(cX, cY); ctx.lineTo(aX, aY); ctx.stroke();
+  ctx.beginPath(); ctx.arc(aX, aY, 7, 0, Math.PI * 2); ctx.fillStyle = armCol; ctx.fill();
 
-  // Tie-rod pickup ball
-  ctx.beginPath(); ctx.arc(aX, aY, 7, 0, Math.PI * 2);
-  ctx.fillStyle = armCol; ctx.fill();
-
-  // ── Verdict ──
-  ctx.font = 'bold 13px monospace'; ctx.textAlign = 'center';
-  if (clearance >= 0) {
-    ctx.fillStyle = '#10b981';
-    ctx.fillText(`✓  Clearance: +${clearance.toFixed(1)} mm`, cX, H - 34);
-  } else {
-    ctx.fillStyle = '#ef4444';
-    ctx.fillText(`✗  Arm exceeds limit by ${Math.abs(clearance).toFixed(1)} mm`, cX, H - 34);
-  }
+  ctx.font = 'bold 12px monospace'; ctx.textAlign = 'center';
+  ctx.fillStyle = clr >= 0 ? '#10b981' : '#ef4444';
+  ctx.fillText(clr >= 0 ? `✓  Clearance: +${clr.toFixed(1)} mm` : `✗  Arm exceeds limit by ${Math.abs(clr).toFixed(1)} mm`, cX, H - 34);
   ctx.fillStyle = '#475569'; ctx.font = '9px monospace';
   ctx.fillText(`Arm: ${armL} mm  ·  Safe max: ${(rimID/2-10).toFixed(0)} mm  ·  Rim ID: ${rimID} mm`, cX, H - 18);
   ctx.textAlign = 'left';
-
-  label(ctx, 'RIM CLEARANCE CHECK — Front View (Wheel Face)', 16, 18, '#475569', 10);
+  lbl(ctx, 'RIM CLEARANCE CHECK — Front View (Wheel Face)', 16, 18, '#475569', 10);
 }
 
 // ─────────────────────────────────────────────────────────
-// VIEW 3: BUMP STEER (FRONT VIEW)
+// VIEW 3: BUMP STEER
 // ─────────────────────────────────────────────────────────
 function renderBumpSteer(d) {
   const { ctx, W, H } = setupCanvas('bumpCanvas');
-  const { rackY, suspArmL, bumpTravel, T } = d;
+  const { rackY, suspArmL, bumpTravel } = d;
+  const s = 1.4;
+  const groundY  = H * 0.80;
+  const hubRestY = groundY - 110 * s * 0.25;
+  const chassisY = groundY - 140 * s * 0.25;
+  const pivotX   = W * 0.40;
+  const armLenS  = suspArmL * 0.25 * s;
+  const rackX    = pivotX - armLenS * 0.55;
+  const rackRefY = chassisY + rackY * s;
 
-  const s = 1.4; // px per mm
-
-  // Layout
-  const groundY    = H * 0.80;
-  const hubRestY   = groundY - 110 * s * 0.25; // wheel hub at rest (simplified)
-  const chassisY   = groundY - 140 * s * 0.25; // chassis pivot height
-  const halfTrackS = (T / 2) * 0.25 * s;       // half-track in screen units
-
-  // Left side geometry (symmetric, show left side)
-  const pivotX  = W * 0.40; // chassis/wishbone inner pivot
-  const pivotY  = chassisY;
-  const armLenS = suspArmL * 0.25 * s; // wishbone arm in screen units
-
-  // Rack lateral position (end of rack)
-  const rackX = pivotX - armLenS * 0.55;
-  const rackRefY = pivotY + rackY * s; // rack at desired height offset
-
-  // Draw ground
   ctx.fillStyle = '#1e293b'; ctx.fillRect(0, groundY, W, 5);
+  drawGrid(ctx, W, H);
 
-  // Grid lines for reference
-  ctx.strokeStyle = '#1e293b'; ctx.lineWidth = 1;
-  for (let y = 0; y < H; y += 30) {
-    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
-  }
-
-  // ── Chassis ──
-  ctx.fillStyle = '#1e293b';
-  ctx.fillRect(pivotX - 100, pivotY - 18, 200, 32);
+  // Chassis
+  ctx.fillStyle = '#1e293b'; ctx.fillRect(pivotX - 100, chassisY - 18, 200, 32);
   ctx.strokeStyle = '#334155'; ctx.lineWidth = 1.5;
-  ctx.strokeRect(pivotX - 100, pivotY - 18, 200, 32);
-  label(ctx, 'CHASSIS', pivotX - 26, pivotY + 4, '#475569', 9);
+  ctx.strokeRect(pivotX - 100, chassisY - 18, 200, 32);
+  lbl(ctx, 'CHASSIS', pivotX - 26, chassisY + 4, '#475569', 9);
 
-  // ── Rack position ──
+  // Rack
   ctx.strokeStyle = '#a855f7'; ctx.lineWidth = 2.5;
   ctx.beginPath(); ctx.moveTo(rackX - 60, rackRefY); ctx.lineTo(rackX, rackRefY); ctx.stroke();
   ctx.fillStyle = '#a855f7'; ctx.font = 'bold 9px monospace';
-  ctx.fillText(`Rack (offset: ${rackY > 0 ? '+' : ''}${rackY} mm)`, rackX - 58, rackRefY - 7);
-
+  ctx.fillText(`Rack (${rackY > 0 ? '+' : ''}${rackY} mm offset)`, rackX - 58, rackRefY - 7);
   if (rackY !== 0) {
     ctx.strokeStyle = '#33415560'; ctx.lineWidth = 1; ctx.setLineDash([3,3]);
-    ctx.beginPath(); ctx.moveTo(rackX - 60, pivotY); ctx.lineTo(rackX, pivotY); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(rackX - 60, chassisY); ctx.lineTo(rackX, chassisY); ctx.stroke();
     ctx.setLineDash([]);
-    label(ctx, '← zero-offset ref.', rackX - 100, pivotY - 5, '#334155', 8);
-    // offset arrow
-    drawArrow(ctx, rackX - 15, pivotY, rackX - 15, rackRefY, '#f59e0b', 1.5, 5);
-    label(ctx, Math.abs(rackY) + ' mm', rackX - 12, (pivotY + rackRefY) / 2 + 4, '#f59e0b', 8);
+    lbl(ctx, '← zero-offset ref.', rackX - 100, chassisY - 5, '#334155', 8);
+    drawArrow(ctx, rackX - 15, chassisY, rackX - 15, rackRefY, '#f59e0b', 1.5, 5);
+    lbl(ctx, Math.abs(rackY) + ' mm', rackX - 12, (chassisY + rackRefY) / 2 + 4, '#f59e0b', 8);
   }
 
-  // ── Multiple bump positions ──
-  const steps = [-bumpTravel, -bumpTravel * 0.6, 0, bumpTravel * 0.6, bumpTravel];
-
+  // Suspension positions
+  const steps = [-bumpTravel, -bumpTravel*0.6, 0, bumpTravel*0.6, bumpTravel];
   steps.forEach((bump, idx) => {
     const isMid = idx === 2;
-    const alpha  = isMid ? 1 : 0.22 + 0.18 * (1 - Math.abs(idx - 2) / 2);
+    const alpha  = isMid ? 1 : 0.22;
+    const hubY   = hubRestY - bump * s;
+    const dy     = hubY - chassisY;
+    const dx     = armLenS > Math.abs(dy) ? -Math.sqrt(armLenS**2 - dy**2) : 0;
+    const hubX   = pivotX + dx;
 
-    // Hub Y position (upward bump = wheel rises = hubY decreases)
-    const hubY  = hubRestY - bump * s;
-    // Wishbone geometry: arm from pivot, hub traces arc
-    const dy    = hubY - pivotY;
-    const dx    = armLenS > Math.abs(dy) ? -Math.sqrt(armLenS * armLenS - dy * dy) : 0;
-    const hubX  = pivotX + dx;
+    ctx.save(); ctx.globalAlpha = alpha;
+    ctx.strokeStyle = '#3b82f6'; ctx.lineWidth = isMid ? 2.5 : 1;
+    ctx.beginPath(); ctx.moveTo(pivotX, chassisY); ctx.lineTo(hubX, hubY); ctx.stroke();
 
-    // ── Wishbone arm ──
-    ctx.save();
-    ctx.globalAlpha = alpha;
-    ctx.strokeStyle = isMid ? '#3b82f6' : '#3b82f6';
-    ctx.lineWidth = isMid ? 2.5 : 1;
-    ctx.beginPath(); ctx.moveTo(pivotX, pivotY); ctx.lineTo(hubX, hubY); ctx.stroke();
+    ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = isMid ? 2 : 1;
+    ctx.beginPath(); ctx.moveTo(rackX, rackRefY); ctx.lineTo(hubX - 20, hubY + 20); ctx.stroke();
 
-    // ── Tie-rod ──
-    // Tie-rod connects rack (fixed X/Y) to upright pickup (offset from hub)
-    const uprightPickupY = hubY;
-    const uprightPickupX = hubX - 20;
-
-    ctx.strokeStyle = isMid ? '#f59e0b' : '#f59e0b';
-    ctx.lineWidth = isMid ? 2 : 1;
-    ctx.beginPath();
-    ctx.moveTo(rackX, rackRefY);
-    ctx.lineTo(uprightPickupX, uprightPickupY);
-    ctx.stroke();
-
-    // ── Wheel ──
-    ctx.strokeStyle = isMid ? '#94a3b8' : '#94a3b8';
-    ctx.lineWidth = isMid ? 2 : 0.8;
+    ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = isMid ? 2 : 0.8;
     ctx.strokeRect(hubX - 12, hubY - 35, 10, 70);
-
-    // Toe angle indicator (exaggerated) for non-zero offset
-    if (rackY !== 0 && isMid) {
-      // Vector from tie-rod pickup to rack
-      const trDX = rackX - uprightPickupX;
-      const trDY = rackRefY - uprightPickupY;
-      const trLen = Math.sqrt(trDX*trDX + trDY*trDY);
-      const toeAng = Math.atan2(trDY, trDX); // angle of tie-rod relative to horizontal
-
-      ctx.strokeStyle = '#ef444480'; ctx.lineWidth = 1; ctx.setLineDash([2,3]);
-      ctx.beginPath(); ctx.moveTo(hubX - 5, hubY); ctx.lineTo(hubX - 5 + 50 * Math.cos(toeAng), hubY + 50 * Math.sin(toeAng)); ctx.stroke();
-      ctx.setLineDash([]);
-    }
-
     ctx.restore();
 
-    // Label at bump position
-    if (isMid) {
-      label(ctx, 'RIDE HEIGHT (0 mm)', hubX + 14, hubY + 4, '#94a3b8', 9);
-    } else if (idx === 0) {
-      label(ctx, `BUMP +${bumpTravel} mm`, hubX + 14, hubY + 4, '#64748b', 8);
-    } else if (idx === steps.length - 1) {
-      label(ctx, `DROOP −${bumpTravel} mm`, hubX + 14, hubY + 4, '#64748b', 8);
-    }
+    if (isMid) lbl(ctx, 'RIDE HEIGHT (0 mm)', hubX + 14, hubY + 4, '#94a3b8', 9);
+    else if (idx === 0) lbl(ctx, `BUMP +${bumpTravel} mm`, hubX + 14, hubY + 4, '#64748b', 8);
+    else if (idx === 4) lbl(ctx, `DROOP −${bumpTravel} mm`, hubX + 14, hubY + 4, '#64748b', 8);
   });
 
-  // ── Pivot dot ──
-  ctx.beginPath(); ctx.arc(pivotX, pivotY, 5, 0, Math.PI * 2);
+  // Pivot dot
+  ctx.beginPath(); ctx.arc(pivotX, chassisY, 5, 0, Math.PI * 2);
   ctx.fillStyle = '#3b82f6'; ctx.fill();
 
-  // ── Bump steer verdict ──
   ctx.font = 'bold 11px monospace'; ctx.textAlign = 'center';
-  if (Math.abs(rackY) < 5) {
-    ctx.fillStyle = '#10b981';
-    ctx.fillText('✓  Near-zero bump steer — tie-rod closely aligned with wishbone', W / 2, H - 15);
-  } else {
-    ctx.fillStyle = '#f59e0b';
-    ctx.fillText(`⚠  ${Math.abs(rackY)} mm offset causes wheel to steer during suspension travel`, W / 2, H - 15);
-  }
+  ctx.fillStyle = Math.abs(rackY) < 5 ? '#10b981' : '#f59e0b';
+  ctx.fillText(Math.abs(rackY) < 5
+    ? '✓  Near-zero bump steer — tie-rod aligned with wishbone'
+    : `⚠  ${Math.abs(rackY)} mm offset causes wheel to steer during suspension travel`, W/2, H - 15);
   ctx.textAlign = 'left';
-
-  label(ctx, 'BUMP STEER — Front View (Left Side)', 16, 18, '#475569', 10);
+  lbl(ctx, 'BUMP STEER — Front View (Left Side)', 16, 18, '#475569', 10);
 
   // Legend
   const lx = W - 180, ly = 30;
   ctx.fillStyle = '#3b82f6'; ctx.fillRect(lx, ly, 20, 3);
-  label(ctx, 'Wishbone', lx + 25, ly + 5, '#3b82f6', 9);
+  lbl(ctx, 'Wishbone', lx + 25, ly + 5, '#3b82f6', 9);
   ctx.fillStyle = '#f59e0b'; ctx.fillRect(lx, ly + 14, 20, 3);
-  label(ctx, 'Tie-rod', lx + 25, ly + 19, '#f59e0b', 9);
+  lbl(ctx, 'Tie-rod', lx + 25, ly + 19, '#f59e0b', 9);
   ctx.fillStyle = '#a855f7'; ctx.fillRect(lx, ly + 28, 20, 3);
-  label(ctx, 'Rack end', lx + 25, ly + 33, '#a855f7', 9);
+  lbl(ctx, 'Rack end', lx + 25, ly + 33, '#a855f7', 9);
 }
 
 // ─────────────────────────────────────────────────────────
@@ -1080,135 +1079,365 @@ function renderBumpSteer(d) {
 function renderForceDiagram(d) {
   const { ctx, W, H } = setupCanvas('forceCanvas');
   const { fy, trail, armL, F_tie, T_sw, pinionRad, T_align } = d;
+  const pY = H * 0.50;
 
-  const pY = H * 0.50; // shared vertical centre
-
-  // ── Panel 1: Tyre & self-aligning torque ──
+  // Panel 1: Tyre
   const p1 = W * 0.16;
-
-  // Contact patch
-  ctx.beginPath(); ctx.ellipse(p1, pY + 30, 44, 18, 0, 0, Math.PI * 2);
-  ctx.fillStyle = '#1e293b'; ctx.fill();
-  ctx.strokeStyle = '#475569'; ctx.lineWidth = 2; ctx.stroke();
-  label(ctx, 'Contact Patch', p1 - 36, pY + 34, '#475569', 8, 'left');
-
-  // Fy arrow (lateral)
-  const fyS = Math.min(80, fy / 18);
-  drawArrow(ctx, p1 - fyS - 10, pY + 30, p1 - 12, pY + 30, '#3b82f6', 3);
-  label(ctx, `Fy = ${fy} N`, p1 - fyS - 8, pY + 18, '#3b82f6', 10);
-
-  // Trail dimension (horizontal tick marks)
-  const trailS = Math.min(36, trail * 1.4);
+  ctx.beginPath(); ctx.ellipse(p1, pY+30, 44, 18, 0, 0, Math.PI*2);
+  ctx.fillStyle = '#1e293b'; ctx.fill(); ctx.strokeStyle = '#475569'; ctx.lineWidth = 2; ctx.stroke();
+  lbl(ctx, 'Contact Patch', p1-36, pY+34, '#475569', 8);
+  const fyS = Math.min(80, fy/18);
+  drawArrow(ctx, p1-fyS-10, pY+30, p1-12, pY+30, '#3b82f6', 3);
+  lbl(ctx, `Fy = ${fy} N`, p1-fyS-8, pY+18, '#3b82f6', 10);
+  const trailS = Math.min(36, trail*1.4);
   ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = 1.5;
-  ctx.beginPath(); ctx.moveTo(p1 - 4, pY + 50); ctx.lineTo(p1 - 4 + trailS, pY + 50); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(p1 - 4, pY + 46); ctx.lineTo(p1 - 4, pY + 54); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(p1 - 4 + trailS, pY + 46); ctx.lineTo(p1 - 4 + trailS, pY + 54); ctx.stroke();
-  label(ctx, `trail = ${trail} mm`, p1 - 4, pY + 64, '#f59e0b', 8);
+  ctx.beginPath(); ctx.moveTo(p1-4, pY+50); ctx.lineTo(p1-4+trailS, pY+50); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(p1-4, pY+46); ctx.lineTo(p1-4, pY+54); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(p1-4+trailS, pY+46); ctx.lineTo(p1-4+trailS, pY+54); ctx.stroke();
+  lbl(ctx, `trail=${trail}mm`, p1-4, pY+64, '#f59e0b', 8);
+  ctx.strokeStyle = '#10b981'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.arc(p1, pY+30, 52, -Math.PI*0.7, Math.PI*0.1); ctx.stroke();
+  lbl(ctx, '1. Tyre self-aligning torque', p1-55, pY-65, '#475569', 9);
+  lbl(ctx, `T_align = Fy × trail`, p1-44, pY-50, '#64748b', 8);
+  lbl(ctx, `= ${fy} × ${(trail/1000).toFixed(3)} m`, p1-44, pY-38, '#64748b', 8);
+  ctx.font = 'bold 13px monospace'; ctx.fillStyle = '#10b981'; ctx.textAlign = 'center';
+  ctx.fillText(`${T_align.toFixed(1)} N·m`, p1, pY-82); ctx.textAlign = 'left';
 
-  // Self-aligning torque arc
-  ctx.strokeStyle = '#10b981'; ctx.lineWidth = 2.5;
-  ctx.beginPath(); ctx.arc(p1, pY + 30, 52, -Math.PI * 0.7, Math.PI * 0.1); ctx.stroke();
-  ctx.fillStyle = '#10b981';
-  ctx.beginPath();
-  const arcEndX = p1 + 52 * Math.cos(Math.PI * 0.1);
-  const arcEndY = pY + 30 + 52 * Math.sin(Math.PI * 0.1);
-  ctx.arc(arcEndX, arcEndY, 4, 0, Math.PI * 2); ctx.fill();
+  drawArrow(ctx, W*0.30, pY, W*0.37, pY, '#334155', 1.5, 7);
 
-  label(ctx, '1. Tyre self-aligning torque', p1 - 55, pY - 65, '#475569', 9);
-  label(ctx, `T_align = Fy × trail`, p1 - 44, pY - 50, '#64748b', 8);
-  label(ctx, `= ${fy} × ${(trail/1000).toFixed(3)} m`, p1 - 44, pY - 38, '#64748b', 8);
-
-  const talignCol = '#10b981';
-  ctx.font = 'bold 13px monospace'; ctx.fillStyle = talignCol; ctx.textAlign = 'center';
-  ctx.fillText(`${T_align.toFixed(1)} N·m`, p1, pY - 82);
-  ctx.textAlign = 'left';
-
-  // ── Arrow 1→2 ──
-  drawArrow(ctx, W * 0.30, pY, W * 0.37, pY, '#334155', 1.5, 7);
-
-  // ── Panel 2: Steer arm & tie-rod force ──
+  // Panel 2: Steer arm
   const p2 = W * 0.50;
-
-  // Wheel hub circle
-  ctx.beginPath(); ctx.arc(p2, pY, 36, 0, Math.PI * 2);
+  ctx.beginPath(); ctx.arc(p2, pY, 36, 0, Math.PI*2);
   ctx.strokeStyle = '#334155'; ctx.lineWidth = 2; ctx.stroke();
-
-  // Hub centre
-  ctx.beginPath(); ctx.arc(p2, pY, 6, 0, Math.PI * 2);
+  ctx.beginPath(); ctx.arc(p2, pY, 6, 0, Math.PI*2);
   ctx.fillStyle = '#1e293b'; ctx.fill(); ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1.5; ctx.stroke();
-
-  // Aligning torque arc on hub
   ctx.strokeStyle = '#10b981'; ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.arc(p2, pY, 42, -Math.PI * 0.9, Math.PI * 0.3); ctx.stroke();
-
-  // Steer arm
-  const armS  = Math.min(70, armL * 0.55);
-  const aimAX = p2 + armS * 0.9;
-  const aimAY = pY + armS * 0.45;
+  ctx.beginPath(); ctx.arc(p2, pY, 42, -Math.PI*0.9, Math.PI*0.3); ctx.stroke();
+  const armS = Math.min(70, armL*0.55);
+  const aX = p2 + armS*0.9, aY = pY + armS*0.45;
   ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = 4.5; ctx.lineCap = 'round';
-  ctx.beginPath(); ctx.moveTo(p2, pY); ctx.lineTo(aimAX, aimAY); ctx.stroke();
-  ctx.beginPath(); ctx.arc(aimAX, aimAY, 7, 0, Math.PI * 2);
-  ctx.fillStyle = '#f59e0b'; ctx.fill();
-  label(ctx, `arm = ${armL} mm`, p2 + armS * 0.2, pY + armS * 0.05, '#f59e0b', 8);
-
-  // Tie-rod force arrow
-  const ftieS = Math.min(60, F_tie / 50);
-  drawArrow(ctx, aimAX, aimAY, aimAX + ftieS, aimAY - 15, '#ef4444', 2.5);
-  label(ctx, `F_tie = ${F_tie.toFixed(0)} N`, aimAX + ftieS - 10, aimAY - 22, '#ef4444', 9);
-
-  label(ctx, '2. Tie-rod force via steer arm', p2 - 55, pY - 65, '#475569', 9);
-  label(ctx, `F_tie = T_align / arm`, p2 - 44, pY - 50, '#64748b', 8);
-  label(ctx, `= ${T_align.toFixed(1)} / ${(armL/1000).toFixed(3)} m`, p2 - 44, pY - 38, '#64748b', 8);
-
+  ctx.beginPath(); ctx.moveTo(p2, pY); ctx.lineTo(aX, aY); ctx.stroke();
+  ctx.beginPath(); ctx.arc(aX, aY, 7, 0, Math.PI*2); ctx.fillStyle = '#f59e0b'; ctx.fill();
+  lbl(ctx, `arm = ${armL} mm`, p2 + armS*0.2, pY + armS*0.05, '#f59e0b', 8);
+  const ftieS = Math.min(60, F_tie/50);
+  drawArrow(ctx, aX, aY, aX+ftieS, aY-15, '#ef4444', 2.5);
+  lbl(ctx, `F_tie = ${F_tie.toFixed(0)} N`, aX+ftieS-10, aY-22, '#ef4444', 9);
+  lbl(ctx, '2. Tie-rod force via steer arm', p2-55, pY-65, '#475569', 9);
+  lbl(ctx, `F_tie = T_align / arm`, p2-44, pY-50, '#64748b', 8);
+  lbl(ctx, `= ${T_align.toFixed(1)} / ${(armL/1000).toFixed(3)} m`, p2-44, pY-38, '#64748b', 8);
   ctx.font = 'bold 13px monospace'; ctx.fillStyle = '#ef4444'; ctx.textAlign = 'center';
-  ctx.fillText(`${F_tie.toFixed(0)} N`, p2, pY - 80);
-  ctx.textAlign = 'left';
+  ctx.fillText(`${F_tie.toFixed(0)} N`, p2, pY-80); ctx.textAlign = 'left';
 
-  // ── Arrow 2→3 ──
-  drawArrow(ctx, W * 0.68, pY, W * 0.75, pY, '#334155', 1.5, 7);
+  drawArrow(ctx, W*0.68, pY, W*0.75, pY, '#334155', 1.5, 7);
 
-  // ── Panel 3: Pinion & steering wheel torque ──
+  // Panel 3: Pinion
   const p3 = W * 0.87;
-
-  // Pinion
-  const pinS = Math.min(50, pinionRad * 1.2);
-  ctx.beginPath(); ctx.arc(p3, pY - 5, pinS, 0, Math.PI * 2);
+  const pinS = Math.min(55, pinionRad*1.2);
+  ctx.beginPath(); ctx.arc(p3, pY-5, pinS, 0, Math.PI*2);
   ctx.strokeStyle = '#a855f7'; ctx.lineWidth = 2; ctx.stroke();
-  label(ctx, `r = ${pinionRad.toFixed(1)} mm`, p3 - 28, pY - 4, '#a855f7', 8, 'center');
-
-  // Rack bar
-  ctx.fillStyle = '#1e293b';
-  ctx.fillRect(p3 - 80, pY + pinS - 10, 80, 18);
-  ctx.strokeStyle = '#475569'; ctx.lineWidth = 1;
-  ctx.strokeRect(p3 - 80, pY + pinS - 10, 80, 18);
+  lbl(ctx, `r=${pinionRad.toFixed(1)}mm`, p3-28, pY-4, '#a855f7', 8, 'center');
+  ctx.fillStyle = '#1e293b'; ctx.fillRect(p3-70, pY+pinS-8, 70, 16);
+  ctx.strokeStyle = '#475569'; ctx.lineWidth = 1; ctx.strokeRect(p3-70, pY+pinS-8, 70, 16);
   ctx.fillStyle = '#94a3b8'; ctx.font = '8px monospace'; ctx.textAlign = 'center';
-  ctx.fillText('RACK', p3 - 40, pY + pinS + 2);
-  ctx.textAlign = 'left';
-
-  // Rack force arrow
-  drawArrow(ctx, p3 - 80, pY + pinS + 9, p3 - 98, pY + pinS + 9, '#ef4444', 2, 6);
-
-  // Torque arc on pinion
+  ctx.fillText('RACK', p3-35, pY+pinS+2); ctx.textAlign = 'left';
+  drawArrow(ctx, p3-70, pY+pinS+9, p3-98, pY+pinS+9, '#ef4444', 2, 6);
   ctx.strokeStyle = '#10b981'; ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.arc(p3, pY - 5, pinS + 14, Math.PI * 0.5, Math.PI * 1.8); ctx.stroke();
-  ctx.beginPath(); ctx.arc(p3, pY - 5, pinS + 14, Math.PI * 0.5 - 0.3, Math.PI * 0.5);
-  ctx.fillStyle = '#10b981'; ctx.fill();
-
-  label(ctx, '3. Steering wheel torque', p3 - 55, pY - 65, '#475569', 9);
-  label(ctx, `T_sw = F_tie × pinion_r`, p3 - 44, pY - 50, '#64748b', 8);
-  label(ctx, `= ${F_tie.toFixed(0)} × ${(pinionRad/1000).toFixed(3)} m`, p3 - 44, pY - 38, '#64748b', 8);
-
+  ctx.beginPath(); ctx.arc(p3, pY-5, pinS+14, Math.PI*0.5, Math.PI*1.8); ctx.stroke();
+  lbl(ctx, '3. Pinion & steering torque', p3-55, pY-65, '#475569', 9);
+  lbl(ctx, `T_sw = F_tie × r_pinion`, p3-44, pY-50, '#64748b', 8);
+  lbl(ctx, `= ${F_tie.toFixed(0)} × ${(pinionRad/1000).toFixed(3)} m`, p3-44, pY-38, '#64748b', 8);
   const twCol = T_sw < 15 ? '#10b981' : '#ef4444';
   ctx.font = 'bold 13px monospace'; ctx.fillStyle = twCol; ctx.textAlign = 'center';
-  ctx.fillText(`${T_sw.toFixed(1)} N·m`, p3, pY - 82);
-  if (T_sw >= 15) {
-    ctx.fillStyle = '#ef4444'; ctx.font = '9px monospace';
-    ctx.fillText('⚠ > 15 Nm limit', p3, pY - 96);
-  }
+  ctx.fillText(`${T_sw.toFixed(1)} N·m`, p3, pY-82);
+  if (T_sw >= 15) { ctx.fillStyle = '#ef4444'; ctx.font = '9px monospace'; ctx.fillText('⚠ > 15 Nm limit', p3, pY-96); }
   ctx.textAlign = 'left';
+  lbl(ctx, 'STEERING FORCE CHAIN  —  Fy → Steer Arm → Rack → Pinion → Steering Wheel', 16, 18, '#475569', 10);
+}
 
-  // Title
-  label(ctx, 'STEERING FORCE CHAIN  —  Fy at tyre  →  Tie-rod  →  Pinion  →  Steering wheel', 16, 18, '#475569', 10);
+// ─────────────────────────────────────────────────────────
+// VIEW 5: STEER CAMBER
+// ─────────────────────────────────────────────────────────
+function renderSteerCamber(d) {
+  const { ctx, W, H } = setupCanvas('camberCanvas');
+  const { delta_i, kpi, caster, sc, camberCurve, steerCamberAtLock } = d;
+
+  const pad = { l: 80, r: 40, t: 60, b: 70 };
+  const pw = W - pad.l - pad.r;
+  const ph = H - pad.t - pad.b;
+
+  // Axis range
+  const minC = Math.min(...camberCurve, sc - 1);
+  const maxC = Math.max(...camberCurve, sc + 1);
+  const cRange = maxC - minC || 1;
+  const toX = i => pad.l + (i / (camberCurve.length - 1)) * pw;
+  const toY = v => pad.t + ph - ((v - minC) / cRange) * ph;
+
+  // Grid lines
+  ctx.strokeStyle = '#1e293b'; ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) {
+    const y = pad.t + (i / 4) * ph;
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + pw, y); ctx.stroke();
+    const val = maxC - (i / 4) * cRange;
+    lbl(ctx, val.toFixed(1) + '°', pad.l - 40, y + 4, '#64748b', 9);
+  }
+  for (let i = 0; i <= 4; i++) {
+    const x = pad.l + (i / 4) * pw;
+    ctx.beginPath(); ctx.moveTo(x, pad.t); ctx.lineTo(x, pad.t + ph); ctx.stroke();
+    const ang = (i / 4) * delta_i * RAD;
+    lbl(ctx, ang.toFixed(1) + '°', x - 10, pad.t + ph + 18, '#64748b', 9);
+  }
+
+  // Zero camber line
+  if (minC < 0 && maxC > 0) {
+    const zY = toY(0);
+    ctx.strokeStyle = '#334155'; ctx.lineWidth = 1; ctx.setLineDash([4,4]);
+    ctx.beginPath(); ctx.moveTo(pad.l, zY); ctx.lineTo(pad.l + pw, zY); ctx.stroke();
+    ctx.setLineDash([]);
+    lbl(ctx, '0°', pad.l - 22, zY + 4, '#475569', 9);
+  }
+
+  // Static camber line
+  const scY = toY(sc);
+  ctx.strokeStyle = '#f59e0b40'; ctx.lineWidth = 1; ctx.setLineDash([3,5]);
+  ctx.beginPath(); ctx.moveTo(pad.l, scY); ctx.lineTo(pad.l + pw, scY); ctx.stroke();
+  ctx.setLineDash([]);
+  lbl(ctx, `SC = ${sc}°`, pad.l + pw + 4, scY + 4, '#f59e0b', 8);
+
+  // Camber curve
+  ctx.beginPath(); ctx.strokeStyle = '#ef4444'; ctx.lineWidth = 2.5;
+  camberCurve.forEach((c, i) => {
+    const x = toX(i), y = toY(c);
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+
+  // Full-lock marker
+  const lockX = toX(camberCurve.length - 1);
+  const lockY = toY(steerCamberAtLock);
+  ctx.beginPath(); ctx.arc(lockX, lockY, 6, 0, Math.PI*2);
+  ctx.fillStyle = '#ef4444'; ctx.fill();
+  lbl(ctx, `${steerCamberAtLock.toFixed(2)}° at full lock`, lockX - 120, lockY - 12, '#ef4444', 10);
+
+  // Axes
+  ctx.strokeStyle = '#475569'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(pad.l, pad.t); ctx.lineTo(pad.l, pad.t + ph); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(pad.l, pad.t + ph); ctx.lineTo(pad.l + pw, pad.t + ph); ctx.stroke();
+
+  // Labels
+  lbl(ctx, 'STEER CAMBER  —  C = KPI·(1−cosθ) − Caster·sinθ + SC', 16, 20, '#475569', 10);
+  ctx.save(); ctx.translate(18, H/2); ctx.rotate(-Math.PI/2);
+  lbl(ctx, 'Camber (°)', -40, 0, '#94a3b8', 10);
+  ctx.restore();
+  lbl(ctx, 'Wheel Steer Angle θ (°)', W/2 - 60, H - 14, '#94a3b8', 10);
+
+  // Formula box
+  const fx = pad.l + 10, fy2 = pad.t + 10;
+  ctx.fillStyle = '#0f172a90'; ctx.fillRect(fx, fy2, 230, 58);
+  ctx.strokeStyle = '#334155'; ctx.lineWidth = 1; ctx.strokeRect(fx, fy2, 230, 58);
+  lbl(ctx, `KPI = ${kpi}°  ·  Caster = ${caster}°  ·  SC = ${sc}°`, fx+8, fy2+16, '#94a3b8', 9);
+  lbl(ctx, `C(θ) = ${kpi}·(1−cosθ) − ${caster}·sinθ + (${sc})`, fx+8, fy2+32, '#ef4444', 9);
+  lbl(ctx, `At full lock δᵢ=${(delta_i*RAD).toFixed(1)}°:  C = ${steerCamberAtLock.toFixed(2)}°`, fx+8, fy2+48, '#94a3b8', 9);
+}
+
+// ─────────────────────────────────────────────────────────
+// VIEW 6: U-JOINT VELOCITY RATIO
+// ─────────────────────────────────────────────────────────
+function renderUJoint(d) {
+  const { ctx, W, H } = setupCanvas('ujointCanvas');
+  const { gamma_deg, ujCurve, ujPeakRatio, ujMinRatio, ujFluctPct } = d;
+
+  const pad = { l: 80, r: 40, t: 60, b: 70 };
+  const pw = W - pad.l - pad.r;
+  const ph = H - pad.t - pad.b;
+  const minR = ujMinRatio - 0.02, maxR = ujPeakRatio + 0.02;
+  const rRange = maxR - minR || 0.001;
+  const toX = i => pad.l + (i / (ujCurve.length - 1)) * pw;
+  const toY = v => pad.t + ph - ((v - minR) / rRange) * ph;
+
+  // Grid
+  ctx.strokeStyle = '#1e293b'; ctx.lineWidth = 1;
+  for (let i = 0; i <= 5; i++) {
+    const y = pad.t + (i / 5) * ph;
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + pw, y); ctx.stroke();
+    const val = maxR - (i / 5) * rRange;
+    lbl(ctx, val.toFixed(3), pad.l - 48, y + 4, '#64748b', 9);
+  }
+  for (let i = 0; i <= 4; i++) {
+    const x = pad.l + (i / 4) * pw;
+    ctx.beginPath(); ctx.moveTo(x, pad.t); ctx.lineTo(x, pad.t + ph); ctx.stroke();
+    lbl(ctx, (i * 90) + '°', x - 8, pad.t + ph + 18, '#64748b', 9);
+  }
+
+  // Unity ratio line
+  const unity = toY(1);
+  ctx.strokeStyle = '#33415590'; ctx.lineWidth = 1; ctx.setLineDash([4,4]);
+  ctx.beginPath(); ctx.moveTo(pad.l, unity); ctx.lineTo(pad.l + pw, unity); ctx.stroke();
+  ctx.setLineDash([]);
+  lbl(ctx, '1.000', pad.l - 48, unity + 4, '#475569', 9);
+
+  // Single U-joint curve
+  ctx.beginPath(); ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = 2.5;
+  ujCurve.forEach((v, i) => {
+    const x = toX(i), y = toY(v);
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+
+  // Peak/min markers
+  const peakX = toX(0), peakY = toY(ujPeakRatio);
+  const minX  = toX(Math.round(ujCurve.length / 4));
+  const minY  = toY(ujMinRatio);
+  ctx.beginPath(); ctx.arc(peakX, peakY, 5, 0, Math.PI*2); ctx.fillStyle = '#ef4444'; ctx.fill();
+  lbl(ctx, `peak = ${ujPeakRatio.toFixed(3)}  (1/cosγ)`, peakX + 8, peakY - 5, '#ef4444', 9);
+  ctx.beginPath(); ctx.arc(minX, minY, 5, 0, Math.PI*2); ctx.fillStyle = '#10b981'; ctx.fill();
+  lbl(ctx, `min = ${ujMinRatio.toFixed(3)}  (cosγ)`, minX + 8, minY + 12, '#10b981', 9);
+
+  // Two-UJ cancel zone — flat line at y=1
+  ctx.strokeStyle = '#06b6d4'; ctx.lineWidth = 2; ctx.setLineDash([5,3]);
+  ctx.beginPath(); ctx.moveTo(pad.l, unity); ctx.lineTo(pad.l + pw, unity); ctx.stroke();
+  ctx.setLineDash([]);
+  lbl(ctx, 'CV output (2 U-joints phased 90°)', pad.l + 20, unity - 10, '#06b6d4', 9);
+
+  // Axes
+  ctx.strokeStyle = '#475569'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(pad.l, pad.t); ctx.lineTo(pad.l, pad.t + ph); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(pad.l, pad.t + ph); ctx.lineTo(pad.l + pw, pad.t + ph); ctx.stroke();
+
+  // Labels
+  lbl(ctx, 'U-JOINT VELOCITY RATIO  —  ωₒ/ωᵢ = cosγ / (1 − sin²γ·cos²θ)', 16, 20, '#475569', 10);
+  ctx.save(); ctx.translate(18, H/2); ctx.rotate(-Math.PI/2);
+  lbl(ctx, 'ωₒ / ωᵢ', -30, 0, '#94a3b8', 10);
+  ctx.restore();
+  lbl(ctx, 'Input Shaft Angle θ', W/2 - 50, H - 14, '#94a3b8', 10);
+
+  // Info box
+  const gammaCol = gamma_deg <= 20 ? '#10b981' : gamma_deg <= 32 ? '#f59e0b' : '#ef4444';
+  const gammaStatus = gamma_deg <= 20 ? '✓ within recommended' : gamma_deg <= 32 ? '⚠ above 20° recommended' : '✗ exceeds 32° limit';
+  const fx = pad.l + 10, fy2 = pad.t + 10;
+  ctx.fillStyle = '#0f172a90'; ctx.fillRect(fx, fy2, 270, 72);
+  ctx.strokeStyle = '#334155'; ctx.lineWidth = 1; ctx.strokeRect(fx, fy2, 270, 72);
+  lbl(ctx, `γ = ${gamma_deg}°  ${gammaStatus}`, fx+8, fy2+16, gammaCol, 9);
+  lbl(ctx, `Peak ratio: ${ujPeakRatio.toFixed(4)}   Min: ${ujMinRatio.toFixed(4)}`, fx+8, fy2+32, '#94a3b8', 9);
+  lbl(ctx, `Fluctuation: ±${(ujFluctPct/2).toFixed(2)}% from unity`, fx+8, fy2+48, '#94a3b8', 9);
+  lbl(ctx, `Phase two U-joints 90° apart to cancel fluctuation`, fx+8, fy2+64, '#06b6d4', 8);
+}
+
+// ─────────────────────────────────────────────────────────
+// VIEW 7: COLUMN TORSION
+// ─────────────────────────────────────────────────────────
+function renderColumn(d) {
+  const { ctx, W, H } = setupCanvas('columnCanvas');
+  const { T_sw, colLen, ro, ri, G_GPa, J, phi_deg, tau_MPa, ro_m, ri_m } = d;
+
+  const midY  = H * 0.42;
+  const colLeft  = W * 0.12;
+  const colRight = W * 0.78;
+  const colW  = colRight - colLeft;
+  const colH  = 50;
+
+  // ── Column body ──
+  const twistGrad = ctx.createLinearGradient(colLeft, 0, colRight, 0);
+  twistGrad.addColorStop(0, '#1e3a5f');
+  twistGrad.addColorStop(1, phi_deg < 0.01 ? '#1e4a3a' : '#4a1e1e');
+  ctx.fillStyle = twistGrad;
+  ctx.beginPath();
+  ctx.roundRect(colLeft, midY - colH/2, colW, colH, 6);
+  ctx.fill();
+  ctx.strokeStyle = '#334155'; ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.roundRect(colLeft, midY - colH/2, colW, colH, 6);
+  ctx.stroke();
+
+  // Hollow shaft indicator (if ri > 0)
+  if (ri > 0) {
+    const hR = Math.min(colH * 0.35, colH * (ri/ro) * 0.45);
+    ctx.fillStyle = '#0f172a';
+    ctx.beginPath(); ctx.ellipse(colLeft + 30, midY, 8, hR, 0, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(colRight - 30, midY, 8, hR, 0, 0, Math.PI*2); ctx.fill();
+    ctx.strokeStyle = '#475569'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.ellipse(colLeft + 30, midY, 8, hR, 0, 0, Math.PI*2); ctx.stroke();
+    ctx.beginPath(); ctx.ellipse(colRight - 30, midY, 8, hR, 0, 0, Math.PI*2); ctx.stroke();
+  }
+
+  // ── Torque arrows (input end) ──
+  const tCol = '#f59e0b';
+  ctx.strokeStyle = tCol; ctx.lineWidth = 2.5;
+  for (let i = 0; i < 3; i++) {
+    const r = 14 + i * 8;
+    ctx.beginPath();
+    ctx.arc(colLeft - 20, midY, r, Math.PI*0.3, Math.PI*1.5);
+    ctx.stroke();
+  }
+  ctx.beginPath();
+  ctx.moveTo(colLeft - 20 + 14*Math.cos(Math.PI*0.3) - 6, midY + 14*Math.sin(Math.PI*0.3));
+  ctx.lineTo(colLeft - 20 + 14*Math.cos(Math.PI*0.3), midY + 14*Math.sin(Math.PI*0.3));
+  ctx.lineTo(colLeft - 20 + 14*Math.cos(Math.PI*0.3), midY + 14*Math.sin(Math.PI*0.3) + 6);
+  ctx.stroke();
+  lbl(ctx, `T = ${T_sw.toFixed(1)} N·m`, colLeft - 65, midY - 40, tCol, 9);
+
+  // ── Fixed wall (output end) ──
+  ctx.fillStyle = '#334155';
+  for (let i = 0; i < 5; i++) {
+    ctx.fillRect(colRight + 12, midY - colH/2 + i * 12, 12, 8);
+  }
+  ctx.strokeStyle = '#475569'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(colRight + 12, midY - colH/2); ctx.lineTo(colRight + 12, midY + colH/2); ctx.stroke();
+
+  // ── Length dimension ──
+  ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1.5;
+  const dY = midY + colH/2 + 25;
+  ctx.beginPath(); ctx.moveTo(colLeft, dY); ctx.lineTo(colRight, dY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(colLeft, dY-5); ctx.lineTo(colLeft, dY+5); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(colRight, dY-5); ctx.lineTo(colRight, dY+5); ctx.stroke();
+  lbl(ctx, `L = ${colLen} mm`, (colLeft+colRight)/2 - 30, dY + 16, '#94a3b8', 10);
+
+  // ── Cross-section diagram ──
+  const csX = W * 0.88, csY = midY;
+  const csOuter = Math.min(55, ro * 2.5);
+  const csInner = ri > 0 ? (ri/ro) * csOuter : 0;
+
+  // Shear stress heatmap (outer surface is max)
+  const grad = ctx.createRadialGradient(csX, csY, csInner, csX, csY, csOuter);
+  grad.addColorStop(0, '#1e293b');
+  grad.addColorStop(1, tau_MPa > 100 ? '#7f1d1d' : tau_MPa > 50 ? '#78350f' : '#064e3b');
+  ctx.beginPath(); ctx.arc(csX, csY, csOuter, 0, Math.PI*2);
+  ctx.fillStyle = grad; ctx.fill();
+  ctx.strokeStyle = '#a855f7'; ctx.lineWidth = 2; ctx.stroke();
+
+  if (csInner > 0) {
+    ctx.beginPath(); ctx.arc(csX, csY, csInner, 0, Math.PI*2);
+    ctx.fillStyle = '#0f172a'; ctx.fill();
+    ctx.strokeStyle = '#475569'; ctx.lineWidth = 1; ctx.stroke();
+  }
+
+  // Shear stress arrow
+  const ssX = csX + csOuter, ssY = csY;
+  drawArrow(ctx, ssX + 5, ssY, ssX + 30, ssY, '#ef4444', 2, 6);
+  lbl(ctx, `τ_max`, ssX + 32, ssY + 4, '#ef4444', 9);
+
+  // Cross-section labels
+  lbl(ctx, `r_o = ${ro} mm`, csX - 20, csY + csOuter + 16, '#a855f7', 9);
+  if (ri > 0) lbl(ctx, `r_i = ${ri} mm`, csX - 20, csY + csOuter + 28, '#475569', 8);
+  lbl(ctx, 'Cross-section', csX - 32, csY - csOuter - 10, '#64748b', 9);
+
+  // ── Results table ──
+  const tx = W * 0.12, ty = H * 0.75;
+  const rows = [
+    ['J (polar moment)', `π(r_o⁴ − r_i⁴)/2`, `${(J * 1e12).toFixed(3)} mm⁴  [${(J*1e9).toFixed(6)} × 10⁻⁹ m⁴]`, '#94a3b8'],
+    ['φ (angle of twist)', `TL / GJ`, `${phi_deg.toFixed(6)}°  (target < 0.01°)`, phi_deg < 0.01 ? '#10b981' : '#ef4444'],
+    ['τ_max (shear stress)', `Tr_o / J`, `${tau_MPa.toFixed(1)} MPa`, tau_MPa < 100 ? '#10b981' : '#f59e0b'],
+    ['G (shear modulus)', `input`, `${G_GPa} GPa`, '#94a3b8'],
+  ];
+  ctx.fillStyle = '#0f172a90'; ctx.fillRect(tx - 8, ty - 18, W*0.70, rows.length * 22 + 12);
+  ctx.strokeStyle = '#334155'; ctx.lineWidth = 1; ctx.strokeRect(tx - 8, ty - 18, W*0.70, rows.length * 22 + 12);
+  rows.forEach(([name, formula, result, color], i) => {
+    const y = ty + i * 22;
+    lbl(ctx, name, tx, y, '#64748b', 9);
+    lbl(ctx, formula, tx + 155, y, '#475569', 9);
+    lbl(ctx, result, tx + 260, y, color, 9);
+  });
+
+  lbl(ctx, 'COLUMN TORSION  —  φ = TL/GJ  ·  τ_max = Tr/J', 16, 20, '#475569', 10);
 }
 
 // ─────────────────────────────────────────────────────────
