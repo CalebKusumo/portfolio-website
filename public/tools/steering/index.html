@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FSAE Steering Design Calculator</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body { font-family: system-ui, -apple-system, sans-serif; background: #f1f5f9; }
+
+  /* ── Sidebar ── */
+  .sidebar { background: #0f172a; width: 290px; min-width: 290px; }
+  .sidebar::-webkit-scrollbar { width: 3px; }
+  .sidebar::-webkit-scrollbar-thumb { background: #334155; border-radius: 2px; }
+
+  .sec-hdr {
+    font-size: 0.58rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.12em; color: #475569;
+    padding-bottom: 6px; border-bottom: 1px solid #1e293b; margin-bottom: 10px;
+  }
+
+  .inp-label {
+    font-size: 0.62rem; font-weight: 700; color: #64748b;
+    text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 3px;
+  }
+
+  .inp-field {
+    width: 100%; background: #1e293b; border: 1px solid #334155;
+    border-radius: 6px; color: #e2e8f0; padding: 7px 10px;
+    font-size: 0.875rem; font-family: 'Courier New', monospace;
+    transition: border-color 0.15s;
+  }
+  .inp-field:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 2px #3b82f620; }
+
+  .inp-unit { font-size: 0.58rem; color: #475569; margin-top: 2px; font-style: italic; }
+
+  /* ── Metrics ── */
+  .mc { background: white; border-radius: 10px; padding: 12px 14px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+  .mc-label { font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; }
+  .mc-val { font-size: 1.55rem; font-weight: 800; line-height: 1.1; margin-top: 2px; }
+  .mc-sub { font-size: 0.6rem; color: #94a3b8; margin-top: 1px; }
+
+  /* ── Tabs ── */
+  .tab-btn {
+    padding: 6px 14px; font-size: 0.65rem; font-weight: 700;
+    border-radius: 6px; cursor: pointer; color: #64748b;
+    border: none; background: transparent;
+    letter-spacing: 0.04em; text-transform: uppercase; transition: all 0.15s;
+  }
+  .tab-btn:hover { background: #f1f5f9; color: #334155; }
+  .tab-btn.active { background: #1e293b; color: white; }
+
+  /* ── Canvas ── */
+  canvas { display: block; background: #0f172a; border-radius: 8px; width: 100%; height: auto; }
+
+  /* ── Diagram cards ── */
+  .dc { background: white; border-radius: 10px; border: 1px solid #e2e8f0; overflow: hidden; }
+  .dc-hdr { background: #f8fafc; border-bottom: 1px solid #e2e8f0; padding: 8px 12px; font-size: 0.65rem; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.08em; }
+  .dc-body { padding: 12px; }
+  .dc-desc { font-size: 0.68rem; color: #64748b; line-height: 1.55; margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<div class="flex h-screen overflow-hidden">
+
+  <!-- ══════════════════ SIDEBAR ══════════════════ -->
+  <aside class="sidebar flex-shrink-0 overflow-y-auto h-screen">
+    <div class="p-5 pb-10">
+
+      <div class="mb-6 pt-1">
+        <div class="text-xs font-bold text-blue-500 uppercase tracking-widest mb-1">FSAE Engineering</div>
+        <h1 class="text-2xl font-black text-white tracking-tight">Steering Lab</h1>
+        <p class="text-xs text-slate-500 mt-1">Kinematics · Constraints · Forces · Bump Steer</p>
+      </div>
+
+      <!-- Vehicle Dimensions -->
+      <div class="mb-5">
+        <div class="sec-hdr">Vehicle Dimensions</div>
+        <div class="space-y-3">
+          <div>
+            <div class="inp-label">Wheelbase (L)</div>
+            <input class="inp-field" type="number" id="L" value="1550" step="10" oninput="compute()">
+            <div class="inp-unit">mm — front axle to rear axle centreline</div>
+          </div>
+          <div>
+            <div class="inp-label">Front Track Width (T)</div>
+            <input class="inp-field" type="number" id="T" value="1200" step="10" oninput="compute()">
+            <div class="inp-unit">mm — hub centreline to hub centreline</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wheel -->
+      <div class="mb-5">
+        <div class="sec-hdr">Wheel &amp; Rim</div>
+        <div class="space-y-3">
+          <div>
+            <div class="inp-label">Rim Inner Diameter</div>
+            <input class="inp-field" type="number" id="rimID" value="230" step="5" oninput="compute()">
+            <div class="inp-unit">mm — measured inside the rim flange</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Steering Geometry -->
+      <div class="mb-5">
+        <div class="sec-hdr">Steering Geometry</div>
+        <div class="space-y-3">
+          <div>
+            <div class="inp-label">Design Turn Radius (R)</div>
+            <input class="inp-field" type="number" id="targetR" value="4.0" step="0.1" oninput="compute()">
+            <div class="inp-unit">m — to vehicle centreline</div>
+          </div>
+          <div>
+            <div class="inp-label">Steer Arm Length</div>
+            <input class="inp-field" type="number" id="armL" value="110" step="5" oninput="compute()">
+            <div class="inp-unit">mm — kingpin axis to tie-rod pickup</div>
+          </div>
+          <div>
+            <div class="inp-label">Ackermann %</div>
+            <input class="inp-field" type="number" id="ackPerc" value="100" step="5" oninput="compute()">
+            <div class="inp-unit">% — 0 = parallel, 100 = full Ackermann</div>
+          </div>
+          <div>
+            <div class="inp-label">Total Rack Stroke</div>
+            <input class="inp-field" type="number" id="rackStroke" value="80" step="5" oninput="compute()">
+            <div class="inp-unit">mm — total travel both sides combined</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ergonomics -->
+      <div class="mb-5">
+        <div class="sec-hdr">Ergonomics &amp; Feel</div>
+        <div class="space-y-3">
+          <div>
+            <div class="inp-label">Lock-to-Lock Rotation</div>
+            <input class="inp-field" type="number" id="lock" value="180" step="10" oninput="compute()">
+            <div class="inp-unit">° — total steering wheel travel</div>
+          </div>
+          <div>
+            <div class="inp-label">Mechanical Trail</div>
+            <input class="inp-field" type="number" id="trail" value="25" step="1" oninput="compute()">
+            <div class="inp-unit">mm — kingpin ground intercept to contact patch</div>
+          </div>
+          <div>
+            <div class="inp-label">Peak Lateral Force (Fy)</div>
+            <input class="inp-field" type="number" id="fy" value="1500" step="50" oninput="compute()">
+            <div class="inp-unit">N — front axle, worst-case cornering load</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bump Steer -->
+      <div class="mb-5">
+        <div class="sec-hdr">Bump Steer Tuning</div>
+        <div class="space-y-3">
+          <div>
+            <div class="inp-label">Tie-Rod Height Offset</div>
+            <input class="inp-field" type="number" id="rackY" value="0" step="1" oninput="compute()">
+            <div class="inp-unit">mm above (+) or below (−) wishbone plane</div>
+          </div>
+          <div>
+            <div class="inp-label">Wishbone Half-Length</div>
+            <input class="inp-field" type="number" id="suspArmL" value="300" step="10" oninput="compute()">
+            <div class="inp-unit">mm — inner pivot to wheel upright pickup</div>
+          </div>
+          <div>
+            <div class="inp-label">Max Bump Travel</div>
+            <input class="inp-field" type="number" id="bumpTravel" value="50" step="5" oninput="compute()">
+            <div class="inp-unit">mm — maximum upward wheel travel</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- ══════════════════ MAIN ══════════════════ -->
+  <main class="flex-1 overflow-y-auto bg-slate-50">
+    <div class="p-6 max-w-5xl mx-auto space-y-6">
+
+      <!-- ── Results Dashboard ── -->
+      <section>
+        <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Live Results</div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <div class="mc border-t-4 border-t-blue-500">
+            <div class="mc-label">Steering Ratio</div>
+            <div id="ratioOut" class="mc-val text-blue-600">--</div>
+            <div class="mc-sub">sw° per wheel°</div>
+          </div>
+          <div class="mc border-t-4 border-t-emerald-500">
+            <div class="mc-label">Rack Travel (½ lock)</div>
+            <div id="rackOut" class="mc-val text-emerald-600">--</div>
+            <div class="mc-sub">mm needed · <span id="rackLimitLabel">--</span>mm available</div>
+          </div>
+          <div class="mc border-t-4 border-t-amber-500">
+            <div class="mc-label">Steering Effort</div>
+            <div id="torqueOut" class="mc-val text-amber-600">--</div>
+            <div class="mc-sub">Nm at steering wheel</div>
+          </div>
+          <div class="mc border-t-4 border-t-purple-500">
+            <div class="mc-label">Pinion Radius</div>
+            <div id="pinionOut" class="mc-val text-purple-600">--</div>
+            <div class="mc-sub">mm pitch radius</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-3">
+          <div class="mc">
+            <div class="mc-label">Inner Wheel δᵢ</div>
+            <div id="innerAngOut" class="mc-val text-slate-700">--</div>
+            <div class="mc-sub">degrees from straight ahead</div>
+          </div>
+          <div class="mc">
+            <div class="mc-label">Outer Wheel δₒ</div>
+            <div id="outerAngOut" class="mc-val text-slate-700">--</div>
+            <div class="mc-sub">degrees from straight ahead</div>
+          </div>
+          <div class="mc">
+            <div class="mc-label">Outer Path Diameter</div>
+            <div id="turnCircleOut" class="mc-val text-slate-700">--</div>
+            <div class="mc-sub">m — outer hub sweep</div>
+          </div>
+          <div class="mc">
+            <div class="mc-label">Tie-Rod Force</div>
+            <div id="fTieRodOut" class="mc-val text-slate-700">--</div>
+            <div class="mc-sub">N at peak Fy</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Validation ── -->
+      <div id="validPanel" class="p-4 rounded-xl text-sm font-semibold border text-center">
+        Awaiting inputs…
+      </div>
+
+      <!-- ── Tabbed Visualizations ── -->
+      <section class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="flex items-center gap-1 px-4 pt-3 pb-3 border-b border-slate-100 flex-wrap">
+          <button class="tab-btn active" onclick="switchTab('kin')">Ackermann Geometry</button>
+          <button class="tab-btn" onclick="switchTab('con')">Rim Clearance</button>
+          <button class="tab-btn" onclick="switchTab('bump')">Bump Steer</button>
+          <button class="tab-btn" onclick="switchTab('force')">Force Chain</button>
+        </div>
+        <div class="p-4">
+          <div id="tab-kin"><canvas id="kinCanvas" width="860" height="480"></canvas></div>
+          <div id="tab-con" style="display:none"><canvas id="conCanvas" width="860" height="480"></canvas></div>
+          <div id="tab-bump" style="display:none"><canvas id="bumpCanvas" width="860" height="480"></canvas></div>
+          <div id="tab-force" style="display:none"><canvas id="forceCanvas" width="860" height="480"></canvas></div>
+        </div>
+      </section>
+
+      <!-- ── Parameter Reference Guide ── -->
+      <section>
+        <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Parameter Reference Guide</div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+          <!-- Wheelbase -->
+          <div class="dc">
+            <div class="dc-hdr">Wheelbase (L)</div>
+            <div class="dc-body">
+              <svg viewBox="0 0 220 110" class="w-full">
+                <defs>
+                  <marker id="ah1" markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#f59e0b"/></marker>
+                  <marker id="ah1b" markerWidth="6" markerHeight="6" refX="0" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 z" fill="#f59e0b"/></marker>
+                </defs>
+                <!-- car body -->
+                <rect x="30" y="35" width="160" height="40" rx="4" fill="none" stroke="#334155" stroke-width="1.5"/>
+                <!-- front wheels -->
+                <rect x="168" y="25" width="14" height="18" rx="2" fill="#3b82f6" opacity=".8"/>
+                <rect x="168" y="67" width="14" height="18" rx="2" fill="#3b82f6" opacity=".8"/>
+                <!-- rear wheels -->
+                <rect x="38" y="25" width="14" height="18" rx="2" fill="#64748b" opacity=".7"/>
+                <rect x="38" y="67" width="14" height="18" rx="2" fill="#64748b" opacity=".7"/>
+                <!-- L arrow -->
+                <line x1="45" y1="96" x2="175" y2="96" stroke="#f59e0b" stroke-width="1.5" marker-start="url(#ah1b)" marker-end="url(#ah1)"/>
+                <text x="110" y="108" text-anchor="middle" font-size="9" fill="#f59e0b" font-weight="700">L = Wheelbase</text>
+                <!-- labels -->
+                <text x="179" y="37" font-size="8" fill="#3b82f6">Front</text>
+                <text x="20" y="37" font-size="8" fill="#64748b">Rear</text>
+              </svg>
+              <div class="dc-desc">Distance between front and rear axle centrelines. Longer wheelbase increases stability and reduces sensitivity to driver inputs, but increases the minimum turn radius.</div>
+            </div>
+          </div>
+
+          <!-- Track Width -->
+          <div class="dc">
+            <div class="dc-hdr">Track Width (T)</div>
+            <div class="dc-body">
+              <svg viewBox="0 0 220 110" class="w-full">
+                <defs>
+                  <marker id="ah2" markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#f59e0b"/></marker>
+                  <marker id="ah2b" markerWidth="6" markerHeight="6" refX="0" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 z" fill="#f59e0b"/></marker>
+                </defs>
+                <!-- road -->
+                <rect x="0" y="88" width="220" height="6" fill="#1e293b"/>
+                <!-- left wheel (front view) -->
+                <rect x="18" y="48" width="32" height="42" rx="3" fill="#3b82f6" opacity=".7"/>
+                <!-- right wheel -->
+                <rect x="170" y="48" width="32" height="42" rx="3" fill="#3b82f6" opacity=".7"/>
+                <!-- hub centre lines -->
+                <line x1="34" y1="88" x2="34" y2="96" stroke="#94a3b8" stroke-width="1"/>
+                <line x1="186" y1="88" x2="186" y2="96" stroke="#94a3b8" stroke-width="1"/>
+                <!-- T arrow -->
+                <line x1="34" y1="30" x2="186" y2="30" stroke="#f59e0b" stroke-width="1.5" marker-start="url(#ah2b)" marker-end="url(#ah2)"/>
+                <text x="110" y="22" text-anchor="middle" font-size="9" fill="#f59e0b" font-weight="700">T = Track Width</text>
+              </svg>
+              <div class="dc-desc">Hub-centreline-to-hub-centreline width. Wider track lowers roll, improves lateral grip, and reduces Ackermann angles required. Used to compute inner/outer turn radii.</div>
+            </div>
+          </div>
+
+          <!-- Rim ID -->
+          <div class="dc">
+            <div class="dc-hdr">Rim Inner Diameter</div>
+            <div class="dc-body">
+              <svg viewBox="0 0 220 110" class="w-full">
+                <!-- tyre outer -->
+                <circle cx="110" cy="58" r="46" fill="none" stroke="#334155" stroke-width="12"/>
+                <!-- rim ID circle -->
+                <circle cx="110" cy="58" r="34" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <!-- hub -->
+                <circle cx="110" cy="58" r="6" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+                <!-- steer arm clearance zone -->
+                <circle cx="110" cy="58" r="28" fill="none" stroke="#10b981" stroke-width="1" stroke-dasharray="3,3" opacity=".6"/>
+                <!-- radius label -->
+                <line x1="110" y1="58" x2="144" y2="58" stroke="#f59e0b" stroke-width="1.5"/>
+                <text x="118" y="52" font-size="8" fill="#f59e0b" font-weight="700">rimID / 2</text>
+                <!-- clearance label -->
+                <text x="60" y="28" font-size="8" fill="#10b981">safe zone for steer arm</text>
+                <line x1="108" y1="30" x2="110" y2="30" stroke="#10b981" stroke-width="1"/>
+              </svg>
+              <div class="dc-desc">Inner diameter of the rim bead seat. The steer arm must fit within half this value (minus 10 mm safety margin) to avoid contact with the rim during full lock.</div>
+            </div>
+          </div>
+
+          <!-- Ackermann % -->
+          <div class="dc">
+            <div class="dc-hdr">Ackermann Percentage</div>
+            <div class="dc-body">
+              <svg viewBox="0 0 220 120" class="w-full">
+                <!-- turn centre -->
+                <circle cx="35" cy="105" r="4" fill="#10b981"/>
+                <text x="8" y="118" font-size="7" fill="#10b981">Turn centre</text>
+                <!-- 100% Ackermann -->
+                <line x1="35" y1="105" x2="80" y2="25" stroke="#10b981" stroke-width="1" stroke-dasharray="3,3"/>
+                <line x1="35" y1="105" x2="145" y2="35" stroke="#10b981" stroke-width="1" stroke-dasharray="3,3"/>
+                <rect x="68" y="18" width="24" height="12" rx="2" fill="#10b981" opacity=".8" transform="rotate(-20 80 24)"/>
+                <rect x="130" y="28" width="24" height="12" rx="2" fill="#10b981" opacity=".8" transform="rotate(-8 142 34)"/>
+                <text x="165" y="25" font-size="7" fill="#10b981" font-weight="700">100%</text>
+                <!-- 0% parallel -->
+                <rect x="68" y="55" width="24" height="12" rx="2" fill="#94a3b8" opacity=".7" transform="rotate(-12 80 61)"/>
+                <rect x="130" y="55" width="24" height="12" rx="2" fill="#94a3b8" opacity=".7" transform="rotate(-12 142 61)"/>
+                <text x="165" y="65" font-size="7" fill="#94a3b8" font-weight="700">0%</text>
+                <!-- 50% -->
+                <rect x="68" y="85" width="24" height="12" rx="2" fill="#f59e0b" opacity=".8" transform="rotate(-16 80 91)"/>
+                <rect x="130" y="87" width="24" height="12" rx="2" fill="#f59e0b" opacity=".8" transform="rotate(-10 142 93)"/>
+                <text x="165" y="97" font-size="7" fill="#f59e0b" font-weight="700">50%</text>
+              </svg>
+              <div class="dc-desc">
+                <strong>100%:</strong> Inner wheel turns more than outer — both tyres trace concentric circles. Perfect for low-speed, low-slip-angle driving.<br>
+                <strong>0%:</strong> Both wheels turn equally (parallel steer). Better at high speed where slip angles dominate.<br>
+                FSAE cars typically run 50–100%.
+              </div>
+            </div>
+          </div>
+
+          <!-- Steer Arm -->
+          <div class="dc">
+            <div class="dc-hdr">Steer Arm Length</div>
+            <div class="dc-body">
+              <svg viewBox="0 0 220 110" class="w-full">
+                <!-- hub / rim outline -->
+                <circle cx="90" cy="58" r="38" fill="none" stroke="#334155" stroke-width="10"/>
+                <!-- kingpin -->
+                <circle cx="90" cy="58" r="6" fill="#1e293b" stroke="#94a3b8" stroke-width="1.5"/>
+                <!-- steer arm -->
+                <line x1="90" y1="58" x2="158" y2="85" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+                <circle cx="158" cy="85" r="6" fill="#f59e0b"/>
+                <!-- tie rod continuation -->
+                <line x1="158" y1="85" x2="200" y2="72" stroke="#60a5fa" stroke-width="2" stroke-dasharray="4,3"/>
+                <text x="188" y="68" font-size="7" fill="#60a5fa">tie rod →</text>
+                <!-- dimension arrow -->
+                <line x1="90" y1="48" x2="158" y2="75" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2"/>
+                <text x="115" y="55" font-size="9" fill="#f59e0b" font-weight="700">Arm Length</text>
+                <!-- kingpin label -->
+                <text x="55" y="100" font-size="7" fill="#94a3b8">Kingpin axis</text>
+              </svg>
+              <div class="dc-desc">Lever from the kingpin (steering axis) to the tie-rod ball joint. Longer arm = lower tie-rod force and less rack travel needed, but must fit inside the rim. Key packaging constraint.</div>
+            </div>
+          </div>
+
+          <!-- Lock-to-Lock -->
+          <div class="dc">
+            <div class="dc-hdr">Lock-to-Lock Rotation</div>
+            <div class="dc-body">
+              <svg viewBox="0 0 220 110" class="w-full">
+                <!-- steering wheel -->
+                <circle cx="110" cy="62" r="36" fill="none" stroke="#475569" stroke-width="3"/>
+                <circle cx="110" cy="62" r="5" fill="#334155"/>
+                <!-- spokes -->
+                <line x1="110" y1="62" x2="110" y2="26" stroke="#475569" stroke-width="2"/>
+                <line x1="110" y1="62" x2="141" y2="80" stroke="#475569" stroke-width="2"/>
+                <line x1="110" y1="62" x2="79" y2="80" stroke="#475569" stroke-width="2"/>
+                <!-- rotation arc -->
+                <path d="M 80 28 A 36 36 0 1 1 140 28" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="5,3"/>
+                <!-- arc arrow tip -->
+                <polygon points="140,28 148,20 142,32" fill="#f59e0b"/>
+                <!-- angle label -->
+                <text x="110" y="17" text-anchor="middle" font-size="9" fill="#f59e0b" font-weight="700">Lock-to-Lock</text>
+                <text x="110" y="105" text-anchor="middle" font-size="8" fill="#94a3b8">Half = lock/2 → wheel goes to δᵢ</text>
+              </svg>
+              <div class="dc-desc">Total rotation of the steering wheel from full left lock to full right lock. Half this rotation moves the wheel from centre to full δᵢ. Determines steering ratio and pinion radius.</div>
+            </div>
+          </div>
+
+          <!-- Mechanical Trail -->
+          <div class="dc">
+            <div class="dc-hdr">Mechanical Trail</div>
+            <div class="dc-body">
+              <svg viewBox="0 0 220 115" class="w-full">
+                <defs>
+                  <marker id="ah3" markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#f59e0b"/></marker>
+                  <marker id="ah3b" markerWidth="6" markerHeight="6" refX="0" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 z" fill="#f59e0b"/></marker>
+                </defs>
+                <!-- ground -->
+                <line x1="20" y1="98" x2="200" y2="98" stroke="#334155" stroke-width="2"/>
+                <!-- tyre (side view ellipse) -->
+                <ellipse cx="120" cy="68" rx="30" ry="32" fill="none" stroke="#3b82f6" stroke-width="2"/>
+                <!-- caster axis (kingpin, tilted) -->
+                <line x1="100" y1="15" x2="130" y2="98" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="5,3"/>
+                <!-- kingpin ground point -->
+                <circle cx="121" cy="98" r="4" fill="#10b981"/>
+                <!-- contact patch -->
+                <circle cx="133" cy="98" r="4" fill="#ef4444"/>
+                <!-- trail dimension -->
+                <line x1="121" y1="107" x2="133" y2="107" stroke="#f59e0b" stroke-width="1.5" marker-start="url(#ah3b)" marker-end="url(#ah3)"/>
+                <text x="127" y="115" text-anchor="middle" font-size="8" fill="#f59e0b" font-weight="700">Trail</text>
+                <text x="86" y="22" font-size="7" fill="#ef4444">Kingpin axis</text>
+                <text x="135" y="94" font-size="7" fill="#ef4444">patch</text>
+                <text x="95" y="94" font-size="7" fill="#10b981">KP gnd</text>
+              </svg>
+              <div class="dc-desc">Horizontal distance from where the kingpin axis meets the ground to the tyre contact patch centre. Creates self-aligning torque: <strong>T = Fy × trail</strong>. More trail = more feedback and effort.</div>
+            </div>
+          </div>
+
+          <!-- Lateral Force -->
+          <div class="dc">
+            <div class="dc-hdr">Peak Lateral Force (Fy)</div>
+            <div class="dc-body">
+              <svg viewBox="0 0 220 110" class="w-full">
+                <defs>
+                  <marker id="ah4" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#3b82f6"/></marker>
+                </defs>
+                <!-- tyre patch -->
+                <ellipse cx="110" cy="80" rx="45" ry="20" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+                <text x="110" y="84" text-anchor="middle" font-size="8" fill="#64748b">Contact Patch</text>
+                <!-- Fy arrow -->
+                <line x1="60" y1="80" x2="108" y2="80" stroke="#3b82f6" stroke-width="3" marker-end="url(#ah4)"/>
+                <text x="75" y="68" font-size="10" fill="#3b82f6" font-weight="800">Fy</text>
+                <!-- normal force down arrow -->
+                <line x1="110" y1="25" x2="110" y2="58" stroke="#94a3b8" stroke-width="2"/>
+                <polygon points="110,62 105,53 115,53" fill="#94a3b8"/>
+                <text x="114" y="45" font-size="8" fill="#94a3b8">Fz (load)</text>
+                <!-- self-aligning torque arc -->
+                <path d="M 145 65 A 20 20 0 0 0 145 95" fill="none" stroke="#10b981" stroke-width="2"/>
+                <polygon points="145,95 138,88 150,87" fill="#10b981"/>
+                <text x="150" y="80" font-size="8" fill="#10b981">Talign</text>
+              </svg>
+              <div class="dc-desc">Maximum lateral (cornering) force on the front axle. Use combined left + right tyre capacity. Sets the worst-case aligning torque: <strong>T_align = Fy × trail</strong>, which drives steering effort.</div>
+            </div>
+          </div>
+
+          <!-- Tie-Rod Height / Bump Steer -->
+          <div class="dc">
+            <div class="dc-hdr">Tie-Rod Height Offset (Bump Steer)</div>
+            <div class="dc-body">
+              <svg viewBox="0 0 220 115" class="w-full">
+                <defs>
+                  <marker id="ah5" markerWidth="5" markerHeight="5" refX="5" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 z" fill="#f59e0b"/></marker>
+                  <marker id="ah5b" markerWidth="5" markerHeight="5" refX="0" refY="2.5" orient="auto"><path d="M5,0 L0,2.5 L5,5 z" fill="#f59e0b"/></marker>
+                </defs>
+                <!-- chassis block -->
+                <rect x="5" y="10" width="60" height="20" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                <text x="35" y="24" text-anchor="middle" font-size="7" fill="#64748b">Chassis</text>
+                <!-- upright -->
+                <rect x="150" y="25" width="10" height="60" fill="#475569"/>
+                <!-- wishbone (blue) -->
+                <line x1="35" y1="30" x2="155" y2="55" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/>
+                <text x="80" y="38" font-size="7" fill="#3b82f6">wishbone</text>
+                <!-- tie rod zero offset (green dashed) -->
+                <line x1="35" y1="30" x2="152" y2="55" stroke="#10b981" stroke-width="1" stroke-dasharray="3,2" opacity=".5"/>
+                <!-- tie rod with offset (amber) -->
+                <line x1="35" y1="18" x2="152" y2="42" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
+                <text x="75" y="14" font-size="7" fill="#f59e0b">tie rod (+offset)</text>
+                <!-- offset dimension -->
+                <line x1="22" y1="18" x2="22" y2="30" stroke="#f59e0b" stroke-width="1.5" marker-start="url(#ah5b)" marker-end="url(#ah5)"/>
+                <text x="25" y="26" font-size="7" fill="#f59e0b">offset</text>
+                <!-- wheel travel arrows -->
+                <text x="155" y="100" font-size="7" fill="#94a3b8">↕ bump travel</text>
+              </svg>
+              <div class="dc-desc">Vertical mismatch between tie-rod inner pivot and wishbone pivot. <strong>Zero offset = zero bump steer.</strong> Any offset causes the wheel to toe in or out as it travels over bumps. Target &lt; 5 mm for FSAE.</div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <div class="text-center text-xs text-slate-400 py-4 border-t border-slate-200">
+        FSAE Steering Design Calculator · Ackermann geometry · Rack-and-pinion mechanics · Static force analysis
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- ══════════════════ JAVASCRIPT ══════════════════ -->
+<script>
+// ─────────────────────────────────────────────────────────
+// CONSTANTS
+// ─────────────────────────────────────────────────────────
+const DEG = Math.PI / 180;
+const RAD = 180 / Math.PI;
+
+// ─────────────────────────────────────────────────────────
+// TAB SWITCHING
+// ─────────────────────────────────────────────────────────
+const TABS = ['kin','con','bump','force'];
+
+function switchTab(name) {
+  TABS.forEach(t => {
+    document.getElementById('tab-' + t).style.display = t === name ? 'block' : 'none';
+  });
+  document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', TABS[i] === name);
+  });
+  renderAll(window._last);
+}
+
+// ─────────────────────────────────────────────────────────
+// MAIN COMPUTATION
+// ─────────────────────────────────────────────────────────
+function compute() {
+  const L          = +document.getElementById('L').value;
+  const T          = +document.getElementById('T').value;
+  const rimID      = +document.getElementById('rimID').value;
+  const rackStroke = +document.getElementById('rackStroke').value;
+  const R          = +document.getElementById('targetR').value * 1000; // → mm
+  const armL       = +document.getElementById('armL').value;
+  const ackPct     = +document.getElementById('ackPerc').value;
+  const lock       = +document.getElementById('lock').value;
+  const trail      = +document.getElementById('trail').value;
+  const fy         = +document.getElementById('fy').value;
+  const rackY      = +document.getElementById('rackY').value;
+  const suspArmL   = +document.getElementById('suspArmL').value;
+  const bumpTravel = +document.getElementById('bumpTravel').value;
+
+  if ([L,T,rimID,rackStroke,R,armL,lock,trail,fy,suspArmL,bumpTravel].some(v => isNaN(v) || v <= 0)) return;
+
+  // ── ACKERMANN GEOMETRY ──────────────────────────────────────────
+  //
+  // True Ackermann condition: cot(δᵢ) − cot(δₒ) = T / L
+  //
+  // At the design turn radius R (to vehicle CL):
+  //   inner hub radius  = R − T/2
+  //   outer hub radius  = R + T/2
+  //
+  // Full-Ackermann angles:
+  const delta_i_100 = Math.atan(L / (R - T / 2));   // inner, 100% Ackermann
+  const delta_o_ref = Math.atan(L / (R + T / 2));   // outer — always the Ackermann reference
+
+  // Ackermann %: outer stays fixed at delta_o_ref.
+  //   0 %  → inner equals outer (parallel steer, no differential)
+  //   100% → inner at delta_i_100 (full concentric geometry)
+  //   Intermediate → linear interpolation between the two
+  const delta_o = delta_o_ref;
+  const delta_i = delta_o_ref + (ackPct / 100) * (delta_i_100 - delta_o_ref);
+
+  // ── RACK TRAVEL ─────────────────────────────────────────────────
+  //
+  // The inner wheel requires more rack travel than the outer because
+  // it must rotate through a larger angle.
+  //
+  //   rackTravel = armL · sin(δᵢ)      [mm, one side, centre → full lock]
+  //
+  // Full rack stroke must satisfy:  rackStroke ≥ 2 · rackTravel
+  const rackTravel = armL * Math.sin(delta_i);
+
+  // ── STEERING RATIO ──────────────────────────────────────────────
+  //
+  // From centre to full lock:
+  //   steering wheel turns  lock/2  degrees
+  //   inner wheel turns     δᵢ      degrees
+  //
+  //   ratio = (lock/2) / δᵢ                [dimensionless, e.g. 3.5 : 1]
+  const ratio = (lock / 2) / (delta_i * RAD);
+
+  // ── PINION RADIUS ────────────────────────────────────────────────
+  //
+  // The pinion converts rotary (SW) to linear (rack) motion:
+  //   rack travel = pinion_radius × steering_wheel_angle_in_radians
+  //
+  //   pinionRad = rackTravel / (lock/2 × π/180)          [mm]
+  const lockHalfRad = (lock / 2) * DEG;
+  const pinionRad   = rackTravel / lockHalfRad;
+
+  // ── STEERING EFFORT ──────────────────────────────────────────────
+  //
+  // Step 1: Self-aligning torque from tyre lateral force
+  //   T_align = Fy × trail                               [N·m]
+  const T_align = fy * (trail / 1000);
+
+  // Step 2: Tie-rod force to overcome T_align via steer arm lever
+  //   F_tie = T_align / armL                             [N]
+  const F_tie = T_align / (armL / 1000);
+
+  // Step 3: Steering wheel torque — F_tie at pinion radius
+  //   T_sw = F_tie × pinionRad                           [N·m]
+  const T_sw = F_tie * (pinionRad / 1000);
+
+  // ── DERIVED OUTPUTS ──────────────────────────────────────────────
+  const outerPathDia   = 2 * (R + T / 2) / 1000;         // m, outer hub path diameter
+  const ackErr         = (delta_i - delta_i_100) * RAD;  // ° — deviation from ideal inner angle
+
+  // ── UPDATE DISPLAY ───────────────────────────────────────────────
+  const halfStroke = rackStroke / 2;
+
+  document.getElementById('ratioOut').textContent      = ratio.toFixed(2) + ' : 1';
+  document.getElementById('rackOut').textContent       = rackTravel.toFixed(1);
+  document.getElementById('rackLimitLabel').textContent = halfStroke.toFixed(1);
+  document.getElementById('torqueOut').textContent     = T_sw.toFixed(1);
+  document.getElementById('pinionOut').textContent     = pinionRad.toFixed(1);
+  document.getElementById('innerAngOut').textContent   = (delta_i * RAD).toFixed(1) + '°';
+  document.getElementById('outerAngOut').textContent   = (delta_o * RAD).toFixed(1) + '°';
+  document.getElementById('turnCircleOut').textContent = outerPathDia.toFixed(2);
+  document.getElementById('fTieRodOut').textContent    = F_tie.toFixed(0);
+
+  // Colour the rack travel metric
+  document.getElementById('rackOut').style.color = rackTravel < halfStroke ? '#059669' : '#dc2626';
+
+  // ── VALIDATION ───────────────────────────────────────────────────
+  const isRimOK    = armL < (rimID / 2 - 10);
+  const isRackOK   = rackTravel < halfStroke;
+  const isTorqueOK = T_sw < 15;
+  const isRatioOK  = ratio >= 2 && ratio <= 8;
+
+  const issues = [];
+  if (!isRimOK)    issues.push(`Steer arm (${armL} mm) too long for rim — max ${(rimID/2-10).toFixed(0)} mm`);
+  if (!isRackOK)   issues.push(`Rack travel needed (${rackTravel.toFixed(1)} mm) > half-stroke (${halfStroke.toFixed(1)} mm)`);
+  if (!isTorqueOK) issues.push(`Steering effort ${T_sw.toFixed(1)} Nm exceeds 15 Nm (FSAE guideline)`);
+  if (!isRatioOK)  issues.push(`Ratio ${ratio.toFixed(1)}:1 outside typical 2 – 8:1 range`);
+
+  const vp = document.getElementById('validPanel');
+  if (issues.length === 0) {
+    vp.className = 'p-4 rounded-xl text-sm font-semibold border text-center bg-emerald-50 text-emerald-700 border-emerald-200';
+    vp.textContent = '✓  All constraints satisfied — design within limits';
+  } else {
+    vp.className = 'p-4 rounded-xl text-sm font-semibold border bg-rose-50 text-rose-700 border-rose-200';
+    vp.innerHTML  = '<strong>⚠  Design issues:</strong><ul class="list-disc list-inside mt-1 font-normal">'
+      + issues.map(s => `<li>${s}</li>`).join('') + '</ul>';
+  }
+
+  // Store for re-render on tab switch
+  window._last = { L, T, rimID, rackStroke, R, armL, ackPct, lock, trail, fy, rackY, suspArmL, bumpTravel,
+    delta_i, delta_o, delta_i_100, rackTravel, ratio, pinionRad, T_align, F_tie, T_sw, halfStroke, ackErr };
+
+  renderAll(window._last);
+}
+
+function renderAll(d) {
+  if (!d) return;
+  renderKinematics(d);
+  renderConstraints(d);
+  renderBumpSteer(d);
+  renderForceDiagram(d);
+}
+
+// ─────────────────────────────────────────────────────────
+// HELPERS
+// ─────────────────────────────────────────────────────────
+function setupCanvas(id) {
+  const c = document.getElementById(id);
+  const ctx = c.getContext('2d');
+  ctx.clearRect(0, 0, c.width, c.height);
+  ctx.fillStyle = '#0f172a';
+  ctx.fillRect(0, 0, c.width, c.height);
+  return { ctx, W: c.width, H: c.height };
+}
+
+function drawArrow(ctx, x1, y1, x2, y2, color, lw = 2, hw = 9) {
+  const ang = Math.atan2(y2 - y1, x2 - x1);
+  ctx.save();
+  ctx.strokeStyle = ctx.fillStyle = color;
+  ctx.lineWidth = lw;
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(x2, y2);
+  ctx.lineTo(x2 - hw * Math.cos(ang - 0.38), y2 - hw * Math.sin(ang - 0.38));
+  ctx.lineTo(x2 - hw * Math.cos(ang + 0.38), y2 - hw * Math.sin(ang + 0.38));
+  ctx.closePath(); ctx.fill();
+  ctx.restore();
+}
+
+function label(ctx, txt, x, y, color = '#94a3b8', size = 10, align = 'left') {
+  ctx.save();
+  ctx.fillStyle = color; ctx.font = `${size}px monospace`; ctx.textAlign = align;
+  ctx.fillText(txt, x, y);
+  ctx.restore();
+}
+
+// ─────────────────────────────────────────────────────────
+// VIEW 1: ACKERMANN GEOMETRY (TOP VIEW)
+// ─────────────────────────────────────────────────────────
+function renderKinematics(d) {
+  const { ctx, W, H } = setupCanvas('kinCanvas');
+  const { L, T, R, delta_i, delta_o, delta_i_100, ackPct } = d;
+
+  // Grid
+  ctx.strokeStyle = '#1e293b'; ctx.lineWidth = 1;
+  for (let x = 0; x < W; x += 40) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+  for (let y = 0; y < H; y += 40) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+
+  // Scale to fit car + partial arc
+  const margin = 80;
+  const scaleX = (W - margin * 2) / (T * 2.2);
+  const scaleY = (H - margin * 2) / (L * 1.5);
+  const s = Math.min(scaleX, scaleY, 0.25);
+
+  // Car position (centred slightly right to leave room for turn centre)
+  const carCX = W * 0.52;
+  const frontY = H * 0.18;
+  const rearY  = frontY + L * s;
+  const leftX  = carCX - (T / 2) * s;
+  const rightX = carCX + (T / 2) * s;
+
+  // Turn centre (to the left, at rear-axle level per Ackermann geometry)
+  const tcX = carCX - R * s;
+  const tcY = rearY;
+
+  // Radii in pixels
+  const rInner = (R - T / 2) * s;
+  const rOuter = (R + T / 2) * s;
+  const rCentre = R * s;
+
+  // ── Turn path arcs ──
+  const arcStart = -Math.PI * 0.55, arcEnd = 0.05;
+  const drawArc = (r, col) => {
+    ctx.beginPath(); ctx.strokeStyle = col; ctx.lineWidth = 1.5; ctx.setLineDash([6,4]);
+    ctx.arc(tcX, tcY, r, arcStart, arcEnd); ctx.stroke(); ctx.setLineDash([]);
+  };
+  drawArc(rInner,  '#3b82f630');
+  drawArc(rCentre, '#10b98140');
+  drawArc(rOuter,  '#06b6d430');
+
+  // ── Radius lines (dashed from TC to hubs) ──
+  ctx.setLineDash([4,4]); ctx.strokeStyle = '#334155'; ctx.lineWidth = 1;
+  [[leftX, frontY], [rightX, frontY], [leftX, rearY], [rightX, rearY]].forEach(([x,y]) => {
+    ctx.beginPath(); ctx.moveTo(tcX, tcY); ctx.lineTo(x, y); ctx.stroke();
+  });
+  ctx.setLineDash([]);
+
+  // ── Turn centre ──
+  ctx.beginPath(); ctx.arc(tcX, tcY, 6, 0, Math.PI*2);
+  ctx.fillStyle = '#10b981'; ctx.fill();
+  label(ctx, 'Turn Centre', tcX + 10, tcY - 5, '#10b981', 10);
+
+  // ── Car chassis outline ──
+  ctx.strokeStyle = '#334155'; ctx.lineWidth = 1.5;
+  ctx.strokeRect(leftX - 10, frontY, T * s + 20, L * s);
+
+  // Centreline
+  ctx.strokeStyle = '#1e293b'; ctx.lineWidth = 1; ctx.setLineDash([6,4]);
+  ctx.beginPath(); ctx.moveTo(carCX, frontY - 25); ctx.lineTo(carCX, rearY + 20); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // ── Wheel drawing helper ──
+  function drawWheel(cx, cy, ang, col, angText) {
+    ctx.save();
+    ctx.translate(cx, cy); ctx.rotate(-ang);
+    ctx.fillStyle = col;
+    ctx.beginPath(); ctx.roundRect(-7, -22, 14, 44, 2); ctx.fill();
+    // direction arrow
+    ctx.strokeStyle = 'rgba(255,255,255,0.6)'; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(0, -22); ctx.lineTo(0, -34); ctx.stroke();
+    ctx.restore();
+    // angle text
+    ctx.fillStyle = col; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'center';
+    ctx.fillText(angText, cx, cy + 32);
+    ctx.textAlign = 'left';
+  }
+
+  // Front wheels
+  drawWheel(leftX,  frontY, delta_i, '#3b82f6', (delta_i * RAD).toFixed(1) + '°');
+  drawWheel(rightX, frontY, delta_o, '#06b6d4', (delta_o * RAD).toFixed(1) + '°');
+
+  // Rear wheels (straight)
+  ctx.fillStyle = '#475569';
+  ctx.fillRect(leftX - 7, rearY - 22, 14, 44);
+  ctx.fillRect(rightX - 7, rearY - 22, 14, 44);
+
+  // ── Dimension callouts ──
+  // Wheelbase L
+  const lbX = rightX + 28;
+  ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(lbX, frontY); ctx.lineTo(lbX, rearY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(lbX - 5, frontY); ctx.lineTo(lbX + 5, frontY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(lbX - 5, rearY);  ctx.lineTo(lbX + 5, rearY);  ctx.stroke();
+  label(ctx, 'L', lbX + 7, (frontY + rearY) / 2 + 4, '#f59e0b', 10);
+
+  // Track T
+  const tbY = rearY + 38;
+  ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(leftX, tbY); ctx.lineTo(rightX, tbY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(leftX,  tbY - 5); ctx.lineTo(leftX,  tbY + 5); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(rightX, tbY - 5); ctx.lineTo(rightX, tbY + 5); ctx.stroke();
+  label(ctx, 'T', carCX - 4, tbY + 14, '#f59e0b', 10);
+
+  // ── Legend box ──
+  const lx = W - 230, ly = 16;
+  ctx.fillStyle = '#0f172a80'; ctx.fillRect(lx - 8, ly - 8, 222, 120);
+  ctx.strokeStyle = '#334155'; ctx.lineWidth = 1;
+  ctx.strokeRect(lx - 8, ly - 8, 222, 120);
+
+  const rows = [
+    ['#3b82f6',  `Inner wheel δᵢ = ${(delta_i * RAD).toFixed(1)}°`],
+    ['#06b6d4',  `Outer wheel δₒ = ${(delta_o * RAD).toFixed(1)}°`],
+    ['#10b981',  `Ideal inner    = ${(delta_i_100 * RAD).toFixed(1)}°`],
+    [null,       `Ackermann       = ${ackPct}%`],
+    [null,       `Turn radius R   = ${(R/1000).toFixed(1)} m`],
+  ];
+  rows.forEach(([col, txt], i) => {
+    if (col) { ctx.fillStyle = col; ctx.fillRect(lx, ly + i * 20 + 4, 10, 10); }
+    label(ctx, txt, lx + (col ? 16 : 0), ly + i * 20 + 14, '#94a3b8', 10);
+  });
+
+  // Title
+  label(ctx, 'ACKERMANN GEOMETRY — Top View', 16, 18, '#475569', 10);
+}
+
+// ─────────────────────────────────────────────────────────
+// VIEW 2: RIM CLEARANCE (FRONT VIEW)
+// ─────────────────────────────────────────────────────────
+function renderConstraints(d) {
+  const { ctx, W, H } = setupCanvas('conCanvas');
+  const { rimID, armL, delta_i } = d;
+
+  const cX = W / 2, cY = H / 2;
+  const s  = Math.min((H * 0.65) / (rimID / 2), 2.2);
+  const rimR  = (rimID / 2) * s;
+  const armPx = armL * s;
+  const maxArmPx = (rimID / 2 - 10) * s;
+
+  // ── Tyre cross-section (side view of rim & tyre) ──
+  // Tyre rubber (outer)
+  ctx.beginPath(); ctx.arc(cX, cY, rimR * 1.38, 0, Math.PI * 2);
+  ctx.strokeStyle = '#334155'; ctx.lineWidth = 18 * s * 0.08;
+  ctx.stroke();
+
+  // Rim barrel
+  ctx.beginPath(); ctx.arc(cX, cY, rimR * 1.02, 0, Math.PI * 2);
+  ctx.strokeStyle = '#1e293b'; ctx.lineWidth = rimR * 0.08;
+  ctx.stroke();
+
+  // Rim inner face
+  ctx.beginPath(); ctx.arc(cX, cY, rimR, 0, Math.PI * 2);
+  ctx.strokeStyle = '#475569'; ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // Safe zone ring (arm length limit)
+  ctx.beginPath(); ctx.arc(cX, cY, maxArmPx, 0, Math.PI * 2);
+  ctx.strokeStyle = '#10b98140'; ctx.lineWidth = 1.5; ctx.setLineDash([5,4]);
+  ctx.stroke(); ctx.setLineDash([]);
+
+  // Rim ID radius label
+  ctx.strokeStyle = '#64748b'; ctx.lineWidth = 1; ctx.setLineDash([3,3]);
+  ctx.beginPath(); ctx.moveTo(cX, cY); ctx.lineTo(cX + rimR, cY); ctx.stroke();
+  ctx.setLineDash([]);
+  label(ctx, `rimID/2 = ${(rimID/2).toFixed(0)} mm`, cX + rimR * 0.12, cY - 8, '#64748b', 9);
+
+  // Safe arm limit label
+  label(ctx, `max arm = ${(rimID/2-10).toFixed(0)} mm`, cX + maxArmPx * 0.08, cY + maxArmPx * 0.7, '#10b981', 9);
+
+  // ── Hub / Kingpin ──
+  ctx.beginPath(); ctx.arc(cX, cY, 9, 0, Math.PI * 2);
+  ctx.fillStyle = '#0f172a'; ctx.fill();
+  ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2; ctx.stroke();
+  label(ctx, 'Kingpin', cX - 26, cY + 22, '#64748b', 8);
+
+  // ── Steer Arm ──
+  // Position at current steer angle (visual rotation from upward position)
+  const ang = -delta_i + Math.PI * 0.4;
+  const aX  = cX + armPx * Math.cos(ang);
+  const aY  = cY + armPx * Math.sin(ang);
+
+  const clearance = rimID / 2 - 10 - armL;
+  const armCol    = clearance >= 0 ? '#f59e0b' : '#ef4444';
+
+  // Arm sweep arc
+  ctx.beginPath(); ctx.arc(cX, cY, armPx, 0, Math.PI * 2);
+  ctx.strokeStyle = armCol + '35'; ctx.lineWidth = 1; ctx.setLineDash([3,3]);
+  ctx.stroke(); ctx.setLineDash([]);
+
+  // Arm
+  ctx.strokeStyle = armCol; ctx.lineWidth = 5; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.moveTo(cX, cY); ctx.lineTo(aX, aY); ctx.stroke();
+
+  // Tie-rod pickup ball
+  ctx.beginPath(); ctx.arc(aX, aY, 7, 0, Math.PI * 2);
+  ctx.fillStyle = armCol; ctx.fill();
+
+  // ── Verdict ──
+  ctx.font = 'bold 13px monospace'; ctx.textAlign = 'center';
+  if (clearance >= 0) {
+    ctx.fillStyle = '#10b981';
+    ctx.fillText(`✓  Clearance: +${clearance.toFixed(1)} mm`, cX, H - 34);
+  } else {
+    ctx.fillStyle = '#ef4444';
+    ctx.fillText(`✗  Arm exceeds limit by ${Math.abs(clearance).toFixed(1)} mm`, cX, H - 34);
+  }
+  ctx.fillStyle = '#475569'; ctx.font = '9px monospace';
+  ctx.fillText(`Arm: ${armL} mm  ·  Safe max: ${(rimID/2-10).toFixed(0)} mm  ·  Rim ID: ${rimID} mm`, cX, H - 18);
+  ctx.textAlign = 'left';
+
+  label(ctx, 'RIM CLEARANCE CHECK — Front View (Wheel Face)', 16, 18, '#475569', 10);
+}
+
+// ─────────────────────────────────────────────────────────
+// VIEW 3: BUMP STEER (FRONT VIEW)
+// ─────────────────────────────────────────────────────────
+function renderBumpSteer(d) {
+  const { ctx, W, H } = setupCanvas('bumpCanvas');
+  const { rackY, suspArmL, bumpTravel, T } = d;
+
+  const s = 1.4; // px per mm
+
+  // Layout
+  const groundY    = H * 0.80;
+  const hubRestY   = groundY - 110 * s * 0.25; // wheel hub at rest (simplified)
+  const chassisY   = groundY - 140 * s * 0.25; // chassis pivot height
+  const halfTrackS = (T / 2) * 0.25 * s;       // half-track in screen units
+
+  // Left side geometry (symmetric, show left side)
+  const pivotX  = W * 0.40; // chassis/wishbone inner pivot
+  const pivotY  = chassisY;
+  const armLenS = suspArmL * 0.25 * s; // wishbone arm in screen units
+
+  // Rack lateral position (end of rack)
+  const rackX = pivotX - armLenS * 0.55;
+  const rackRefY = pivotY + rackY * s; // rack at desired height offset
+
+  // Draw ground
+  ctx.fillStyle = '#1e293b'; ctx.fillRect(0, groundY, W, 5);
+
+  // Grid lines for reference
+  ctx.strokeStyle = '#1e293b'; ctx.lineWidth = 1;
+  for (let y = 0; y < H; y += 30) {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+  }
+
+  // ── Chassis ──
+  ctx.fillStyle = '#1e293b';
+  ctx.fillRect(pivotX - 100, pivotY - 18, 200, 32);
+  ctx.strokeStyle = '#334155'; ctx.lineWidth = 1.5;
+  ctx.strokeRect(pivotX - 100, pivotY - 18, 200, 32);
+  label(ctx, 'CHASSIS', pivotX - 26, pivotY + 4, '#475569', 9);
+
+  // ── Rack position ──
+  ctx.strokeStyle = '#a855f7'; ctx.lineWidth = 2.5;
+  ctx.beginPath(); ctx.moveTo(rackX - 60, rackRefY); ctx.lineTo(rackX, rackRefY); ctx.stroke();
+  ctx.fillStyle = '#a855f7'; ctx.font = 'bold 9px monospace';
+  ctx.fillText(`Rack (offset: ${rackY > 0 ? '+' : ''}${rackY} mm)`, rackX - 58, rackRefY - 7);
+
+  if (rackY !== 0) {
+    ctx.strokeStyle = '#33415560'; ctx.lineWidth = 1; ctx.setLineDash([3,3]);
+    ctx.beginPath(); ctx.moveTo(rackX - 60, pivotY); ctx.lineTo(rackX, pivotY); ctx.stroke();
+    ctx.setLineDash([]);
+    label(ctx, '← zero-offset ref.', rackX - 100, pivotY - 5, '#334155', 8);
+    // offset arrow
+    drawArrow(ctx, rackX - 15, pivotY, rackX - 15, rackRefY, '#f59e0b', 1.5, 5);
+    label(ctx, Math.abs(rackY) + ' mm', rackX - 12, (pivotY + rackRefY) / 2 + 4, '#f59e0b', 8);
+  }
+
+  // ── Multiple bump positions ──
+  const steps = [-bumpTravel, -bumpTravel * 0.6, 0, bumpTravel * 0.6, bumpTravel];
+
+  steps.forEach((bump, idx) => {
+    const isMid = idx === 2;
+    const alpha  = isMid ? 1 : 0.22 + 0.18 * (1 - Math.abs(idx - 2) / 2);
+
+    // Hub Y position (upward bump = wheel rises = hubY decreases)
+    const hubY  = hubRestY - bump * s;
+    // Wishbone geometry: arm from pivot, hub traces arc
+    const dy    = hubY - pivotY;
+    const dx    = armLenS > Math.abs(dy) ? -Math.sqrt(armLenS * armLenS - dy * dy) : 0;
+    const hubX  = pivotX + dx;
+
+    // ── Wishbone arm ──
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.strokeStyle = isMid ? '#3b82f6' : '#3b82f6';
+    ctx.lineWidth = isMid ? 2.5 : 1;
+    ctx.beginPath(); ctx.moveTo(pivotX, pivotY); ctx.lineTo(hubX, hubY); ctx.stroke();
+
+    // ── Tie-rod ──
+    // Tie-rod connects rack (fixed X/Y) to upright pickup (offset from hub)
+    const uprightPickupY = hubY;
+    const uprightPickupX = hubX - 20;
+
+    ctx.strokeStyle = isMid ? '#f59e0b' : '#f59e0b';
+    ctx.lineWidth = isMid ? 2 : 1;
+    ctx.beginPath();
+    ctx.moveTo(rackX, rackRefY);
+    ctx.lineTo(uprightPickupX, uprightPickupY);
+    ctx.stroke();
+
+    // ── Wheel ──
+    ctx.strokeStyle = isMid ? '#94a3b8' : '#94a3b8';
+    ctx.lineWidth = isMid ? 2 : 0.8;
+    ctx.strokeRect(hubX - 12, hubY - 35, 10, 70);
+
+    // Toe angle indicator (exaggerated) for non-zero offset
+    if (rackY !== 0 && isMid) {
+      // Vector from tie-rod pickup to rack
+      const trDX = rackX - uprightPickupX;
+      const trDY = rackRefY - uprightPickupY;
+      const trLen = Math.sqrt(trDX*trDX + trDY*trDY);
+      const toeAng = Math.atan2(trDY, trDX); // angle of tie-rod relative to horizontal
+
+      ctx.strokeStyle = '#ef444480'; ctx.lineWidth = 1; ctx.setLineDash([2,3]);
+      ctx.beginPath(); ctx.moveTo(hubX - 5, hubY); ctx.lineTo(hubX - 5 + 50 * Math.cos(toeAng), hubY + 50 * Math.sin(toeAng)); ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    ctx.restore();
+
+    // Label at bump position
+    if (isMid) {
+      label(ctx, 'RIDE HEIGHT (0 mm)', hubX + 14, hubY + 4, '#94a3b8', 9);
+    } else if (idx === 0) {
+      label(ctx, `BUMP +${bumpTravel} mm`, hubX + 14, hubY + 4, '#64748b', 8);
+    } else if (idx === steps.length - 1) {
+      label(ctx, `DROOP −${bumpTravel} mm`, hubX + 14, hubY + 4, '#64748b', 8);
+    }
+  });
+
+  // ── Pivot dot ──
+  ctx.beginPath(); ctx.arc(pivotX, pivotY, 5, 0, Math.PI * 2);
+  ctx.fillStyle = '#3b82f6'; ctx.fill();
+
+  // ── Bump steer verdict ──
+  ctx.font = 'bold 11px monospace'; ctx.textAlign = 'center';
+  if (Math.abs(rackY) < 5) {
+    ctx.fillStyle = '#10b981';
+    ctx.fillText('✓  Near-zero bump steer — tie-rod closely aligned with wishbone', W / 2, H - 15);
+  } else {
+    ctx.fillStyle = '#f59e0b';
+    ctx.fillText(`⚠  ${Math.abs(rackY)} mm offset causes wheel to steer during suspension travel`, W / 2, H - 15);
+  }
+  ctx.textAlign = 'left';
+
+  label(ctx, 'BUMP STEER — Front View (Left Side)', 16, 18, '#475569', 10);
+
+  // Legend
+  const lx = W - 180, ly = 30;
+  ctx.fillStyle = '#3b82f6'; ctx.fillRect(lx, ly, 20, 3);
+  label(ctx, 'Wishbone', lx + 25, ly + 5, '#3b82f6', 9);
+  ctx.fillStyle = '#f59e0b'; ctx.fillRect(lx, ly + 14, 20, 3);
+  label(ctx, 'Tie-rod', lx + 25, ly + 19, '#f59e0b', 9);
+  ctx.fillStyle = '#a855f7'; ctx.fillRect(lx, ly + 28, 20, 3);
+  label(ctx, 'Rack end', lx + 25, ly + 33, '#a855f7', 9);
+}
+
+// ─────────────────────────────────────────────────────────
+// VIEW 4: FORCE CHAIN
+// ─────────────────────────────────────────────────────────
+function renderForceDiagram(d) {
+  const { ctx, W, H } = setupCanvas('forceCanvas');
+  const { fy, trail, armL, F_tie, T_sw, pinionRad, T_align } = d;
+
+  const pY = H * 0.50; // shared vertical centre
+
+  // ── Panel 1: Tyre & self-aligning torque ──
+  const p1 = W * 0.16;
+
+  // Contact patch
+  ctx.beginPath(); ctx.ellipse(p1, pY + 30, 44, 18, 0, 0, Math.PI * 2);
+  ctx.fillStyle = '#1e293b'; ctx.fill();
+  ctx.strokeStyle = '#475569'; ctx.lineWidth = 2; ctx.stroke();
+  label(ctx, 'Contact Patch', p1 - 36, pY + 34, '#475569', 8, 'left');
+
+  // Fy arrow (lateral)
+  const fyS = Math.min(80, fy / 18);
+  drawArrow(ctx, p1 - fyS - 10, pY + 30, p1 - 12, pY + 30, '#3b82f6', 3);
+  label(ctx, `Fy = ${fy} N`, p1 - fyS - 8, pY + 18, '#3b82f6', 10);
+
+  // Trail dimension (horizontal tick marks)
+  const trailS = Math.min(36, trail * 1.4);
+  ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(p1 - 4, pY + 50); ctx.lineTo(p1 - 4 + trailS, pY + 50); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(p1 - 4, pY + 46); ctx.lineTo(p1 - 4, pY + 54); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(p1 - 4 + trailS, pY + 46); ctx.lineTo(p1 - 4 + trailS, pY + 54); ctx.stroke();
+  label(ctx, `trail = ${trail} mm`, p1 - 4, pY + 64, '#f59e0b', 8);
+
+  // Self-aligning torque arc
+  ctx.strokeStyle = '#10b981'; ctx.lineWidth = 2.5;
+  ctx.beginPath(); ctx.arc(p1, pY + 30, 52, -Math.PI * 0.7, Math.PI * 0.1); ctx.stroke();
+  ctx.fillStyle = '#10b981';
+  ctx.beginPath();
+  const arcEndX = p1 + 52 * Math.cos(Math.PI * 0.1);
+  const arcEndY = pY + 30 + 52 * Math.sin(Math.PI * 0.1);
+  ctx.arc(arcEndX, arcEndY, 4, 0, Math.PI * 2); ctx.fill();
+
+  label(ctx, '1. Tyre self-aligning torque', p1 - 55, pY - 65, '#475569', 9);
+  label(ctx, `T_align = Fy × trail`, p1 - 44, pY - 50, '#64748b', 8);
+  label(ctx, `= ${fy} × ${(trail/1000).toFixed(3)} m`, p1 - 44, pY - 38, '#64748b', 8);
+
+  const talignCol = '#10b981';
+  ctx.font = 'bold 13px monospace'; ctx.fillStyle = talignCol; ctx.textAlign = 'center';
+  ctx.fillText(`${T_align.toFixed(1)} N·m`, p1, pY - 82);
+  ctx.textAlign = 'left';
+
+  // ── Arrow 1→2 ──
+  drawArrow(ctx, W * 0.30, pY, W * 0.37, pY, '#334155', 1.5, 7);
+
+  // ── Panel 2: Steer arm & tie-rod force ──
+  const p2 = W * 0.50;
+
+  // Wheel hub circle
+  ctx.beginPath(); ctx.arc(p2, pY, 36, 0, Math.PI * 2);
+  ctx.strokeStyle = '#334155'; ctx.lineWidth = 2; ctx.stroke();
+
+  // Hub centre
+  ctx.beginPath(); ctx.arc(p2, pY, 6, 0, Math.PI * 2);
+  ctx.fillStyle = '#1e293b'; ctx.fill(); ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1.5; ctx.stroke();
+
+  // Aligning torque arc on hub
+  ctx.strokeStyle = '#10b981'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.arc(p2, pY, 42, -Math.PI * 0.9, Math.PI * 0.3); ctx.stroke();
+
+  // Steer arm
+  const armS  = Math.min(70, armL * 0.55);
+  const aimAX = p2 + armS * 0.9;
+  const aimAY = pY + armS * 0.45;
+  ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = 4.5; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.moveTo(p2, pY); ctx.lineTo(aimAX, aimAY); ctx.stroke();
+  ctx.beginPath(); ctx.arc(aimAX, aimAY, 7, 0, Math.PI * 2);
+  ctx.fillStyle = '#f59e0b'; ctx.fill();
+  label(ctx, `arm = ${armL} mm`, p2 + armS * 0.2, pY + armS * 0.05, '#f59e0b', 8);
+
+  // Tie-rod force arrow
+  const ftieS = Math.min(60, F_tie / 50);
+  drawArrow(ctx, aimAX, aimAY, aimAX + ftieS, aimAY - 15, '#ef4444', 2.5);
+  label(ctx, `F_tie = ${F_tie.toFixed(0)} N`, aimAX + ftieS - 10, aimAY - 22, '#ef4444', 9);
+
+  label(ctx, '2. Tie-rod force via steer arm', p2 - 55, pY - 65, '#475569', 9);
+  label(ctx, `F_tie = T_align / arm`, p2 - 44, pY - 50, '#64748b', 8);
+  label(ctx, `= ${T_align.toFixed(1)} / ${(armL/1000).toFixed(3)} m`, p2 - 44, pY - 38, '#64748b', 8);
+
+  ctx.font = 'bold 13px monospace'; ctx.fillStyle = '#ef4444'; ctx.textAlign = 'center';
+  ctx.fillText(`${F_tie.toFixed(0)} N`, p2, pY - 80);
+  ctx.textAlign = 'left';
+
+  // ── Arrow 2→3 ──
+  drawArrow(ctx, W * 0.68, pY, W * 0.75, pY, '#334155', 1.5, 7);
+
+  // ── Panel 3: Pinion & steering wheel torque ──
+  const p3 = W * 0.87;
+
+  // Pinion
+  const pinS = Math.min(50, pinionRad * 1.2);
+  ctx.beginPath(); ctx.arc(p3, pY - 5, pinS, 0, Math.PI * 2);
+  ctx.strokeStyle = '#a855f7'; ctx.lineWidth = 2; ctx.stroke();
+  label(ctx, `r = ${pinionRad.toFixed(1)} mm`, p3 - 28, pY - 4, '#a855f7', 8, 'center');
+
+  // Rack bar
+  ctx.fillStyle = '#1e293b';
+  ctx.fillRect(p3 - 80, pY + pinS - 10, 80, 18);
+  ctx.strokeStyle = '#475569'; ctx.lineWidth = 1;
+  ctx.strokeRect(p3 - 80, pY + pinS - 10, 80, 18);
+  ctx.fillStyle = '#94a3b8'; ctx.font = '8px monospace'; ctx.textAlign = 'center';
+  ctx.fillText('RACK', p3 - 40, pY + pinS + 2);
+  ctx.textAlign = 'left';
+
+  // Rack force arrow
+  drawArrow(ctx, p3 - 80, pY + pinS + 9, p3 - 98, pY + pinS + 9, '#ef4444', 2, 6);
+
+  // Torque arc on pinion
+  ctx.strokeStyle = '#10b981'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.arc(p3, pY - 5, pinS + 14, Math.PI * 0.5, Math.PI * 1.8); ctx.stroke();
+  ctx.beginPath(); ctx.arc(p3, pY - 5, pinS + 14, Math.PI * 0.5 - 0.3, Math.PI * 0.5);
+  ctx.fillStyle = '#10b981'; ctx.fill();
+
+  label(ctx, '3. Steering wheel torque', p3 - 55, pY - 65, '#475569', 9);
+  label(ctx, `T_sw = F_tie × pinion_r`, p3 - 44, pY - 50, '#64748b', 8);
+  label(ctx, `= ${F_tie.toFixed(0)} × ${(pinionRad/1000).toFixed(3)} m`, p3 - 44, pY - 38, '#64748b', 8);
+
+  const twCol = T_sw < 15 ? '#10b981' : '#ef4444';
+  ctx.font = 'bold 13px monospace'; ctx.fillStyle = twCol; ctx.textAlign = 'center';
+  ctx.fillText(`${T_sw.toFixed(1)} N·m`, p3, pY - 82);
+  if (T_sw >= 15) {
+    ctx.fillStyle = '#ef4444'; ctx.font = '9px monospace';
+    ctx.fillText('⚠ > 15 Nm limit', p3, pY - 96);
+  }
+  ctx.textAlign = 'left';
+
+  // Title
+  label(ctx, 'STEERING FORCE CHAIN  —  Fy at tyre  →  Tie-rod  →  Pinion  →  Steering wheel', 16, 18, '#475569', 10);
+}
+
+// ─────────────────────────────────────────────────────────
+// BOOT
+// ─────────────────────────────────────────────────────────
+compute();
+</script>
+</body>
+</html>
