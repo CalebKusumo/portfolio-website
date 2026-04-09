@@ -13,7 +13,11 @@
       "Bash(git -C /c/Users/Caleb/portfolio-new add public/projects/directors-finder/)",
       "Bash(git -C /c/Users/Caleb/portfolio-new commit -m ':*)",
       "Bash(git -C /c/Users/Caleb/portfolio-new push)",
-      "Bash(git:*)"
+      "Bash(git:*)",
+      "WebFetch(domain:www.ldythomaslin.design)",
+      "Bash(python3 -c \" from html.parser import HTMLParser import re class TextExtractor\\(HTMLParser\\): def __init__\\(self\\): super\\(\\).__init__\\(\\) self.texts = [] self.skip = False def handle_starttag\\(self, tag, attrs\\): if tag in \\('script', 'style'\\): self.skip = True def handle_endtag\\(self, tag\\): if tag in \\('script', 'style'\\): self.skip = False def handle_data\\(self, data\\): if not self.skip: t = data.strip\\(\\) if t and len\\(t\\) > 2: self.texts.append\\(t\\) with open\\('/c/Users/Caleb/Downloads/FRC 2025 _ ldythomaslin.html', 'r', encoding='utf-8', errors='ignore'\\) as f: html = f.read\\(\\) parser = TextExtractor\\(\\) parser.feed\\(html\\) for t in parser.texts: print\\(t\\) \")",
+      "Bash(python3:*)",
+      "Bash(node:*)"
     ]
   }
 }

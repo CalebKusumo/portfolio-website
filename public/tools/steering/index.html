@@ -574,7 +574,37 @@
 <script>
 const DEG = Math.PI / 180;
 const RAD = 180 / Math.PI;
+// ─────────────────────────────────────────────────────────
+// LOCAL STORAGE (SAVE/LOAD INPUTS)
+// ─────────────────────────────────────────────────────────
+function saveInputs() {
+  const inputs = document.querySelectorAll('.inp-field');
+  const savedData = {};
+  inputs.forEach(input => {
+    savedData[input.id] = input.value;
+  });
+  localStorage.setItem('fsae_steering_data', JSON.stringify(savedData));
+}
 
+function loadInputs() {
+  const saved = localStorage.getItem('fsae_steering_data');
+  if (saved) {
+    const savedData = JSON.parse(saved);
+    for (const id in savedData) {
+      const input = document.getElementById(id);
+      // Only update if the input exists in the HTML
+      if (input) {
+        input.value = savedData[id];
+      }
+    }
+  }
+}
+
+// Automatically load the saved data as soon as the page opens
+window.addEventListener('DOMContentLoaded', () => {
+  loadInputs();
+  compute(); // Force the calculator to run using the loaded numbers
+});
 // ─────────────────────────────────────────────────────────
 // TAB SWITCHING
 // ─────────────────────────────────────────────────────────
@@ -594,6 +624,7 @@ function switchTab(name) {
 // MAIN COMPUTATION
 // ─────────────────────────────────────────────────────────
 function compute() {
+saveInputs();
   // ── Inputs ──
   const L          = +document.getElementById('L').value;
   const T          = +document.getElementById('T').value;
@@ -784,6 +815,7 @@ function compute() {
   };
 
   renderAll(window._last);
+  
 }
 
 function renderAll(d) {

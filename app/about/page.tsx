@@ -1,7 +1,7 @@
 export default function About() {
   const skills = [
-    { category: "Design & Software", items: ["SolidWorks", "Fusion 360", "Adobe Lightroom", "Photoshop"] },
-    { category: "Manufacturing", items: ["CNC Machining", "Lathe & Milling", "Waterjet", "Laser Cutting", "3D Printing (SLA/FDM)", "TIG Welding"] },
+    { category: "Design & Software", items: ["SolidWorks", "Fusion 360", "Adobe Lightroom", "Photoshop", "Illustrator"] },
+    { category: "Manufacturing", items: ["CNC Machining", "Lathe & Milling", "Waterjet", "Laser Cutting", "3D Printing (SLA/FDM)", "TIG Welding", "Vacuum Forming", "Vinyl Cutting"] },
     { category: "Electronics", items: ["Soldering", "Arduino", "Raspberry Pi", "Oscilloscope", "General Circuitry"] },
     { category: "Development", items: ["Python", "C++", "Java", "Next.js"] },
   ];
