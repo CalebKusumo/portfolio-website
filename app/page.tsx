@@ -447,7 +447,7 @@ export default function Home() {
               <div className="group">
                 <h3 className="font-mono text-[10px] tracking-widest text-gray-500 uppercase mb-4">Network_Links</h3>
                 <div className="flex flex-col gap-4">
-                  <a href="https://www.linkedin.com/in/caleb-kusumo-79b6503bb/" target="_blank" rel="noopener noreferrer" className="text-xl font-bold uppercase hover:text-blue-600 transition-colors">LinkedIn</a>
+                  <a href="https://www.linkedin.com/in/caleb-kusumo-a1a703408/" target="_blank" rel="noopener noreferrer" className="text-xl font-bold uppercase hover:text-blue-600 transition-colors">LinkedIn</a>
                   <a href="https://github.com/CalebKusumo" target="_blank" rel="noopener noreferrer" className="text-xl font-bold uppercase hover:text-blue-600 transition-colors">GitHub</a>
                 </div>
               </div>
