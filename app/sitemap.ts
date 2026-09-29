@@ -3,7 +3,7 @@ import { MetadataRoute } from 'next';
 export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = 'https://calebcolor.com';
+  const base = 'https://kusumo.design';
   return [
     { url: base,                                    lastModified: new Date(), priority: 1.0 },
     { url: `${base}/projects`,                      lastModified: new Date(), priority: 0.9 },

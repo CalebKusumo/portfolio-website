@@ -9,6 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://kusumo.design"),
   title: "Caleb Kusumo | Portfolio",
   description: "Portfolio of Caleb Kusumo — Mechanical Systems & Design Engineer specializing in robotics, mechatronics, and precision mechanical design.",
   keywords: ["Caleb Kusumo", "Kusumo", "Caleb Kusumo Portfolio", "Mechanical Engineer", "Mechatronics", "Robotics Engineer", "Design Engineer", "FRC Robotics"],
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Caleb Kusumo | Portfolio",
     description: "Portfolio of Caleb Kusumo — Mechanical Systems & Design Engineer specializing in robotics, mechatronics, and precision mechanical design.",
-    url: "https://calebcolor.com",
+    url: "https://kusumo.design",
     siteName: "Caleb Kusumo",
     type: "website",
   },
@@ -43,7 +44,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Caleb Kusumo",
-    url: "https://calebcolor.com",
+    url: "https://kusumo.design",
     jobTitle: "Mechanical Systems & Design Engineer",
     description: "Mechanical Systems & Design Engineer specializing in robotics, mechatronics, and precision mechanical design.",
     sameAs: [

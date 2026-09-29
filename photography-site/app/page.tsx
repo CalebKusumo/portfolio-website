@@ -249,7 +249,7 @@ export default function Photography() {
               Add photos by dropping images into{" "}
               <code className="text-blue-600">public/photography/&lt;section&gt;/</code> and adding entries
               to the data array at the top of{" "}
-              <code className="text-blue-600">app/photography/page.tsx</code>.
+              <code className="text-blue-600">app/page.tsx</code>.
             </p>
           </div>
         ) : (
