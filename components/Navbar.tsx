@@ -11,6 +11,7 @@ export default function Navbar() {
         <a href="/#projects" className="hover:text-white transition-colors">Projects</a>
         <a href="/#experience" className="hover:text-white transition-colors">Experience</a>
         <a href="/#contact" className="hover:text-white transition-colors">Contact</a>
+        <Link href="/portfolio-pdf" className="hover:text-white transition-colors">Full PDF</Link>
         <a href="https://calebcolor.com" className="text-blue-500 hover:text-blue-400 transition-colors">Photography</a>
       </div>
     </nav>
