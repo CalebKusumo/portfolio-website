@@ -2,6 +2,7 @@
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { experienceSections } from './experience-data';
 
 const ModelViewer = dynamic(() => import('@/components/ModelViewer'), { ssr: false });
 
@@ -86,107 +87,6 @@ export default function Home() {
     { category: "Manufacturing", items: ["CNC Machining", "Lathe & Milling", "Waterjet", "Laser Cutting", "3D Printing (SLA/FDM)", "TIG Welding"] },
     { category: "Electronics", items: ["Soldering", "Arduino", "Raspberry Pi", "Oscilloscope", "General Circuitry"] },
     { category: "Development", items: ["Python", "C++", "Java", "Next.js"] },
-  ];
-
-  const experienceSections = [
-    {
-      label: "Education",
-      items: [
-        {
-          date: "2025 — PRESENT",
-          role: "B.S. Mechanical Engineering — Dean's List (Fall '25)",
-          company: "Boston University",
-          location: "Boston, MA",
-          details: null,
-        },
-        {
-          date: "2021 — 2025",
-          role: "High School Diploma — Magna Cum Laude, Outstanding Engineer of the Year",
-          company: "University High School",
-          location: "Irvine, CA",
-          details: "GPA 3.9 UW / 4.19 W",
-        },
-      ],
-    },
-    {
-      label: "Engineering Experience",
-      items: [
-        {
-          date: "SEPT 2025 — PRESENT",
-          role: "Steering Lead / Aero & Bodywork Team Member",
-          company: "Terrier Motorsport Formula SAE",
-          location: "Boston, MA",
-          details:
-            "Management of steering assembly design and fabrication. Collaborating on aerodynamic component fabrication and bodywork integration for formula-style racing vehicles. Applying advanced composite and manufacturing techniques to optimize vehicle performance.",
-        },
-        {
-          date: "SEPT 2022 — APRIL 2025",
-          role: "Team Captain / Manufacturing & Assembly Lead",
-          company: "FIRST Robotics Competition Team 6560 — Charging Champions",
-          location: "Irvine, CA",
-          details:
-            "Managed the design-to-final product timeline, leading a team to produce a competitive robot in under 4 weeks. Operated as Technician/Drive Team for REEFSCAPE and CRESCENDO, securing 2nd Place at Arizona North Regional, OC Regional Finalists, and Innovation in Control, Autonomous, and Creativity awards.",
-        },
-        {
-          date: "2024 — 2025",
-          role: "Mechanical Team Member",
-          company: "Hydrogen Grand Prix",
-          location: "Irvine, CA",
-          details:
-            "Assembled mechanical systems for a hydrogen-powered RC racer, focusing on endurance and fuel efficiency.",
-        },
-      ],
-    },
-    {
-      label: "Projects & Entrepreneurship",
-      items: [
-        {
-          date: "FEB 2026",
-          role: "Individual Competitor — Third Place",
-          company: "Lutron Lighting Competition",
-          location: "",
-          details:
-            "Designed, manufactured, wired, assembled, and presented a 1:100 scale lighting solution judged on creativity, engineering sophistication, and aesthetic appeal.",
-        },
-        {
-          date: "2023 — PRESENT",
-          role: "Founder / Lead Technician",
-          company: "CalebColor Film",
-          location: "",
-          details:
-            "Operated a high-volume film rolling and processing service, successfully developing 200+ rolls and selling 300+ rolls of film. Perform specialized mechanical repairs on film and digital cameras, including shutter timing, film advance, screen, sensor, and light seal replacement.",
-        },
-        {
-          date: "2022 — PRESENT",
-          role: "Freelance Photographer",
-          company: "Photography",
-          location: "",
-          details:
-            "100+ photo sessions for seniors, model digitals, events, and weddings. Lead photographer for high-profile community events including Irvine Talks, OC South Asian Student Association, and Multi-Cultural Awareness Fashion Show. Managed post-production workflows for K4U Dance Club and Replay Performing Arts.",
-        },
-      ],
-    },
-    {
-      label: "Leadership & Volunteerism",
-      items: [
-        {
-          date: "2025 — PRESENT",
-          role: "Mentor — Electrical Systems, CNC, Milling & Lathe",
-          company: "FIRST Robotics Competition Team 6560",
-          location: "",
-          details:
-            "Mentored junior members on electrical systems, CNC operation, milling, and lathe turning to ensure high-precision assembly.",
-        },
-        {
-          date: "2021 — 2025",
-          role: "Structures Lead",
-          company: "Student Council",
-          location: "",
-          details:
-            "Led and managed a team of 20+ members in construction of themed Spirit Night builds, including a life-sized Mystery Machine, Las Vegas sign, and gingerbread house.",
-        },
-      ],
-    },
   ];
 
   const sectionOrder = ['hero', 'about', 'projects', 'experience', 'contact'];
@@ -383,9 +283,9 @@ export default function Home() {
                         {item.company}
                       </p>
                       {item.details && (
-                        <p className="text-gray-300 text-sm leading-relaxed max-w-2xl border-l border-white/10 pl-6">
-                          {item.details}
-                        </p>
+                        <ul className="text-gray-300 text-sm leading-relaxed max-w-2xl border-l border-white/10 pl-10 list-disc space-y-2">
+                          {item.details.map((detail, di) => <li key={di}>{detail}</li>)}
+                        </ul>
                       )}
                     </div>
                   ))}
